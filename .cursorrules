@@ -1,0 +1,115 @@
+# Balatro Game Playing AI - Cursor Rules
+
+## Project Context
+You are working on a Balatro game playing AI that uses computer vision (YOLO object detection) to understand game state and implements AI decision-making for optimal gameplay.
+
+## Package Management (Pixi)
+- Use `pixi run python <script>` for executing Python scripts
+- Use `pixi add --pypi <package>` for pip packages
+- Use `pixi add <package>` for system-level dependencies
+- Use `pixi shell` when needing interactive shell or CLI tools (huggingface-cli, yolo)
+- For CUDA: `pixi add cuda --platform win-64 --platform linux-64` (exclude macOS)
+
+## Development Standards
+
+### Model Implementation
+- PyTorch models: Best for CUDA/MPS workflows (high-performance GPU inference)
+- ONNX models: Best for WebGPU, AMD GPU, Intel GPU, Intel CPU, broad compatibility
+- Focus on CUDA/MPS workflow for optimal performance
+- Always implement proper device detection and setup
+- Create universal device utility function with assertions
+- Support CUDA → MPS → CPU detection hierarchy
+- Use CoreML libraries for FastVLM models on Apple platforms
+
+### Code Structure
+- Use abstract base classes for interface definitions
+- Create modular, testable components
+- Implement minimal approaches first, then expand
+- Always include pytest-capable test scripts
+- Follow existing code conventions and patterns
+
+### Computer Vision & Debugging
+- Always save/record intermediate images for debugging
+- Preserve bounding boxes and processing steps with confidence scores
+- Use Jupyter notebooks (.ipynb) for CV development and prototyping
+- Save original images, preprocessed images, detection overlays, cropped regions
+- Workflow: Develop in notebooks → Extract to modules → Add tests → Integrate
+
+### Testing
+- Structure tests: `tests/unit/`, `tests/integration/`, `tests/visual/`
+- Include visual tests that compare detection outputs against ground truth
+- Test minimal approaches before expanding functionality
+- Ensure reproducible testing environments
+
+## Available Resources
+
+### Models
+- PyTorch: `models/games-balatro-2024-yolo-entities-detection/model.pt`
+- ONNX: `models/games-balatro-2024-yolo-entities-detection/onnx/model.onnx`
+
+### Test Data
+- Training images: `data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/`
+- Example: `out_00001.jpg` (many available)
+
+### Platform Considerations
+- macOS: Use MPS (Metal Performance Shaders) for PyTorch, CoreML for FastVLM
+- Linux/Windows: CUDA support for high-performance GPU inference
+- Always implement device detection with proper fallbacks
+
+## Documentation Standards
+
+### Design Documents & Plans
+- **Location**: `docs/ai/designs/`
+- **Naming**: `YYYY-MM-DD-kebab-case-description.md`
+- **Frontmatter Required**: All design docs must include YAML frontmatter
+- **Metadata Template**:
+```yaml
+---
+title: "Document Title"
+date: "YYYY-MM-DD"
+version: "X.Y"
+status: "draft|active|completed|deprecated"
+coding_agents:
+  authors: ["Human Name", "Claude Code"]
+  project: "proj-airi/game-playing-ai-balatro"
+  context: "Brief description"
+  technologies: ["tech1", "tech2"]
+  phase: "foundation|implementation|optimization"
+tags: ["tag1", "tag2"]
+---
+```
+
+### Documentation Rules
+- Include essential context and decision rationale
+- Update documents as implementation progresses
+- Always attribute human collaborators and Claude Code
+- List relevant technologies for searchability
+- Create comprehensive design docs before coding
+
+## Engineering Principles
+1. Quality over speed - No rushing, focus on solid engineering
+2. Modular design - Well-defined interfaces and abstractions
+3. Test-driven - Every component should be testable
+4. Cross-platform - Consider different inference backends
+5. Maintainable - Clean code structure and documentation
+6. Visual debugging - Preserve intermediate images for CV tasks
+7. Progressive development - Use notebooks for exploratory CV work
+8. Documentation-driven - Design before implementation
+
+## Code Style
+- DO NOT ADD COMMENTS unless explicitly requested
+- Follow existing patterns and conventions in the codebase
+- Use transformers and onnxruntime for inference
+- Always validate device availability before model loading
+- Implement proper error handling for device fallbacks
+
+## Commands to Remember
+- Execute scripts: `pixi run python <script>`
+- Add dependencies: `pixi add --pypi <package>`
+- Enter shell: `pixi shell`
+- Run tests: `pixi run pytest <test_file>`
+
+## Security
+- Never expose or log secrets/keys
+- Never commit secrets to repository
+- Follow security best practices for AI model deployment

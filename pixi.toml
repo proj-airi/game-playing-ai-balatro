@@ -2,7 +2,7 @@
 authors = ["Neko Ayaka <neko@ayaka.moe>"]
 channels = ["conda-forge"]
 name = "game-playing-ai-balatro"
-platforms = ["linux-64"]
+platforms = ["linux-64", "win-64"]
 version = "0.1.0"
 
 [tasks]
@@ -29,3 +29,16 @@ pynput = ">=1.7.7, <2"
 mss = ">=9.0.2, <10"
 openai = ">=1.59.0, <2"
 anthropic = ">=0.42.0, <1"
+
+[target.win-64.dependencies]
+cuda = ">=13.0.1,<14"
+cuda-libraries-dev = ">=13.0.1,<14"
+cuda-nvcc = ">=13.0.88,<14"
+cuda-cupti = ">=13.0.85,<14"
+
+[target.linux-64.dependencies]
+cuda = ">=13.0.1,<14"
+cuda-libraries-dev = ">=13.0.1,<14"
+cuda-nvcc = ">=13.0.88,<14"
+cuda-nvtx = ">=13.0.85,<14"
+cuda-cupti = ">=13.0.85,<14"

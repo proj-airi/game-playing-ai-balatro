@@ -1,0 +1,6 @@
+[submodule "models/games-balatro-2024-yolo-entities-detection"]
+	path = models/games-balatro-2024-yolo-entities-detection
+	url = https://huggingface.co/proj-airi/games-balatro-2024-yolo-entities-detection.git
+[submodule "data/datasets/games-balatro-2024-entities-detection"]
+	path = data/datasets/games-balatro-2024-entities-detection
+	url = https://huggingface.co/datasets/proj-airi/games-balatro-2024-entities-detection.git

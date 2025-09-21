@@ -1,0 +1,93 @@
+# Balatro Game Detection Configuration
+
+# Model Configuration
+model:
+  # Paths to search for model files (in order of preference)
+  search_paths:
+    - "../runs/v2-balatro-entities-2000-epoch/weights/best.pt"
+    - "../models/games-balatro-2024-yolo-entities-detection/model.pt"
+    - "../runs/v2-balatro-entities/weights/best.pt"
+    - "runs/v2-balatro-entities-2000-epoch/weights/best.pt"
+    - "models/games-balatro-2024-yolo-entities-detection/model.pt"
+  
+  # ONNX model path (optional)
+  onnx_path: "../models/games-balatro-2024-yolo-entities-detection/onnx/model.onnx"
+  
+  # Classes file path
+  classes_file: "../data/datasets/games-balatro-2024-entities-detection/data/train/yolo/classes.txt"
+  
+  # Default classes (fallback)
+  default_classes:
+    - "card_description"
+    - "card_pack"
+    - "joker_card"
+    - "planet_card"
+    - "poker_card_back"
+    - "poker_card_description"
+    - "poker_card_front"
+    - "poker_card_stack"
+    - "spectral_card"
+    - "tarot_card"
+
+# Detection Configuration
+detection:
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+  input_size: 640
+
+# Screen Capture Configuration
+screen_capture:
+  default_fps: 10
+  window_keywords:
+    - "Balatro"
+  excluded_apps:
+    - "Cursor"
+    - "Visual Studio Code"
+    - "Code"
+    - "Xcode"
+    - "Terminal"
+    - "iTerm"
+    - "Finder"
+    - "Safari"
+    - "Chrome"
+    - "Firefox"
+    - "TextEdit"
+    - "Sublime Text"
+    - "Atom"
+
+# Auto Click Configuration
+auto_click:
+  enabled: false
+  cooldown_seconds: 1.0
+  card_keywords:
+    - "card"
+    - "joker"
+    - "playing"
+
+# UI Configuration
+ui:
+  window_names:
+    single_detection: "Balatro Detection Result"
+    continuous_detection: "Balatro Real-time Detection"
+  window_sizes:
+    single_detection: [600, 450]
+    continuous_detection: [800, 600]
+  colors:
+    - [0, 255, 0]    # Green
+    - [255, 0, 0]    # Blue
+    - [0, 0, 255]    # Red
+    - [255, 255, 0]  # Cyan
+    - [255, 0, 255]  # Magenta
+    - [0, 255, 255]  # Yellow
+    - [128, 0, 128]  # Purple
+    - [255, 165, 0]  # Orange
+    - [0, 128, 255]  # Sky Blue
+    - [255, 192, 203] # Pink
+
+# Logging Configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "balatro_detection.log"
+  max_bytes: 10485760  # 10MB
+  backup_count: 5

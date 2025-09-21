@@ -1,94 +1,187 @@
-# 小丑牌 AI 检测系统
+# Balatro Game Detection System
 
-## 功能特性
+A real-time screen detection system for the Balatro card game using YOLO object detection. The system can automatically detect and interact with game elements through screen capture and computer vision.
 
-### 🎯 自动窗口检测
-- 使用 `pyobjc` 自动检测小丑牌游戏窗口
-- 无需手动选择区域，自动定位游戏界面
-- 支持窗口移动后的自动重新检测
+## Features
 
-### 🖱️ 自动点击功能
-- 使用 `pynput` 实现自动点击第一张牌
-- 可配置点击冷却时间，避免过于频繁的点击
-- 智能识别卡牌类型，优先点击最左边的牌
+- **Real-time Detection**: Uses YOLO models to detect cards and game elements in real-time
+- **Auto-click Functionality**: Automatically clicks on detected cards with configurable cooldown
+- **Window Detection**: Automatically finds and focuses on Balatro game windows
+- **Flexible Configuration**: YAML-based configuration system
+- **Multiple Detection Modes**: Single detection and continuous detection modes
+- **Cross-platform Support**: Works on macOS, Windows, and Linux
 
-### 🔍 实时检测
-- 基于 YOLO 模型的实时对象检测
-- 支持单次检测和连续检测模式
-- 可调节检测参数（置信度、IoU阈值等）
-- 智能窗口布局：检测结果窗口自动避开游戏窗口，优先显示在右侧，空间不足时显示在下方
+## Project Structure
 
-## 使用方法
-
-### 1. 启动程序
-```bash
-cd apps
-python app.py
+```
+apps/
+├── config/                 # Configuration management
+│   ├── config.yaml        # Main configuration file
+│   └── settings.py        # Settings loader
+├── core/                  # Core detection modules
+│   ├── detection.py       # Detection data structures
+│   ├── screen_capture.py  # Screen capture functionality
+│   └── yolo_detector.py   # YOLO detection engine
+├── services/              # Service layer
+│   ├── auto_click_service.py    # Auto-click functionality
+│   └── detection_service.py     # Main detection service
+├── ui/                    # User interface
+│   └── demo_app.py        # Demo application
+├── utils/                 # Utility modules
+│   ├── logger.py          # Logging utilities
+│   └── path_utils.py      # Path handling utilities
+├── main.py               # Main entry point
+└── requirements.txt      # Python dependencies
 ```
 
-### 2. 配置选项
-程序启动时会询问以下配置：
+## Installation
 
-1. **自动点击设置**: 是否启用自动点击第一张牌
-2. **点击冷却时间**: 两次点击之间的间隔时间（默认1秒）
-3. **检测参数**: 置信度阈值（默认0.5）
-4. **运行模式**: 
-   - 单次检测：每次手动触发检测
-   - 连续检测：实时检测（默认2FPS）
+1. **Install Python Dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-### 3. 控制键
-连续检测模式下的控制键：
-- `q`: 退出程序
-- `s`: 保存当前检测结果
-- `+/-`: 调整置信度阈值
-- `空格`: 暂停/继续检测
-- `c`: 手动触发点击第一张牌（仅在启用自动点击时可用）
+2. **macOS Additional Setup** (for automatic window detection):
+   ```bash
+   pip install pyobjc-framework-Quartz
+   ```
 
-**注意**: 连续检测模式下不会自动点击，需要手动按 `c` 键来触发点击，这样可以更好地控制点击时机。
+3. **Model Files**: Ensure YOLO model files are available at one of the configured paths in `config/config.yaml`.
 
-## 文件说明
+## Usage
 
-- `app.py`: 主程序，集成了窗口检测和自动点击功能
-- `screen_capture.py`: 屏幕捕捉模块，支持自动窗口检测
-- `yolo_detector.py`: YOLO检测模块
-- `test_window_detection.py`: 窗口检测功能测试脚本
+### Basic Usage
 
-## 依赖要求
-
-主要依赖已在 `pixi.toml` 中配置：
-- `pyobjc`: macOS 窗口检测
-- `pynput`: 自动点击功能
-- `ultralytics`: YOLO 模型
-- `opencv-python`: 图像处理
-- `mss`: 屏幕捕捉
-
-## 故障排除
-
-### 窗口检测失败
-如果自动检测失败，请检查：
-1. 小丑牌游戏是否已启动
-2. 游戏窗口是否可见且未被遮挡
-3. 窗口标题是否包含 'Balatro' 关键词
-
-### 自动点击不工作
-如果自动点击功能异常：
-1. 检查是否已启用自动点击功能
-2. 确认检测到了卡牌对象
-3. 检查点击冷却时间设置
-
-### 检测精度问题
-如果检测结果不准确：
-1. 调整置信度阈值（按 +/- 键）
-2. 确保游戏界面清晰可见
-3. 检查模型文件是否正确加载
-
-## 测试功能
-
-运行测试脚本检查窗口检测功能：
+Run the main application:
 ```bash
-python test_window_detection.py
+python main.py
 ```
 
-## 作者
+The application will:
+1. Auto-detect the Balatro game window
+2. Ask if you want to enable auto-click functionality
+3. Allow you to configure detection parameters
+4. Choose between single or continuous detection mode
 
-RainbowBird
+### Configuration
+
+Edit `config/config.yaml` to customize:
+- Model file paths
+- Detection thresholds
+- Auto-click settings
+- UI preferences
+- Logging configuration
+
+### Detection Modes
+
+1. **Single Detection Mode**: Capture and analyze one frame at a time
+2. **Continuous Detection Mode**: Real-time detection with live preview
+
+### Controls (Continuous Mode)
+
+- `q` - Exit
+- `s` - Save current frame
+- `+/-` - Adjust confidence threshold
+- `Space` - Pause/Resume
+- `c` - Manual click trigger (if auto-click enabled)
+
+## Configuration Options
+
+### Model Configuration
+```yaml
+model:
+  search_paths:
+    - "../models/games-balatro-2024-yolo-entities-detection/model.pt"
+  confidence_threshold: 0.5
+  iou_threshold: 0.45
+```
+
+### Auto-click Configuration
+```yaml
+auto_click:
+  enabled: false
+  cooldown_seconds: 1.0
+  card_keywords:
+    - "card"
+    - "joker"
+    - "playing"
+```
+
+### Screen Capture Configuration
+```yaml
+screen_capture:
+  default_fps: 10
+  window_keywords:
+    - "Balatro"
+```
+
+## API Usage
+
+### Using the Detection Service
+
+```python
+from services.detection_service import DetectionService
+
+# Initialize service
+service = DetectionService(
+    model_path="path/to/model.pt",
+    enable_auto_click=True
+)
+
+# Select detection region
+service.select_detection_region()
+
+# Run single detection
+service.run_single_detection()
+
+# Run continuous detection
+service.run_continuous_detection(fps=2)
+```
+
+### Using Individual Components
+
+```python
+from core.screen_capture import ScreenCapture
+from core.yolo_detector import YOLODetector
+
+# Screen capture
+capture = ScreenCapture()
+frame = capture.capture_once()
+
+# YOLO detection
+detector = YOLODetector("model.pt")
+detections = detector.detect(frame)
+```
+
+## Logging
+
+Logs are written to both console and file (`balatro_detection.log` by default). Log level and format can be configured in `config/config.yaml`.
+
+## Troubleshooting
+
+### Common Issues
+
+1. **Model not found**: Ensure model files exist at configured paths
+2. **Window not detected**: Make sure Balatro is running and window title contains "Balatro"
+3. **Permission errors**: On macOS, grant accessibility permissions to Terminal/IDE
+4. **Import errors**: Install all required dependencies from `requirements.txt`
+
+### Debug Mode
+
+Enable debug logging by setting `logging.level: "DEBUG"` in the configuration file.
+
+## Development
+
+### Adding New Detection Classes
+
+1. Update the classes file or `model.default_classes` in config
+2. Retrain the YOLO model with new classes
+3. Update visualization colors if needed
+
+### Extending Auto-click Logic
+
+Modify `services/auto_click_service.py` to implement custom clicking strategies.
+
+## License
+
+This project is for educational and research purposes. Please ensure compliance with game terms of service when using automated interaction features.

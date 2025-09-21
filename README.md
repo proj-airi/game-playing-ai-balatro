@@ -30,8 +30,14 @@ pixi install
 > [!NOTE]
 > For macOS, when running the UI automation and doing Game AI playing, you may need to give the terminal (or your IDE, in our case, Visual Studio Code) the permissions:
 >
-> - Accessibility
+> - Access to other apps
+>   ![](./docs/permissions-macos-1.png)
 > - Screen Recording
+>   ![](./docs/permissions-macos-2.png)
+> - Bypass private window picker
+>   ![](./docs/permissions-macos-3.png)
+> - Accessibility
+>   ![](./docs/permissions-macos-4.png)
 >
 > After assigning the permissions, please restart your terminal or IDE to make it work.
 

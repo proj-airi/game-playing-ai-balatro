@@ -76,6 +76,31 @@ class ScreenDetectionDemo:
         self.click_cooldown = cooldown
         print(f"🖱️ 点击冷却时间: {cooldown}秒")
     
+    def get_screen_size(self):
+        """获取屏幕尺寸"""
+        try:
+            # 优先使用 pyobjc 获取屏幕尺寸（macOS）
+            import Quartz
+            main_display = Quartz.CGMainDisplayID()
+            screen_width = Quartz.CGDisplayPixelsWide(main_display)
+            screen_height = Quartz.CGDisplayPixelsHigh(main_display)
+            return screen_width, screen_height
+        except ImportError:
+            try:
+                # 备用方案：使用 mss 获取屏幕尺寸
+                monitor = self.screen_capture.sct.monitors[0]  # 主显示器信息
+                return monitor['width'], monitor['height']
+            except Exception:
+                # 最后的备用方案：返回常见的屏幕尺寸
+                return 1920, 1080
+        except Exception:
+            # 如果 pyobjc 方法失败，尝试其他方法
+            try:
+                monitor = self.screen_capture.sct.monitors[0]
+                return monitor['width'], monitor['height']
+            except Exception:
+                return 1920, 1080
+    
     def find_first_card(self, detections: List[Detection]) -> Optional[Detection]:
         """
         找到第一张牌（最左边的牌）
@@ -224,11 +249,25 @@ class ScreenDetectionDemo:
             game_x = int(bounds['X'])
             game_y = int(bounds['Y'])
             game_width = int(bounds['Width'])
+            game_height = int(bounds['Height'])
             
-            # 将检测窗口放在游戏窗口右侧
-            display_x = game_x + game_width + 20
-            display_y = game_y
+            # 获取屏幕尺寸
+            screen_width, screen_height = self.get_screen_size()
+            print(f"📺 屏幕尺寸: {screen_width}x{screen_height}")
+            
+            # 将检测窗口放在游戏窗口右侧，如果空间不够则放在下方
+            if game_x + game_width + 400 < screen_width:
+                # 右侧有足够空间
+                display_x = game_x + game_width + 20
+                display_y = game_y
+            else:
+                # 右侧空间不够，放在下方
+                display_x = game_x
+                display_y = game_y + game_height + 20
+            
             cv2.moveWindow(window_name, display_x, display_y)
+            cv2.resizeWindow(window_name, 600, 450)  # 设置合适的窗口大小
+            print(f"🖼️ 检测窗口位置: ({display_x}, {display_y}), 游戏窗口: ({game_x}, {game_y}) {game_width}x{game_height}")
         
         cv2.imshow(window_name, vis_frame)
         
@@ -312,8 +351,40 @@ class ScreenDetectionDemo:
                     cv2.putText(vis_frame, text, (10, 30 + i * 25),
                                cv2.FONT_HERSHEY_SIMPLEX, 0.6, color, 1)
                 
-                # 显示结果
-                cv2.imshow("小丑牌实时检测", vis_frame)
+                # 显示结果（设置窗口位置避免与游戏窗口重叠）
+                window_name = "小丑牌实时检测"
+                
+                # 只在第一次创建窗口时设置位置
+                if self.frame_count == 1:
+                    cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+                    
+                    # 获取游戏窗口信息来计算合适的显示位置
+                    window_info = self.screen_capture.get_window_info()
+                    if window_info:
+                        bounds = window_info['bounds']
+                        game_x = int(bounds['X'])
+                        game_y = int(bounds['Y'])
+                        game_width = int(bounds['Width'])
+                        game_height = int(bounds['Height'])
+                        
+                        # 将检测窗口放在游戏窗口右侧，如果空间不够则放在下方
+                        screen_width, screen_height = self.get_screen_size()
+                        print(f"📺 屏幕尺寸: {screen_width}x{screen_height}")
+                        
+                        if game_x + game_width + 400 < screen_width:
+                            # 右侧有足够空间
+                            display_x = game_x + game_width + 20
+                            display_y = game_y
+                        else:
+                            # 右侧空间不够，放在下方
+                            display_x = game_x
+                            display_y = game_y + game_height + 20
+                        
+                        cv2.moveWindow(window_name, display_x, display_y)
+                        cv2.resizeWindow(window_name, 800, 600)  # 设置合适的窗口大小
+                        print(f"🖼️ 实时检测窗口位置: ({display_x}, {display_y}), 游戏窗口: ({game_x}, {game_y}) {game_width}x{game_height}")
+                
+                cv2.imshow(window_name, vis_frame)
                 
                 # 控制帧率
                 elapsed = time.time() - loop_start

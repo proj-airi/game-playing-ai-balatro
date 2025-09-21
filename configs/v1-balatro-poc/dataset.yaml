@@ -1,0 +1,28 @@
+# YOLO dataset configuration for Balatro game AI
+train: ../../data/labelled/v1-balatro-poc/images
+val: ../../data/labelled/v1-balatro-poc/images  # Using same folder for now, split if needed
+
+# Classes
+nc: 21  # number of classes
+names:
+  0: count_discard
+  1: count_hand
+  2: count_level
+  3: count_money
+  4: count_round
+  5: level_select_button
+  6: level_skip_button
+  7: level_type_big
+  8: level_type_boss
+  9: level_type_small
+  10: poker_card_4_spades
+  11: poker_card_5_dimonds
+  12: poker_card_6_clubs
+  13: poker_card_a_hearts
+  14: poker_card_j_dimonds
+  15: poker_card_k_clubs
+  16: poker_card_k_dimonds
+  17: poker_card_k_hearts
+  18: score_all
+  19: score_base
+  20: score_multiplier

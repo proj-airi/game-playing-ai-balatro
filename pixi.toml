@@ -1,0 +1,31 @@
+[workspace]
+authors = ["Neko Ayaka <neko@ayaka.moe>"]
+channels = ["conda-forge"]
+name = "game-playing-ai-balatro"
+platforms = ["linux-64"]
+version = "0.1.0"
+
+[tasks]
+
+[dependencies]
+python = "3.12.*"
+pip = ">=25.2,<26"
+
+[pypi-dependencies]
+ultralytics = ">=8.3.201, <9"
+wandb = ">=0.21.4, <0.22"
+matplotlib = ">=3.10.6, <4"
+numpy = ">=2.3.3, <3"
+opencv-python = ">=4.11.0.86, <5"
+ipykernel = ">=6.30.1, <7"
+tqdm = ">=4.67.1, <5"
+label-studio-sdk = ">=2.0.5, <3"
+onnx = ">=1.19.0, <2"
+onnxslim = ">=0.1.68, <0.2"
+onnxruntime = ">=1.22.1, <2"
+pillow = ">=11.1.0, <12"
+pyautogui = ">=0.9.54, <1"
+pynput = ">=1.7.7, <2"
+mss = ">=9.0.2, <10"
+openai = ">=1.59.0, <2"
+anthropic = ">=0.42.0, <1"

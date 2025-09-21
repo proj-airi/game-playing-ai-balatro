@@ -1,0 +1,16 @@
+# YOLO dataset configuration for Balatro game AI
+train: ../../data/labelled/v1-balatro-entities/images
+val: ../../data/labelled/v1-balatro-entities/images  # Using same folder for now, split if needed
+
+# Classes
+nc: 8  # number of classes
+names:
+  0: card_description
+  1: card_pack
+  2: joker_card
+  3: planet_card
+  4: poker_card_back
+  5: poker_card_description
+  6: poker_card_front
+  7: poker_card_stack
+

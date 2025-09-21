@@ -27,6 +27,14 @@ git submodule update
 pixi install
 ```
 
+> [!NOTE]
+> For macOS, when running the UI automation and doing Game AI playing, you may need to give the terminal (or your IDE, in our case, Visual Studio Code) the permissions:
+>
+> - Accessibility
+> - Screen Recording
+>
+> After assigning the permissions, please restart your terminal or IDE to make it work.
+
 ## Models
 
 | Basic                     | Multiple card types       | Description               | Crowded cards             |

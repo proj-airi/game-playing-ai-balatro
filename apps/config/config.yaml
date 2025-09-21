@@ -59,10 +59,15 @@ screen_capture:
 auto_click:
   enabled: false
   cooldown_seconds: 1.0
+  # Keywords to identify clickable cards (case-insensitive)
+  # Priority order: joker > poker_card_front > tarot > planet > spectral > generic
   card_keywords:
-    - "card"
-    - "joker"
-    - "playing"
+    - "card"      # Generic fallback
+    - "joker"     # Joker cards (highest priority)
+    - "poker"     # Poker cards
+    - "tarot"     # Tarot cards
+    - "planet"    # Planet cards
+    - "spectral"  # Spectral cards
 
 # UI Configuration
 ui:

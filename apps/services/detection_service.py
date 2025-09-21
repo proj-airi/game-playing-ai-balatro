@@ -102,6 +102,17 @@ class DetectionService:
         
         logger.info(f"Capture successful, image size: {frame.shape}")
         
+        # Log capture region for debugging
+        capture_region = self.screen_capture.get_capture_region()
+        if capture_region:
+            logger.info(f"Capture region: {capture_region}")
+            logger.info(f"Image vs Region size: {frame.shape[:2]} vs ({capture_region['width']}, {capture_region['height']})")
+            
+            # Calculate scaling factors
+            scale_x = frame.shape[1] / capture_region['width']
+            scale_y = frame.shape[0] / capture_region['height']
+            logger.info(f"Scaling factors: x={scale_x:.3f}, y={scale_y:.3f}")
+        
         # Run detection
         logger.info("Running YOLO detection...")
         detections = self.yolo_detector.detect(
@@ -116,9 +127,16 @@ class DetectionService:
         
         # Auto-click first card if enabled
         if self.auto_click_service and detections:
+            logger.info("🖱️ Auto-click service is enabled, attempting to click first card...")
             clicked = self.auto_click_service.click_first_card(detections)
             if clicked:
-                logger.info("Auto-clicked first card successfully")
+                logger.info("✅ Auto-clicked first card successfully")
+            else:
+                logger.info("⚠️ Auto-click was not performed (cooldown, no cards, or error)")
+        elif self.auto_click_service and not detections:
+            logger.info("🔍 Auto-click enabled but no detections found")
+        elif not self.auto_click_service:
+            logger.debug("🖱️ Auto-click service disabled")
         
         # Visualize results
         vis_frame = self.yolo_detector.visualize_detections(frame, detections)
@@ -179,6 +197,8 @@ class DetectionService:
         logger.info("  Space - Pause/Resume")
         if self.auto_click_service:
             logger.info("  'c' - Manually trigger click on first card")
+            logger.info("  'i' - Show auto-click status info")
+            logger.info("  'p' - Test mouse permissions")
         
         frame_time = 1.0 / fps
         paused = False
@@ -203,7 +223,16 @@ class DetectionService:
                 
                 self.detection_count += len(detections)
                 
-                # Note: Continuous mode doesn't auto-click, only manual trigger with 'c' key
+                # Auto-click first card if enabled (now works in continuous mode too)
+                if self.auto_click_service and detections:
+                    logger.debug("🖱️ Auto-click service enabled in continuous mode, attempting to click first card...")
+                    clicked = self.auto_click_service.click_first_card(detections)
+                    if clicked:
+                        logger.info("✅ Auto-clicked first card successfully in continuous mode")
+                    else:
+                        logger.debug("⚠️ Auto-click not performed (cooldown, no cards, or error)")
+                elif self.auto_click_service and not detections:
+                    logger.debug("🔍 Auto-click enabled but no detections found in continuous mode")
                 
                 # Visualize results
                 vis_frame = self.yolo_detector.visualize_detections(frame, detections)
@@ -221,7 +250,7 @@ class DetectionService:
                     f"Average detections: {avg_detections:.1f}",
                     f"Total frames: {self.frame_count}",
                     f"Auto-click: {auto_click_status}",
-                    "Space:Pause q:Exit s:Save +/-:Adjust confidence" + (" c:Click" if self.auto_click_service else "")
+                    "Space:Pause q:Exit s:Save +/-:Adjust confidence" + (" c:Click i:Info p:Test" if self.auto_click_service else "")
                 ]
                 
                 for i, text in enumerate(info_text):
@@ -272,6 +301,7 @@ class DetectionService:
             elif key == ord('c') and self.auto_click_service:
                 # Manual click trigger
                 if not paused:
+                    logger.info("🖱️ Manual click triggered by user...")
                     frame = self.screen_capture.capture_once()
                     if frame is not None:
                         detections = self.yolo_detector.detect(
@@ -279,16 +309,27 @@ class DetectionService:
                             confidence_threshold=self.confidence_threshold,
                             iou_threshold=self.iou_threshold
                         )
+                        logger.info(f"🔍 Fresh detection for manual click: {len(detections)} objects found")
                         if detections:
                             clicked = self.auto_click_service.manual_click_first_card(detections)
                             if clicked:
-                                logger.info("Manual click successful")
+                                logger.info("✅ Manual click successful")
                             else:
-                                logger.info("Manual click failed")
+                                logger.info("❌ Manual click failed")
                         else:
-                            logger.info("No cards detected")
+                            logger.info("🔍 No objects detected for manual click")
+                    else:
+                        logger.error("❌ Failed to capture frame for manual click")
                 else:
-                    logger.info("Please resume detection first (press Space)")
+                    logger.info("⏸️ Please resume detection first (press Space)")
+            elif key == ord('i') and self.auto_click_service:
+                # Show auto-click status info
+                logger.info("ℹ️ Auto-click status requested by user")
+                self.auto_click_service.print_click_status()
+            elif key == ord('p') and self.auto_click_service:
+                # Test mouse permissions
+                logger.info("🧪 Testing mouse permissions...")
+                self.auto_click_service.test_click_permissions()
         
         cv2.destroyAllWindows()
         

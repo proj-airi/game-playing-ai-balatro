@@ -1,0 +1,23 @@
+version: "0.2"
+ignorePaths: []
+dictionaryDefinitions: []
+dictionaries: []
+words:
+  - Ayaka
+  - balatro
+  - ipykernel
+  - matplotlib
+  - Neko
+  - numpy
+  - onnx
+  - onnxruntime
+  - onnxslim
+  - opencv
+  - pyautogui
+  - pynput
+  - pypi
+  - tqdm
+  - ultralytics
+  - wand
+ignoreWords: []
+import: []

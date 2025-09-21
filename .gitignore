@@ -104,6 +104,12 @@ coverage.xml
 .pytest_cache/
 .hypothesis/
 
+# Test outputs (generated during testing)
+**/tests/outputs/
+**/debug_*_output/
+**/cropped_*_output/
+**/real_*_output/
+
 # Translations
 *.mo
 *.pot

@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(pixi list:*)"
+      "Bash(pixi list:*)",
+      "Bash(pixi run:*)",
+      "WebSearch"
     ],
     "deny": [],
     "ask": []

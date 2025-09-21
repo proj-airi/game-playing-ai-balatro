@@ -1,0 +1,6 @@
+[MAIN]
+max-line-length = 88
+indent-string = "    "
+
+[MESSAGES CONTROL]
+disable = missing-docstring,too-few-public-methods,import-error

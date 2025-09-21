@@ -24,6 +24,15 @@ class ScreenCapture:
         self.capture_thread: Optional[threading.Thread] = None
         self.frame_callback: Optional[Callable] = None
         self.fps = 10  # 默认10FPS
+        self.balatro_window_info = None
+        
+        # 尝试自动检测小丑牌窗口
+        try:
+            import Quartz
+            print("🔍 初始化时自动检测小丑牌窗口...")
+            self._detect_balatro_window()
+        except ImportError:
+            print("⚠️ pyobjc 不可用，将使用手动选择模式")
         
     def set_capture_region(self, x: int, y: int, width: int, height: int) -> None:
         """设置捕捉区域"""
@@ -55,8 +64,13 @@ class ScreenCapture:
         return img
     
     def select_region_interactive(self) -> bool:
-        """交互式选择捕捉区域"""
-        print("请在屏幕上选择游戏窗口区域...")
+        """交互式选择捕捉区域（优先使用自动检测）"""
+        # 首先尝试自动检测小丑牌窗口
+        if self._detect_balatro_window():
+            return True
+        
+        # 如果自动检测失败，回退到手动选择
+        print("自动检测失败，请在屏幕上选择游戏窗口区域...")
         print("按下鼠标左键并拖拽选择区域，按ESC取消")
         
         # 全屏截图用于选择
@@ -183,6 +197,184 @@ class ScreenCapture:
         except Exception as e:
             print(f"保存截图失败: {e}")
             return False
+    
+    def get_window_info(self) -> Optional[dict]:
+        """
+        获取当前检测到的窗口信息
+        
+        Returns:
+            Optional[dict]: 窗口信息字典
+        """
+        return getattr(self, 'balatro_window_info', None)
+    
+    def get_capture_region(self) -> Optional[dict]:
+        """
+        获取当前捕捉区域
+        
+        Returns:
+            Optional[dict]: 区域信息
+        """
+        return self.capture_region
+    
+    def list_all_windows(self) -> None:
+        """
+        调试方法：列出所有窗口信息
+        """
+        try:
+            import Quartz
+            
+            window_list = Quartz.CGWindowListCopyWindowInfo(
+                Quartz.kCGWindowListOptionOnScreenOnly | Quartz.kCGWindowListExcludeDesktopElements,
+                Quartz.kCGNullWindowID
+            )
+            
+            print("🔍 当前所有窗口:")
+            for i, window in enumerate(window_list):
+                window_name = window.get('kCGWindowName', '')
+                window_owner = window.get('kCGWindowOwnerName', '')
+                bounds = window.get('kCGWindowBounds', {})
+                
+                if window_name or window_owner:  # 只显示有名称的窗口
+                    print(f"  {i+1}. 名称: '{window_name}' | 应用: '{window_owner}' | 尺寸: {bounds.get('Width', 0)}x{bounds.get('Height', 0)}")
+                    
+        except Exception as e:
+            print(f"❌ 列出窗口失败: {e}")
+    
+    def _detect_balatro_window(self) -> bool:
+        """
+        使用 pyobjc 检测小丑牌窗口
+        
+        Returns:
+            bool: 是否成功检测到窗口
+        """
+        try:
+            import Quartz
+            
+            # 获取所有窗口信息
+            window_list = Quartz.CGWindowListCopyWindowInfo(
+                Quartz.kCGWindowListOptionOnScreenOnly | Quartz.kCGWindowListExcludeDesktopElements,
+                Quartz.kCGNullWindowID
+            )
+            
+            # 小丑牌游戏的可能名称
+            balatro_keywords = ['Balatro']  # 更精确的匹配
+            
+            # 需要排除的应用程序
+            excluded_apps = [
+                'Cursor', 'Visual Studio Code', 'Code', 'Xcode', 
+                'Terminal', 'iTerm', 'Finder', 'Safari', 'Chrome',
+                'Firefox', 'TextEdit', 'Sublime Text', 'Atom'
+            ]
+            
+            candidates = []
+            
+            print("🔍 检查窗口匹配...")
+            for window in window_list:
+                window_name = window.get('kCGWindowName', '')
+                window_owner = window.get('kCGWindowOwnerName', '')
+                bounds = window.get('kCGWindowBounds', {})
+                
+                # 跳过没有尺寸信息的窗口
+                if not bounds or bounds.get('Width', 0) < 100 or bounds.get('Height', 0) < 100:
+                    continue
+                
+                # 排除明确不是游戏的应用
+                if any(excluded_app.lower() in window_owner.lower() for excluded_app in excluded_apps):
+                    continue
+                
+                # 检查是否匹配小丑牌关键词
+                for keyword in balatro_keywords:
+                    if (keyword.lower() in window_name.lower() or 
+                        keyword.lower() in window_owner.lower()):
+                        
+                        score = self._calculate_window_score(window_name, window_owner, bounds)
+                        print(f"   找到候选窗口: '{window_name}' | '{window_owner}' | 尺寸: {bounds.get('Width', 0)}x{bounds.get('Height', 0)} | 评分: {score}")
+                        
+                        candidates.append({
+                            'window': window,
+                            'name': window_name,
+                            'owner': window_owner,
+                            'bounds': bounds,
+                            'score': score
+                        })
+                        break
+            
+            if not candidates:
+                print("❌ 未检测到小丑牌窗口")
+                print("💡 当前窗口列表:")
+                self.list_all_windows()
+                return False
+            
+            # 选择最佳候选窗口（按评分排序）
+            best_candidate = max(candidates, key=lambda x: x['score'])
+            
+            window_info = best_candidate
+            self.balatro_window_info = {
+                'name': window_info['name'],
+                'owner': window_info['owner'],
+                'bounds': window_info['bounds'],
+                'window_id': window_info['window'].get('kCGWindowNumber', 0)
+            }
+            
+            # 设置捕捉区域
+            bounds = window_info['bounds']
+            self.set_capture_region(
+                int(bounds['X']),
+                int(bounds['Y']),
+                int(bounds['Width']),
+                int(bounds['Height'])
+            )
+            
+            print(f"✅ 检测到小丑牌窗口: {window_info['name'] or window_info['owner']}")
+            print(f"   位置: ({bounds['X']}, {bounds['Y']})")
+            print(f"   尺寸: {bounds['Width']} x {bounds['Height']}")
+            print(f"   评分: {window_info['score']}")
+            
+            return True
+            
+        except Exception as e:
+            print(f"❌ 窗口检测失败: {e}")
+            return False
+    
+    def _calculate_window_score(self, window_name: str, window_owner: str, bounds: dict) -> int:
+        """
+        计算窗口匹配评分
+        
+        Args:
+            window_name: 窗口名称
+            window_owner: 窗口所有者
+            bounds: 窗口边界
+            
+        Returns:
+            int: 评分（越高越匹配）
+        """
+        score = 0
+        
+        # 精确匹配窗口名称
+        if 'balatro' in window_name.lower():
+            score += 100
+        
+        # 精确匹配应用名称
+        if 'balatro' in window_owner.lower():
+            score += 50
+        
+        # 游戏窗口通常有特定的尺寸范围
+        width = bounds.get('Width', 0)
+        height = bounds.get('Height', 0)
+        
+        # 小丑牌游戏的典型分辨率（放宽限制）
+        if 600 <= width <= 1920 and 400 <= height <= 1080:
+            score += 20
+        
+        # 偏好合理大小的窗口
+        if width > 800 and height > 500:
+            score += 10
+        
+        # 特别加分给确切的小丑牌窗口尺寸
+        if 850 <= width <= 950 and 500 <= height <= 600:
+            score += 30
+        
+        return score
 
 
 def test_screen_capture():

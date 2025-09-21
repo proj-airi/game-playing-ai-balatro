@@ -291,6 +291,43 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/61/ad/689f02752eeec26aed679477e80e632ef1b682313be70793d798c1d5fc8f/PyJWT-2.10.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/4f/ac3fa906ae8a375a536b12794128c5efacade9eaa917a35dfd27ce0c7400/pynput-1.8.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a9/32/ad08b45fc0ad9850054ffe66fb0cb2ff7af3d2007c192dda14cf9a3ea893/pyobjc-11.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/e8/e9/0b85c81e2b441267bca707b5d89f56c2f02578ef8f3eafddf0e0c0b8848c/pyobjc_core-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/eb/d3/f5bb5c72be5c6e52224f43e23e5a44e86d2c35ee9af36939e5514c6c7a0f/pyobjc_framework_addressbook-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/c6/0e/68ac4ce71e613697a087c262aefacc9ed54eaf0cf1d9ffcd89134bfdab9b/pyobjc_framework_applescriptkit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/be/3f/b33ce0cecc3a42f6c289dcbf9ff698b0d9e85f5796db2e9cb5dadccffbb9/pyobjc_framework_applicationservices-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/63/9f/097ed9f4de9e9491a1b08bb7d85d35a95d726c9e9f5f5bf203b359a436b6/pyobjc_framework_automator-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/84/44/f1a20b5aa3833af4d461074c479263a410ef90d17dbec11f78ad9c34dbab/pyobjc_framework_carbon-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/6f/49/7b24172e3d6eb0ddffc33a7498a2bea264aa2958c3fecaeb463bef88f0b8/pyobjc_framework_cfnetwork-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/4b/c5/7a866d24bc026f79239b74d05e2cf3088b03263da66d53d1b4cf5207f5ae/pyobjc_framework_cocoa-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/39/c0/4ab6005cf97e534725b0c14b110d4864b367c282b1c5b0d8f42aad74a83f/pyobjc_framework_coreaudio-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/f1/4e/c49b26c60047c511727efe994b412276c487dfe90f1ee0fced0bddbdf8a3/pyobjc_framework_coreaudiokit-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/00/e3/af497da7a7c895b6ff529d709d855a783f34afcc4b87ab57a1a2afb3f876/pyobjc_framework_coredata-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/06/ca/2ae5149966ccd78290444f88fa62022e2b96ed2fddd47e71d9fd249a9f82/pyobjc_framework_coremidi-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/a8/a9/141d18019a25776f507992f9e7ffc051ca5a734848d8ea8d848f7c938efc/pyobjc_framework_coreservices-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/65/e9/d3231c4f87d07b8525401fd6ad3c56607c9e512c5490f0a7a6abb13acab6/pyobjc_framework_coretext-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/a5/b2/d8d1a28643c2ab681b517647bacb68496c98886336ffbd274f0b2ad28cdc/pyobjc_framework_discrecording-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/4a/a6/505af43f7a17e0ca3d45e099900764e8758e0ca65341e894b74ade513556/pyobjc_framework_discrecordingui-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/1f/72/9534ca88effbf2897e07b722920b3f10890dbc780c6fff1ab4893ec1af10/pyobjc_framework_diskarbitration-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/59/0c/f0fefa171b6938010d87194e26e63eea5c990c33d2d7828de66802f57c36/pyobjc_framework_dvdplayback-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/7f/81/dde9c73bf307b62c2d605fc818d3e49f857f39e0841766093dbc9ea47b08/pyobjc_framework_exceptionhandling-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/8e/83/ec0b9ba355dbc34f27ed748df9df4eb6dbfdd9bbd614b0f193752f36f419/pyobjc_framework_fsevents-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/3d/01/45c3d159d671c5f488a40f70aa6791b8483a3ed32b461800990bb5ab4bb3/pyobjc_framework_installerplugins-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/93/e0/74b7b10c567b66c5f38b45ab240336325a4c889f43072d90f2b90aaeb7c0/pyobjc_framework_iobluetooth-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/d6/ed/35efed52ed3fa698480624e49ee5f3d859827aad5ff1c7334150c695e188/pyobjc_framework_iobluetoothui-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/2c/50/d62815b02968236eb46c33f0fb0f7293a32ef68d2ec50c397140846d4e42/pyobjc_framework_latentsemanticmapping-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/12/30/a4de9021fdef7db0b224cdc1eae75811d889dc1debdfafdabf8be7bd0fb9/pyobjc_framework_launchservices-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/14/65/c6531ce0792d5035d87f054b0ccf22e453328fda2e68e11a7f70486da23a/pyobjc_framework_osakit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a1/51/75c7e32272241f706ce8168e04a32be02c4b0c244358330f730fc85695c3/pyobjc_framework_preferencepanes-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/c7/ac/6308fec6c9ffeda9942fef72724f4094c6df4933560f512e63eac37ebd30/pyobjc_framework_quartz-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/7c/f6/f2d48583b29fc67b64aa1f415fd51faf003d045cdb1f3acab039b9a3f59f/pyobjc_framework_screensaver-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/2b/ed/a118d275a9132c8f5adcd353e4d9e844777068e33d51b195f46671161a7f/pyobjc_framework_searchkit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/ee/6f/ba50ed2d9c1192c67590a7cfefa44fc5f85c776d1e25beb224dec32081f6/pyobjc_framework_security-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/6c/ab/23db6b1c09810d6bcc4eab96e62487fb4284b57e447eabe6c001cb41e36d/pyobjc_framework_securityfoundation-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a1/be/c846651c3e7f38a637c40ae1bcda9f14237c2395637c3a188df4f733c727/pyobjc_framework_securityinterface-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/69/45/cd9fa83ed1d75be7130fb8e41c375f05b5d6621737ec37e9d8da78676613/pyobjc_framework_syncservices-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/e2/3d/41590c0afc72e93d911348fbde0c9c1071ff53c6f86df42df64b21174bb9/pyobjc_framework_systemconfiguration-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/92/04/fb3d0b68994f7e657ef00c1ac5fc1c04ae2fc7ea581d647f5ae1f6739b14/pyobjc_framework_webkit-11.1.tar.gz
       - pypi: https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/bc/22540e73c5f5ae18f02924cd3954a6c9a4aa6b713c841a94c98335d333a1/pyperclip-1.10.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/04/2ba023d5f771b645f7be0c281cdacdcd939fe13d1deb331fc5ed1a6b3a98/PyRect-0.2.0.tar.gz
@@ -446,11 +483,43 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/61/ad/689f02752eeec26aed679477e80e632ef1b682313be70793d798c1d5fc8f/PyJWT-2.10.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/4f/ac3fa906ae8a375a536b12794128c5efacade9eaa917a35dfd27ce0c7400/pynput-1.8.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a9/32/ad08b45fc0ad9850054ffe66fb0cb2ff7af3d2007c192dda14cf9a3ea893/pyobjc-11.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c0/09/e83228e878e73bf756749939f906a872da54488f18d75658afa7f1abbab1/pyobjc_core-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/c2/de/e1ba5f113c05b543a097040add795fa4b85fdd5ad850b56d83cd6ce8afff/pyobjc_framework_addressbook-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/c6/0e/68ac4ce71e613697a087c262aefacc9ed54eaf0cf1d9ffcd89134bfdab9b/pyobjc_framework_applescriptkit-11.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/38/ec/46a5c710e2d7edf55105223c34fed5a7b7cc7aba7d00a3a7b0405d6a2d1a/pyobjc_framework_applicationservices-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/0e/1e/3ed1df2168e596151da2329258951dae334e194d7de3b117c7e29a768ffc/pyobjc_framework_automator-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/84/44/f1a20b5aa3833af4d461074c479263a410ef90d17dbec11f78ad9c34dbab/pyobjc_framework_carbon-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/c2/31/05b4fb79e7f738f7f7d7a58734de2fab47d9a1fb219c2180e8c07efe2550/pyobjc_framework_cfnetwork-11.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/68/da/41c0f7edc92ead461cced7e67813e27fa17da3c5da428afdb4086c69d7ba/pyobjc_framework_cocoa-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/3d/fe/c43521642db98a4ec29fa535781c1316342bb52d5fc709696cbb1e8ca6cd/pyobjc_framework_coreaudio-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/18/27/d8ff6293851a7d9665724fa5c324d28200776ec10a04b850ba21ad1f9be1/pyobjc_framework_coreaudiokit-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/5b/ac/77935aa9891bd6be952b1e6780df2bae748971dd0fe0b5155894004840bd/pyobjc_framework_coredata-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/c2/2d/57c279dd74a9073d1416b10b05ebb9598f4868cad010d87f46ef4b517324/pyobjc_framework_coremidi-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/fa/0f/52827197a1fa1dabefd77803920eaf340f25e0c81944844ab329d511cade/pyobjc_framework_coreservices-11.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/32/67/9cc5189c366e67dc3e5b5976fac73cc6405841095f795d3fa0d5fc43d76a/pyobjc_framework_coretext-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/5e/17/032fa44bb66b6a20c432f3311072f88478b42dcf39b21ebb6c3bbdf2954f/pyobjc_framework_discrecording-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/4a/a6/505af43f7a17e0ca3d45e099900764e8758e0ca65341e894b74ade513556/pyobjc_framework_discrecordingui-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/1f/72/9534ca88effbf2897e07b722920b3f10890dbc780c6fff1ab4893ec1af10/pyobjc_framework_diskarbitration-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/59/0c/f0fefa171b6938010d87194e26e63eea5c990c33d2d7828de66802f57c36/pyobjc_framework_dvdplayback-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/7f/81/dde9c73bf307b62c2d605fc818d3e49f857f39e0841766093dbc9ea47b08/pyobjc_framework_exceptionhandling-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/13/c7/378d78e0fd956370f2b120b209117384b5b98925c6d8210a33fd73db4a15/pyobjc_framework_fsevents-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/3d/01/45c3d159d671c5f488a40f70aa6791b8483a3ed32b461800990bb5ab4bb3/pyobjc_framework_installerplugins-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/da/94/eef57045762e955795a4e3312674045c52f8c506133acf9efe1b3370b93f/pyobjc_framework_iobluetooth-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/d6/ed/35efed52ed3fa698480624e49ee5f3d859827aad5ff1c7334150c695e188/pyobjc_framework_iobluetoothui-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/2c/50/d62815b02968236eb46c33f0fb0f7293a32ef68d2ec50c397140846d4e42/pyobjc_framework_latentsemanticmapping-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/12/30/a4de9021fdef7db0b224cdc1eae75811d889dc1debdfafdabf8be7bd0fb9/pyobjc_framework_launchservices-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/14/65/c6531ce0792d5035d87f054b0ccf22e453328fda2e68e11a7f70486da23a/pyobjc_framework_osakit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a1/51/75c7e32272241f706ce8168e04a32be02c4b0c244358330f730fc85695c3/pyobjc_framework_preferencepanes-11.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/9b/37/ee6e0bdd31b3b277fec00e5ee84d30eb1b5b8b0e025095e24ddc561697d0/pyobjc_framework_quartz-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/76/f9/4ae982c7a1387b64954130b72187e140329b73c647acb4d6b6eb3c033d8d/pyobjc_framework_screensaver-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/2b/ed/a118d275a9132c8f5adcd353e4d9e844777068e33d51b195f46671161a7f/pyobjc_framework_searchkit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/35/16/7fc52ab1364ada5885bf9b4c9ea9da3ad892b847c9b86aa59e086b16fc11/pyobjc_framework_security-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/6c/ab/23db6b1c09810d6bcc4eab96e62487fb4284b57e447eabe6c001cb41e36d/pyobjc_framework_securityfoundation-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/6f/ab/48b8027a24f3f8924f5be5f97217961b4ed23e6be49b3bd94ee8a0d56a1e/pyobjc_framework_securityinterface-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/01/2b/6d7d65c08a9c51eed12eb7f83eaa48deaed621036f77221b3b0346c3f6c2/pyobjc_framework_syncservices-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/b9/61/0e9841bf1c7597f380a6dcefcc9335b6a909f20d9bdf07910cddc8552b42/pyobjc_framework_systemconfiguration-11.1-cp312-cp312-macosx_10_13_universal2.whl
+      - pypi: https://files.pythonhosted.org/packages/8a/7e/fa2c18c0c0f9321e5036e54b9da7a196956b531e50fe1a76e7dfdbe8fac2/pyobjc_framework_webkit-11.1-cp312-cp312-macosx_10_13_universal2.whl
       - pypi: https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/bc/22540e73c5f5ae18f02924cd3954a6c9a4aa6b713c841a94c98335d333a1/pyperclip-1.10.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/cb/04/2ba023d5f771b645f7be0c281cdacdcd939fe13d1deb331fc5ed1a6b3a98/PyRect-0.2.0.tar.gz
@@ -695,6 +764,43 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/61/ad/689f02752eeec26aed679477e80e632ef1b682313be70793d798c1d5fc8f/PyJWT-2.10.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/4f/ac3fa906ae8a375a536b12794128c5efacade9eaa917a35dfd27ce0c7400/pynput-1.8.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a9/32/ad08b45fc0ad9850054ffe66fb0cb2ff7af3d2007c192dda14cf9a3ea893/pyobjc-11.1-py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/e8/e9/0b85c81e2b441267bca707b5d89f56c2f02578ef8f3eafddf0e0c0b8848c/pyobjc_core-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/eb/d3/f5bb5c72be5c6e52224f43e23e5a44e86d2c35ee9af36939e5514c6c7a0f/pyobjc_framework_addressbook-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/c6/0e/68ac4ce71e613697a087c262aefacc9ed54eaf0cf1d9ffcd89134bfdab9b/pyobjc_framework_applescriptkit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/be/3f/b33ce0cecc3a42f6c289dcbf9ff698b0d9e85f5796db2e9cb5dadccffbb9/pyobjc_framework_applicationservices-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/63/9f/097ed9f4de9e9491a1b08bb7d85d35a95d726c9e9f5f5bf203b359a436b6/pyobjc_framework_automator-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/84/44/f1a20b5aa3833af4d461074c479263a410ef90d17dbec11f78ad9c34dbab/pyobjc_framework_carbon-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/6f/49/7b24172e3d6eb0ddffc33a7498a2bea264aa2958c3fecaeb463bef88f0b8/pyobjc_framework_cfnetwork-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/4b/c5/7a866d24bc026f79239b74d05e2cf3088b03263da66d53d1b4cf5207f5ae/pyobjc_framework_cocoa-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/39/c0/4ab6005cf97e534725b0c14b110d4864b367c282b1c5b0d8f42aad74a83f/pyobjc_framework_coreaudio-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/f1/4e/c49b26c60047c511727efe994b412276c487dfe90f1ee0fced0bddbdf8a3/pyobjc_framework_coreaudiokit-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/00/e3/af497da7a7c895b6ff529d709d855a783f34afcc4b87ab57a1a2afb3f876/pyobjc_framework_coredata-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/06/ca/2ae5149966ccd78290444f88fa62022e2b96ed2fddd47e71d9fd249a9f82/pyobjc_framework_coremidi-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/a8/a9/141d18019a25776f507992f9e7ffc051ca5a734848d8ea8d848f7c938efc/pyobjc_framework_coreservices-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/65/e9/d3231c4f87d07b8525401fd6ad3c56607c9e512c5490f0a7a6abb13acab6/pyobjc_framework_coretext-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/a5/b2/d8d1a28643c2ab681b517647bacb68496c98886336ffbd274f0b2ad28cdc/pyobjc_framework_discrecording-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/4a/a6/505af43f7a17e0ca3d45e099900764e8758e0ca65341e894b74ade513556/pyobjc_framework_discrecordingui-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/1f/72/9534ca88effbf2897e07b722920b3f10890dbc780c6fff1ab4893ec1af10/pyobjc_framework_diskarbitration-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/59/0c/f0fefa171b6938010d87194e26e63eea5c990c33d2d7828de66802f57c36/pyobjc_framework_dvdplayback-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/7f/81/dde9c73bf307b62c2d605fc818d3e49f857f39e0841766093dbc9ea47b08/pyobjc_framework_exceptionhandling-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/8e/83/ec0b9ba355dbc34f27ed748df9df4eb6dbfdd9bbd614b0f193752f36f419/pyobjc_framework_fsevents-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/3d/01/45c3d159d671c5f488a40f70aa6791b8483a3ed32b461800990bb5ab4bb3/pyobjc_framework_installerplugins-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/93/e0/74b7b10c567b66c5f38b45ab240336325a4c889f43072d90f2b90aaeb7c0/pyobjc_framework_iobluetooth-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/d6/ed/35efed52ed3fa698480624e49ee5f3d859827aad5ff1c7334150c695e188/pyobjc_framework_iobluetoothui-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/2c/50/d62815b02968236eb46c33f0fb0f7293a32ef68d2ec50c397140846d4e42/pyobjc_framework_latentsemanticmapping-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/12/30/a4de9021fdef7db0b224cdc1eae75811d889dc1debdfafdabf8be7bd0fb9/pyobjc_framework_launchservices-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/14/65/c6531ce0792d5035d87f054b0ccf22e453328fda2e68e11a7f70486da23a/pyobjc_framework_osakit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a1/51/75c7e32272241f706ce8168e04a32be02c4b0c244358330f730fc85695c3/pyobjc_framework_preferencepanes-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/c7/ac/6308fec6c9ffeda9942fef72724f4094c6df4933560f512e63eac37ebd30/pyobjc_framework_quartz-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/7c/f6/f2d48583b29fc67b64aa1f415fd51faf003d045cdb1f3acab039b9a3f59f/pyobjc_framework_screensaver-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/2b/ed/a118d275a9132c8f5adcd353e4d9e844777068e33d51b195f46671161a7f/pyobjc_framework_searchkit-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/ee/6f/ba50ed2d9c1192c67590a7cfefa44fc5f85c776d1e25beb224dec32081f6/pyobjc_framework_security-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/6c/ab/23db6b1c09810d6bcc4eab96e62487fb4284b57e447eabe6c001cb41e36d/pyobjc_framework_securityfoundation-11.1-py2.py3-none-any.whl
+      - pypi: https://files.pythonhosted.org/packages/a1/be/c846651c3e7f38a637c40ae1bcda9f14237c2395637c3a188df4f733c727/pyobjc_framework_securityinterface-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/69/45/cd9fa83ed1d75be7130fb8e41c375f05b5d6621737ec37e9d8da78676613/pyobjc_framework_syncservices-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/e2/3d/41590c0afc72e93d911348fbde0c9c1071ff53c6f86df42df64b21174bb9/pyobjc_framework_systemconfiguration-11.1.tar.gz
+      - pypi: https://files.pythonhosted.org/packages/92/04/fb3d0b68994f7e657ef00c1ac5fc1c04ae2fc7ea581d647f5ae1f6739b14/pyobjc_framework_webkit-11.1.tar.gz
       - pypi: https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1e/bc/22540e73c5f5ae18f02924cd3954a6c9a4aa6b713c841a94c98335d333a1/pyperclip-1.10.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/5a/dc/491b7661614ab97483abf2056be1deee4dc2490ecbf7bff9ab5cdbac86e1/pyreadline3-3.5.4-py3-none-any.whl
@@ -6108,11 +6214,364 @@ packages:
   - enum34 ; python_full_version == '2.7.*'
   - pyobjc-framework-applicationservices>=8.0 ; sys_platform == 'darwin'
   - pyobjc-framework-quartz>=8.0 ; sys_platform == 'darwin'
+- pypi: https://files.pythonhosted.org/packages/a9/32/ad08b45fc0ad9850054ffe66fb0cb2ff7af3d2007c192dda14cf9a3ea893/pyobjc-11.1-py3-none-any.whl
+  name: pyobjc
+  version: '11.1'
+  sha256: 903f822cba40be53d408b8eaf834514937ec0b4e6af1c5ecc24fcb652812dd85
+  requires_dist:
+  - pyobjc-core==11.1
+  - pyobjc-framework-libdispatch==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-libxpc==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-accessibility==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-adservices==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-adsupport==11.1 ; platform_release >= '18.0'
+  - pyobjc-framework-apptrackingtransparency==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-audiovideobridging==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-authenticationservices==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-automaticassessmentconfiguration==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-avkit==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-avfoundation==11.1 ; platform_release >= '11.0'
+  - pyobjc-framework-avrouting==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-accounts==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-addressbook==11.1
+  - pyobjc-framework-applescriptkit==11.1
+  - pyobjc-framework-applescriptobjc==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-applicationservices==11.1
+  - pyobjc-framework-automator==11.1
+  - pyobjc-framework-backgroundassets==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-browserenginekit==11.1 ; platform_release >= '23.4'
+  - pyobjc-framework-businesschat==11.1 ; platform_release >= '18.0'
+  - pyobjc-framework-cfnetwork==11.1
+  - pyobjc-framework-calendarstore==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-callkit==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-carbon==11.1
+  - pyobjc-framework-cinematic==11.1 ; platform_release >= '23.0'
+  - pyobjc-framework-classkit==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-cloudkit==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-cocoa==11.1
+  - pyobjc-framework-collaboration==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-colorsync==11.1 ; platform_release >= '17.0'
+  - pyobjc-framework-contacts==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-contactsui==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-coreaudio==11.1
+  - pyobjc-framework-coreaudiokit==11.1
+  - pyobjc-framework-corebluetooth==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-coredata==11.1
+  - pyobjc-framework-corehaptics==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-corelocation==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-coremedia==11.1 ; platform_release >= '11.0'
+  - pyobjc-framework-coremediaio==11.1 ; platform_release >= '11.0'
+  - pyobjc-framework-coremidi==11.1
+  - pyobjc-framework-coreml==11.1 ; platform_release >= '17.0'
+  - pyobjc-framework-coremotion==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-coreservices==11.1
+  - pyobjc-framework-corespotlight==11.1 ; platform_release >= '17.0'
+  - pyobjc-framework-coretext==11.1
+  - pyobjc-framework-corewlan==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-cryptotokenkit==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-datadetection==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-devicecheck==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-devicediscoveryextension==11.1 ; platform_release >= '24.0'
+  - pyobjc-framework-dictionaryservices==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-discrecording==11.1
+  - pyobjc-framework-discrecordingui==11.1
+  - pyobjc-framework-diskarbitration==11.1
+  - pyobjc-framework-dvdplayback==11.1
+  - pyobjc-framework-eventkit==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-exceptionhandling==11.1
+  - pyobjc-framework-executionpolicy==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-externalaccessory==11.1 ; platform_release >= '17.0'
+  - pyobjc-framework-extensionkit==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-fileprovider==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-fileproviderui==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-fsevents==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-fskit==11.1 ; platform_release >= '24.4'
+  - pyobjc-framework-findersync==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-gamecenter==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-gamecontroller==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-healthkit==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-inputmethodkit==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-imagecapturecore==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-intents==11.1 ; platform_release >= '16.0'
+  - pyobjc-framework-intentsui==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-installerplugins==11.1
+  - pyobjc-framework-instantmessage==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-iobluetooth==11.1
+  - pyobjc-framework-iobluetoothui==11.1
+  - pyobjc-framework-iosurface==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-kernelmanagement==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-latentsemanticmapping==11.1
+  - pyobjc-framework-launchservices==11.1
+  - pyobjc-framework-linkpresentation==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-localauthentication==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-localauthenticationembeddedui==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-mailkit==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-mapkit==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-mediaaccessibility==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-mediaextension==11.1 ; platform_release >= '24.0'
+  - pyobjc-framework-medialibrary==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-mediaplayer==11.1 ; platform_release >= '16.0'
+  - pyobjc-framework-mediatoolbox==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-metal==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-metalfx==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-metalkit==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-metalperformanceshaders==11.1 ; platform_release >= '17.0'
+  - pyobjc-framework-metalperformanceshadersgraph==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-metrickit==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-mlcompute==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-modelio==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-multipeerconnectivity==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-naturallanguage==11.1 ; platform_release >= '18.0'
+  - pyobjc-framework-netfs==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-network==11.1 ; platform_release >= '18.0'
+  - pyobjc-framework-networkextension==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-notificationcenter==11.1 ; platform_release >= '14.0'
+  - pyobjc-framework-opendirectory==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-osakit==11.1
+  - pyobjc-framework-oslog==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-passkit==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-pencilkit==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-phase==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-photos==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-photosui==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-preferencepanes==11.1
+  - pyobjc-framework-pubsub==11.1 ; python_full_version < '0'
+  - pyobjc-framework-pushkit==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-quartz==11.1
+  - pyobjc-framework-quicklookthumbnailing==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-replaykit==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-safetykit==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-safariservices==11.1 ; platform_release >= '16.0'
+  - pyobjc-framework-screensaver==11.1
+  - pyobjc-framework-screentime==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-scriptingbridge==11.1 ; platform_release >= '9.0'
+  - pyobjc-framework-security==11.1
+  - pyobjc-framework-securityfoundation==11.1
+  - pyobjc-framework-securityinterface==11.1
+  - pyobjc-framework-securityui==11.1 ; platform_release >= '24.4'
+  - pyobjc-framework-searchkit==11.1
+  - pyobjc-framework-servicemanagement==11.1 ; platform_release >= '10.0'
+  - pyobjc-framework-shazamkit==11.1 ; platform_release >= '21.0'
+  - pyobjc-framework-social==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-speech==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-spritekit==11.1 ; platform_release >= '13.0'
+  - pyobjc-framework-storekit==11.1 ; platform_release >= '11.0'
+  - pyobjc-framework-syncservices==11.1
+  - pyobjc-framework-systemconfiguration==11.1
+  - pyobjc-framework-webkit==11.1
+  - pyobjc-framework-gamekit==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-gameplaykit==11.1 ; platform_release >= '15.0'
+  - pyobjc-framework-scenekit==11.1 ; platform_release >= '11.0'
+  - pyobjc-framework-sensitivecontentanalysis==11.1 ; platform_release >= '23.0'
+  - pyobjc-framework-sharedwithyoucore==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-sharedwithyou==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-soundanalysis==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-screencapturekit==11.1 ; platform_release >= '21.4'
+  - pyobjc-framework-symbols==11.1 ; platform_release >= '23.0'
+  - pyobjc-framework-systemextensions==11.1 ; platform_release >= '19.0'
+  - pyobjc-framework-threadnetwork==11.1 ; platform_release >= '22.0'
+  - pyobjc-framework-uniformtypeidentifiers==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-usernotifications==11.1 ; platform_release >= '18.0'
+  - pyobjc-framework-usernotificationsui==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-videosubscriberaccount==11.1 ; platform_release >= '18.0'
+  - pyobjc-framework-videotoolbox==11.1 ; platform_release >= '12.0'
+  - pyobjc-framework-virtualization==11.1 ; platform_release >= '20.0'
+  - pyobjc-framework-vision==11.1 ; platform_release >= '17.0'
+  - pyobjc-framework-ituneslibrary==11.1 ; platform_release >= '10.0'
+  - pyobjc-core==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-libdispatch==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-libxpc==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-accessibility==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-adservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-adsupport==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-apptrackingtransparency==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-audiovideobridging==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-authenticationservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-automaticassessmentconfiguration==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-avkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-avfoundation==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-avrouting==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-accounts==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-addressbook==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-applescriptkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-applescriptobjc==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-applicationservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-automator==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-backgroundassets==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-browserenginekit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-businesschat==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-cfnetwork==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-calendarstore==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-callkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-carbon==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-cinematic==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-classkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-cloudkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-cocoa==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-collaboration==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-colorsync==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-contacts==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-contactsui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coreaudio==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coreaudiokit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-corebluetooth==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coredata==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-corehaptics==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-corelocation==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coremedia==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coremediaio==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coremidi==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coreml==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coremotion==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coreservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-corespotlight==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-coretext==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-corewlan==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-cryptotokenkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-datadetection==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-devicecheck==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-devicediscoveryextension==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-dictionaryservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-discrecording==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-discrecordingui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-diskarbitration==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-dvdplayback==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-eventkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-exceptionhandling==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-executionpolicy==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-externalaccessory==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-extensionkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-fileprovider==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-fileproviderui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-fsevents==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-fskit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-findersync==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-gamecenter==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-gamecontroller==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-healthkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-inputmethodkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-imagecapturecore==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-intents==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-intentsui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-installerplugins==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-instantmessage==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-iobluetooth==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-iobluetoothui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-iosurface==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-kernelmanagement==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-latentsemanticmapping==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-launchservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-linkpresentation==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-localauthentication==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-localauthenticationembeddedui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mailkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mapkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mediaaccessibility==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mediaextension==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-medialibrary==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mediaplayer==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mediatoolbox==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-metal==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-metalfx==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-metalkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-metalperformanceshaders==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-metalperformanceshadersgraph==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-metrickit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-mlcompute==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-modelio==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-multipeerconnectivity==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-naturallanguage==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-netfs==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-network==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-networkextension==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-notificationcenter==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-opendirectory==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-osakit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-oslog==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-passkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-pencilkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-phase==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-photos==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-photosui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-preferencepanes==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-pubsub==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-pushkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-quartz==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-quicklookthumbnailing==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-replaykit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-safetykit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-safariservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-screensaver==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-screentime==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-scriptingbridge==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-security==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-securityfoundation==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-securityinterface==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-securityui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-searchkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-servicemanagement==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-shazamkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-social==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-speech==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-spritekit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-storekit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-syncservices==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-systemconfiguration==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-webkit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-gamekit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-gameplaykit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-scenekit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-sensitivecontentanalysis==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-sharedwithyoucore==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-sharedwithyou==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-soundanalysis==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-screencapturekit==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-symbols==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-systemextensions==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-threadnetwork==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-uniformtypeidentifiers==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-usernotifications==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-usernotificationsui==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-videosubscriberaccount==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-videotoolbox==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-virtualization==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-vision==11.1 ; extra == 'allbindings'
+  - pyobjc-framework-ituneslibrary==11.1 ; extra == 'allbindings'
+  requires_python: '>=3.9'
 - pypi: https://files.pythonhosted.org/packages/c0/09/e83228e878e73bf756749939f906a872da54488f18d75658afa7f1abbab1/pyobjc_core-11.1-cp312-cp312-macosx_10_13_universal2.whl
   name: pyobjc-core
   version: '11.1'
   sha256: 765b97dea6b87ec4612b3212258024d8496ea23517c95a1c5f0735f96b7fd529
   requires_python: '>=3.8'
+- pypi: https://files.pythonhosted.org/packages/e8/e9/0b85c81e2b441267bca707b5d89f56c2f02578ef8f3eafddf0e0c0b8848c/pyobjc_core-11.1.tar.gz
+  name: pyobjc-core
+  version: '11.1'
+  sha256: b63d4d90c5df7e762f34739b39cc55bc63dbcf9fb2fb3f2671e528488c7a87fe
+  requires_python: '>=3.8'
+- pypi: https://files.pythonhosted.org/packages/c2/de/e1ba5f113c05b543a097040add795fa4b85fdd5ad850b56d83cd6ce8afff/pyobjc_framework_addressbook-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-addressbook
+  version: '11.1'
+  sha256: fb3d0a710f8342a0c63a8e4caf64a044b4d7e42d6d242c8e1b54470238b938cb
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/eb/d3/f5bb5c72be5c6e52224f43e23e5a44e86d2c35ee9af36939e5514c6c7a0f/pyobjc_framework_addressbook-11.1.tar.gz
+  name: pyobjc-framework-addressbook
+  version: '11.1'
+  sha256: ce2db3be4a3128bf79d5c41319a6d16b73754785ce75ac694d0d658c690922fc
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/c6/0e/68ac4ce71e613697a087c262aefacc9ed54eaf0cf1d9ffcd89134bfdab9b/pyobjc_framework_applescriptkit-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-applescriptkit
+  version: '11.1'
+  sha256: e22cbc9d1a25a4a713f21aa94dd017c311186b02062fc7ffbde3009495fb0067
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
 - pypi: https://files.pythonhosted.org/packages/38/ec/46a5c710e2d7edf55105223c34fed5a7b7cc7aba7d00a3a7b0405d6a2d1a/pyobjc_framework_applicationservices-11.1-cp312-cp312-macosx_10_13_universal2.whl
   name: pyobjc-framework-applicationservices
   version: '11.1'
@@ -6123,12 +6582,153 @@ packages:
   - pyobjc-framework-quartz>=11.1
   - pyobjc-framework-coretext>=11.1
   requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/be/3f/b33ce0cecc3a42f6c289dcbf9ff698b0d9e85f5796db2e9cb5dadccffbb9/pyobjc_framework_applicationservices-11.1.tar.gz
+  name: pyobjc-framework-applicationservices
+  version: '11.1'
+  sha256: 03fcd8c0c600db98fa8b85eb7b3bc31491701720c795e3f762b54e865138bbaf
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-quartz>=11.1
+  - pyobjc-framework-coretext>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/0e/1e/3ed1df2168e596151da2329258951dae334e194d7de3b117c7e29a768ffc/pyobjc_framework_automator-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-automator
+  version: '11.1'
+  sha256: af5941f8d90167244209b352512b7779e5590d17dc1e703e087a6cfe79ee3d64
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/63/9f/097ed9f4de9e9491a1b08bb7d85d35a95d726c9e9f5f5bf203b359a436b6/pyobjc_framework_automator-11.1.tar.gz
+  name: pyobjc-framework-automator
+  version: '11.1'
+  sha256: 9b46c55a4f9ae2b3c39ff560f42ced66bdd18c093188f0b5fc4060ad911838e4
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/84/44/f1a20b5aa3833af4d461074c479263a410ef90d17dbec11f78ad9c34dbab/pyobjc_framework_carbon-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-carbon
+  version: '11.1'
+  sha256: 1bf66853e939315ad7ee968170b16dd12cb838c42b80dfcd5354687760998825
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/6f/49/7b24172e3d6eb0ddffc33a7498a2bea264aa2958c3fecaeb463bef88f0b8/pyobjc_framework_cfnetwork-11.1.tar.gz
+  name: pyobjc-framework-cfnetwork
+  version: '11.1'
+  sha256: ad600163eeadb7bf71abc51a9b6f2b5462a018d3f9bb1510c5ce3fdf2f22959d
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/c2/31/05b4fb79e7f738f7f7d7a58734de2fab47d9a1fb219c2180e8c07efe2550/pyobjc_framework_cfnetwork-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-cfnetwork
+  version: '11.1'
+  sha256: 70beb8095df76e0e8eb7ab218be1e69ae180e01a4d77f7cad73c97b4eb7a296a
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/4b/c5/7a866d24bc026f79239b74d05e2cf3088b03263da66d53d1b4cf5207f5ae/pyobjc_framework_cocoa-11.1.tar.gz
+  name: pyobjc-framework-cocoa
+  version: '11.1'
+  sha256: 87df76b9b73e7ca699a828ff112564b59251bb9bbe72e610e670a4dc9940d038
+  requires_dist:
+  - pyobjc-core>=11.1
+  requires_python: '>=3.9'
 - pypi: https://files.pythonhosted.org/packages/68/da/41c0f7edc92ead461cced7e67813e27fa17da3c5da428afdb4086c69d7ba/pyobjc_framework_cocoa-11.1-cp312-cp312-macosx_10_13_universal2.whl
   name: pyobjc-framework-cocoa
   version: '11.1'
   sha256: 806de56f06dfba8f301a244cce289d54877c36b4b19818e3b53150eb7c2424d0
   requires_dist:
   - pyobjc-core>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/39/c0/4ab6005cf97e534725b0c14b110d4864b367c282b1c5b0d8f42aad74a83f/pyobjc_framework_coreaudio-11.1.tar.gz
+  name: pyobjc-framework-coreaudio
+  version: '11.1'
+  sha256: b7b89540ae7efc6c1e3208ac838ef2acfc4d2c506dd629d91f6b3b3120e55c1b
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/3d/fe/c43521642db98a4ec29fa535781c1316342bb52d5fc709696cbb1e8ca6cd/pyobjc_framework_coreaudio-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-coreaudio
+  version: '11.1'
+  sha256: 2538d1242dab4e27efb346eafbad50594e7e95597fa7220f0bab2099c825da55
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/18/27/d8ff6293851a7d9665724fa5c324d28200776ec10a04b850ba21ad1f9be1/pyobjc_framework_coreaudiokit-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-coreaudiokit
+  version: '11.1'
+  sha256: 20440a2926b1d91da8efc8bc060e77c7a195cb0443dbf3770eaca9e597276748
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-coreaudio>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/f1/4e/c49b26c60047c511727efe994b412276c487dfe90f1ee0fced0bddbdf8a3/pyobjc_framework_coreaudiokit-11.1.tar.gz
+  name: pyobjc-framework-coreaudiokit
+  version: '11.1'
+  sha256: 0b461c3d6123fda4da6b6aaa022efc918c1de2e126a5cf07d2189d63fa54ba40
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-coreaudio>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/00/e3/af497da7a7c895b6ff529d709d855a783f34afcc4b87ab57a1a2afb3f876/pyobjc_framework_coredata-11.1.tar.gz
+  name: pyobjc-framework-coredata
+  version: '11.1'
+  sha256: fe9fd985f8e06c70c0fb1e6bbea5b731461f9e76f8f8d8e89c7c72667cdc6adf
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/5b/ac/77935aa9891bd6be952b1e6780df2bae748971dd0fe0b5155894004840bd/pyobjc_framework_coredata-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-coredata
+  version: '11.1'
+  sha256: c9b2374784e67694a18fc8c120a12f11b355a20b643c01f23ae2ce87330a75e0
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/06/ca/2ae5149966ccd78290444f88fa62022e2b96ed2fddd47e71d9fd249a9f82/pyobjc_framework_coremidi-11.1.tar.gz
+  name: pyobjc-framework-coremidi
+  version: '11.1'
+  sha256: 095030c59d50c23aa53608777102bc88744ff8b10dfb57afe24b428dcd12e376
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/c2/2d/57c279dd74a9073d1416b10b05ebb9598f4868cad010d87f46ef4b517324/pyobjc_framework_coremidi-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-coremidi
+  version: '11.1'
+  sha256: deb9120478a831a898f22f68737fc683bb9b937e77556e78b75986aebd349c55
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/a8/a9/141d18019a25776f507992f9e7ffc051ca5a734848d8ea8d848f7c938efc/pyobjc_framework_coreservices-11.1.tar.gz
+  name: pyobjc-framework-coreservices
+  version: '11.1'
+  sha256: cf8eb5e272c60a96d025313eca26ff2487dcd02c47034cc9db39f6852d077873
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-fsevents>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/fa/0f/52827197a1fa1dabefd77803920eaf340f25e0c81944844ab329d511cade/pyobjc_framework_coreservices-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-coreservices
+  version: '11.1'
+  sha256: 6bd313ec326efd715b4b10c3ebcc9f054e3ee3178be407b97ea225cd871351d2
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-fsevents>=11.1
+  - pyobjc-framework-cocoa>=11.1
   requires_python: '>=3.9'
 - pypi: https://files.pythonhosted.org/packages/32/67/9cc5189c366e67dc3e5b5976fac73cc6405841095f795d3fa0d5fc43d76a/pyobjc_framework_coretext-11.1-cp312-cp312-macosx_10_13_universal2.whl
   name: pyobjc-framework-coretext
@@ -6139,10 +6739,273 @@ packages:
   - pyobjc-framework-cocoa>=11.1
   - pyobjc-framework-quartz>=11.1
   requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/65/e9/d3231c4f87d07b8525401fd6ad3c56607c9e512c5490f0a7a6abb13acab6/pyobjc_framework_coretext-11.1.tar.gz
+  name: pyobjc-framework-coretext
+  version: '11.1'
+  sha256: a29bbd5d85c77f46a8ee81d381b847244c88a3a5a96ac22f509027ceceaffaf6
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-quartz>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/5e/17/032fa44bb66b6a20c432f3311072f88478b42dcf39b21ebb6c3bbdf2954f/pyobjc_framework_discrecording-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-discrecording
+  version: '11.1'
+  sha256: e29bc8c3741ae52fae092f892de856dbab2363e71537a8ae6fd026ecb88e2252
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/a5/b2/d8d1a28643c2ab681b517647bacb68496c98886336ffbd274f0b2ad28cdc/pyobjc_framework_discrecording-11.1.tar.gz
+  name: pyobjc-framework-discrecording
+  version: '11.1'
+  sha256: 37585458e363b20bb28acdb5cc265dfca934d8a07b7baed2584953c11c927a87
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/4a/a6/505af43f7a17e0ca3d45e099900764e8758e0ca65341e894b74ade513556/pyobjc_framework_discrecordingui-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-discrecordingui
+  version: '11.1'
+  sha256: 33233b87d7b85ce277a51d27acca0f5b38485cf1d1dc8e28a065910047766ee2
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-discrecording>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/1f/72/9534ca88effbf2897e07b722920b3f10890dbc780c6fff1ab4893ec1af10/pyobjc_framework_diskarbitration-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-diskarbitration
+  version: '11.1'
+  sha256: 6a8e551e54df481a9081abba6fd680f6633babe5c7735f649731b22896bb6f08
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/59/0c/f0fefa171b6938010d87194e26e63eea5c990c33d2d7828de66802f57c36/pyobjc_framework_dvdplayback-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-dvdplayback
+  version: '11.1'
+  sha256: 6094e4651ea29540ac817294b27e1596b9d1883d30e78fb5f9619daf94ed30cb
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/7f/81/dde9c73bf307b62c2d605fc818d3e49f857f39e0841766093dbc9ea47b08/pyobjc_framework_exceptionhandling-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-exceptionhandling
+  version: '11.1'
+  sha256: 31e6538160dfd7526ac0549bc0fce5d039932aea84c36abbe7b49c79ffc62437
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/13/c7/378d78e0fd956370f2b120b209117384b5b98925c6d8210a33fd73db4a15/pyobjc_framework_fsevents-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-fsevents
+  version: '11.1'
+  sha256: 8b51d120b8f12a1ca94e28cf74113bf2bfd4c5aee7035b452e895518f4df7630
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/8e/83/ec0b9ba355dbc34f27ed748df9df4eb6dbfdd9bbd614b0f193752f36f419/pyobjc_framework_fsevents-11.1.tar.gz
+  name: pyobjc-framework-fsevents
+  version: '11.1'
+  sha256: d29157d04124503c4dfa9dcbbdc8c34d3bab134d3db3a48d96d93f26bd94c14d
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/3d/01/45c3d159d671c5f488a40f70aa6791b8483a3ed32b461800990bb5ab4bb3/pyobjc_framework_installerplugins-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-installerplugins
+  version: '11.1'
+  sha256: f92b06c9595f3c800b7aabf1c1a235bfb4b2de3f5406d5f604d8e2ddd0aecb4e
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/93/e0/74b7b10c567b66c5f38b45ab240336325a4c889f43072d90f2b90aaeb7c0/pyobjc_framework_iobluetooth-11.1.tar.gz
+  name: pyobjc-framework-iobluetooth
+  version: '11.1'
+  sha256: 094fd4be60cd1371b17cb4b33a3894e0d88a11b36683912be0540a7d51de76f1
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/da/94/eef57045762e955795a4e3312674045c52f8c506133acf9efe1b3370b93f/pyobjc_framework_iobluetooth-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-iobluetooth
+  version: '11.1'
+  sha256: 883781e7223cb0c63fab029d640721ded747f2e2b067645bc8b695ef02a4a4dd
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/d6/ed/35efed52ed3fa698480624e49ee5f3d859827aad5ff1c7334150c695e188/pyobjc_framework_iobluetoothui-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-iobluetoothui
+  version: '11.1'
+  sha256: 3c5a382d81f319a1ab9ab11b7ead04e53b758fdfeb604755d39c3039485eaac6
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-iobluetooth>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/2c/50/d62815b02968236eb46c33f0fb0f7293a32ef68d2ec50c397140846d4e42/pyobjc_framework_latentsemanticmapping-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-latentsemanticmapping
+  version: '11.1'
+  sha256: 57f3b183021759a100d2847a4d8aa314f4033be3d2845038b62e5e823d96e871
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/12/30/a4de9021fdef7db0b224cdc1eae75811d889dc1debdfafdabf8be7bd0fb9/pyobjc_framework_launchservices-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-launchservices
+  version: '11.1'
+  sha256: 8b58f1156651058b2905c87ce48468f4799db86a7edf760e1897fedd057a3908
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-coreservices>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/14/65/c6531ce0792d5035d87f054b0ccf22e453328fda2e68e11a7f70486da23a/pyobjc_framework_osakit-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-osakit
+  version: '11.1'
+  sha256: 1b0c0cc537ffb8a8365ef9a8b46f717a7cc2906414b6a3983777a6c0e4d53d5a
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/a1/51/75c7e32272241f706ce8168e04a32be02c4b0c244358330f730fc85695c3/pyobjc_framework_preferencepanes-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-preferencepanes
+  version: '11.1'
+  sha256: 6ee5f5a7eb294e03ea3bac522ac4b69e6dc83ceceff627a0a2d289afe1e01ad9
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
 - pypi: https://files.pythonhosted.org/packages/9b/37/ee6e0bdd31b3b277fec00e5ee84d30eb1b5b8b0e025095e24ddc561697d0/pyobjc_framework_quartz-11.1-cp312-cp312-macosx_10_13_universal2.whl
   name: pyobjc-framework-quartz
   version: '11.1'
   sha256: 9ac806067541917d6119b98d90390a6944e7d9bd737f5c0a79884202327c9204
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/c7/ac/6308fec6c9ffeda9942fef72724f4094c6df4933560f512e63eac37ebd30/pyobjc_framework_quartz-11.1.tar.gz
+  name: pyobjc-framework-quartz
+  version: '11.1'
+  sha256: a57f35ccfc22ad48c87c5932818e583777ff7276605fef6afad0ac0741169f75
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/76/f9/4ae982c7a1387b64954130b72187e140329b73c647acb4d6b6eb3c033d8d/pyobjc_framework_screensaver-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-screensaver
+  version: '11.1'
+  sha256: f2d22293cf9d715e4692267a1678096afd6793c0519d9417cf77c8a6c706a543
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/7c/f6/f2d48583b29fc67b64aa1f415fd51faf003d045cdb1f3acab039b9a3f59f/pyobjc_framework_screensaver-11.1.tar.gz
+  name: pyobjc-framework-screensaver
+  version: '11.1'
+  sha256: d5fbc9dc076cc574ead183d521840b56be0c160415e43cb8e01cfddd6d6372c2
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/2b/ed/a118d275a9132c8f5adcd353e4d9e844777068e33d51b195f46671161a7f/pyobjc_framework_searchkit-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-searchkit
+  version: '11.1'
+  sha256: 9c9d6ca71cef637ccc3627225fb924a460b3d0618ed79bb0b3c12fcbe9270323
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-coreservices>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/35/16/7fc52ab1364ada5885bf9b4c9ea9da3ad892b847c9b86aa59e086b16fc11/pyobjc_framework_security-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-security
+  version: '11.1'
+  sha256: 2eb4ba6d8b221b9ad5d010e026247e8aa26ee43dcaf327e848340ed227d22d7e
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/ee/6f/ba50ed2d9c1192c67590a7cfefa44fc5f85c776d1e25beb224dec32081f6/pyobjc_framework_security-11.1.tar.gz
+  name: pyobjc-framework-security
+  version: '11.1'
+  sha256: dabcee6987c6bae575e2d1ef0fcbe437678c4f49f1c25a4b131a5e960f31a2da
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/6c/ab/23db6b1c09810d6bcc4eab96e62487fb4284b57e447eabe6c001cb41e36d/pyobjc_framework_securityfoundation-11.1-py2.py3-none-any.whl
+  name: pyobjc-framework-securityfoundation
+  version: '11.1'
+  sha256: 25f2cf10f80c122f462e9d4d43efe9fd697299c194e0c357e76650e234e6d286
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-security>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/6f/ab/48b8027a24f3f8924f5be5f97217961b4ed23e6be49b3bd94ee8a0d56a1e/pyobjc_framework_securityinterface-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-securityinterface
+  version: '11.1'
+  sha256: 26056441b325029da06a7c7b8dd1a0c9a4ad7d980596c1b04d132a502b4cacc0
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-security>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/a1/be/c846651c3e7f38a637c40ae1bcda9f14237c2395637c3a188df4f733c727/pyobjc_framework_securityinterface-11.1.tar.gz
+  name: pyobjc-framework-securityinterface
+  version: '11.1'
+  sha256: e7aa6373e525f3ae05d71276e821a6348c53fec9f812b90eec1dbadfcb507bc9
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-security>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/01/2b/6d7d65c08a9c51eed12eb7f83eaa48deaed621036f77221b3b0346c3f6c2/pyobjc_framework_syncservices-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-syncservices
+  version: '11.1'
+  sha256: 03124c8c7c7ce837f51e1c9bdcf84c6f1d5201f92c8a1c172ec34908d5e57415
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-coredata>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/69/45/cd9fa83ed1d75be7130fb8e41c375f05b5d6621737ec37e9d8da78676613/pyobjc_framework_syncservices-11.1.tar.gz
+  name: pyobjc-framework-syncservices
+  version: '11.1'
+  sha256: 0f141d717256b98c17ec2eddbc983c4bd39dfa00dc0c31b4174742e73a8447fe
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  - pyobjc-framework-coredata>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/b9/61/0e9841bf1c7597f380a6dcefcc9335b6a909f20d9bdf07910cddc8552b42/pyobjc_framework_systemconfiguration-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-systemconfiguration
+  version: '11.1'
+  sha256: 6881929b828a566bf1349f09db4943e96a2b33f42556e1f7f6f28b192420f6fc
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/e2/3d/41590c0afc72e93d911348fbde0c9c1071ff53c6f86df42df64b21174bb9/pyobjc_framework_systemconfiguration-11.1.tar.gz
+  name: pyobjc-framework-systemconfiguration
+  version: '11.1'
+  sha256: f30ed0e9a8233fecb06522e67795918ab230ddcc4a18e15494eff7532f4c3ae1
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/8a/7e/fa2c18c0c0f9321e5036e54b9da7a196956b531e50fe1a76e7dfdbe8fac2/pyobjc_framework_webkit-11.1-cp312-cp312-macosx_10_13_universal2.whl
+  name: pyobjc-framework-webkit
+  version: '11.1'
+  sha256: 1a6e6f64ca53c4953f17e808ecac11da288d9a6ade738156ba161732a5e0c96a
+  requires_dist:
+  - pyobjc-core>=11.1
+  - pyobjc-framework-cocoa>=11.1
+  requires_python: '>=3.9'
+- pypi: https://files.pythonhosted.org/packages/92/04/fb3d0b68994f7e657ef00c1ac5fc1c04ae2fc7ea581d647f5ae1f6739b14/pyobjc_framework_webkit-11.1.tar.gz
+  name: pyobjc-framework-webkit
+  version: '11.1'
+  sha256: 27e701c7aaf4f24fc7e601a128e2ef14f2773f4ab071b9db7438dc5afb5053ae
   requires_dist:
   - pyobjc-core>=11.1
   - pyobjc-framework-cocoa>=11.1

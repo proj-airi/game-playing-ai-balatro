@@ -29,6 +29,7 @@ pynput = ">=1.7.7, <2"
 mss = ">=9.0.2, <10"
 openai = ">=1.59.0, <2"
 anthropic = ">=0.42.0, <1"
+pyobjc = ">=11.1, <12"
 
 [target.win-64.dependencies]
 cuda = ">=13.0.1,<14"

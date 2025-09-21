@@ -1,0 +1,16 @@
+{
+  "yolo_model_path": "/home/neko/Git/github.com/proj-airi/game-playing-ai-balatro/runs/v2-balatro-entities-2000-epoch/weights/best.pt",
+  "use_onnx": false,
+  "ai_provider": "openai",
+  "ai_model_name": "gpt-4o-mini",
+  "confidence_threshold": 0.5,
+  "iou_threshold": 0.45,
+  "fps": 2,
+  "decision_interval": 3.0,
+  "max_actions_per_minute": 20,
+  "enable_safety": true,
+  "require_confirmation": true,
+  "show_detection": true,
+  "save_screenshots": false,
+  "log_decisions": true
+}

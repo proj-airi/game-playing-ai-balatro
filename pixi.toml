@@ -9,9 +9,9 @@ version = "0.1.0"
 fmt = "ruff format ."
 lint = "pylint src/ --ignore=tests"
 ruff-check = "ruff check . --fix"
-style = { depends_on = ["fmt", "ruff-check", "lint"] }
+style = { depends-on = ["fmt", "ruff-check", "lint"] }
 test = "pytest tests/ -v"
-quality = { depends_on = ["style", "test"] }
+quality = { depends-on = ["style", "test"] }
 
 [dependencies]
 python = "3.12.*"

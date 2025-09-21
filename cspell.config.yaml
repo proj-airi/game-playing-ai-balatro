@@ -17,6 +17,7 @@ words:
   - opencv
   - pixi
   - pyautogui
+  - pylint
   - pynput
   - pypi
   - tqdm

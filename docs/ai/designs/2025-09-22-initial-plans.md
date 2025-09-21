@@ -1,18 +1,15 @@
 ---
-title: "Multi-Modal Balatro AI System Design"
+title: "Initial Plans"
 date: "2025-09-22"
-version: "1.0"
-status: "draft"
 coding_agents:
   authors: ["Neko Ayaka", "RainbowBird", "Claude Code"]
   project: "proj-airi/game-playing-ai-balatro"
   context: "AI system architecture for Balatro game playing agent"
   technologies: ["YOLO", "VLM", "LLM", "PyTorch", "ONNX", "FastVLM", "OpenRouter"]
-  phase: "foundation"
 tags: ["ai-design", "computer-vision", "game-ai", "multi-modal", "yolo", "vlm"]
 ---
 
-# Multi-Modal Balatro AI System Design
+# Initial Plans
 
 ## Executive Summary
 

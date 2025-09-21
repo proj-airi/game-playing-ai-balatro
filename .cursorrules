@@ -78,6 +78,7 @@ coding_agents:
 tags: ["tag1", "tag2"]
 ---
 ```
+- **EDIT history**: Maintain a changelog at the bottom of each doc for updates when huge changes occur
 
 ### Documentation Rules
 - Include essential context and decision rationale

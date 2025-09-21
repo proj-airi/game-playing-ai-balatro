@@ -137,17 +137,15 @@ pixi install                 # Install all dependencies via pixi
   ---
   title: "Document Title"
   date: "YYYY-MM-DD"
-  version: "X.Y"
-  status: "draft|active|completed|deprecated"
   coding_agents:
     authors: ["Author 1", "Author 2", "Claude Code"]
     project: "proj-airi/game-playing-ai-balatro"
     context: "Brief description of context"
     technologies: ["tech1", "tech2"]
-    phase: "foundation|implementation|optimization"
   tags: ["tag1", "tag2"]
   ---
   ```
+- **EDIT history**: Maintain a changelog at the bottom of each doc for updates when huge changes occur
 
 ### Documentation Rules
 - **Essential Context**: Include project background, technical constraints, and decision rationale

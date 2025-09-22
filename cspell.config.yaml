@@ -6,20 +6,33 @@ words:
   - airi
   - Ayaka
   - balatro
+  - cuda
+  - cupti
+  - easyocr
   - frontmatter
   - ipykernel
   - matplotlib
   - Neko
   - numpy
+  - nvcc
   - onnx
   - onnxruntime
   - onnxslim
   - opencv
+  - paddleocr
+  - paddlepaddle
   - pixi
+  - polygraphy
   - pyautogui
   - pylint
   - pynput
   - pypi
+  - pytesseract
+  - pytest
+  - pyyaml
+  - rapidocr
+  - timm
+  - torchvision
   - tqdm
   - ultralytics
   - wand

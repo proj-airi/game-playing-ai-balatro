@@ -29,6 +29,7 @@ ruff = ">=0.13.1,<0.14"
 #
 # https://github.com/onnx/optimizer/issues/204#issuecomment-3086769558
 cmake = "3.*"
+tesseract = ">=5.5.1,<6"
 
 [pypi-dependencies]
 ultralytics = ">=8.3.201, <9"
@@ -73,7 +74,7 @@ cuda-cupti = ">=13.0.85,<14"
 [target.linux-64.pypi-dependencies]
 torch = { version = ">=2.8.0, <3", index = "https://download.pytorch.org/whl/cu129" }
 torchvision = { version = ">=0.23.0, <0.24", index = "https://download.pytorch.org/whl/cu129" }
-paddlepaddle-gpu = ">=2.6.2, <3"
+paddlepaddle = ">=3.2.0, <4"
 
 [target.linux-64.dependencies]
 cuda = ">=13.0.1,<14"

@@ -29,7 +29,7 @@
 
 ## Executive Summary
 - Best success rate: **RapidOCR**
-- Best efficiency (chars/sec): **RapidOCR**
+- Best efficiency (chars/sec): **Tesseract**
 - 2x–3x scaling generally improves OCR accuracy for UI text.
 - Tesseract requires language packs (eng, chi_sim) to participate fully.
 

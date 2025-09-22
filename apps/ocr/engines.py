@@ -22,6 +22,10 @@ import time
 import cv2
 from rapidocr import RapidOCR
 
+from utils.logger import get_logger
+
+logger = get_logger(__name__)
+
 def _to_rgb(image):
     if image is None:
         return image
@@ -57,12 +61,22 @@ class BaseEngine:
         self.lang = lang
         self._inited = False
         self._init_time = 0.0
+        self._init_error: str | None = None
 
     def init(self) -> None:
         self._inited = True
+        self._init_error = None
 
     def run(self, image: ImageFile.ImageFile | str) -> OcrResult:
         raise NotImplementedError
+
+    @property
+    def available(self) -> bool:
+        return self._inited and self._init_error is None
+
+    @property
+    def init_error(self) -> str | None:
+        return self._init_error
 
 class PaddleOCREngine(BaseEngine):
     name = "PaddleOCR"
@@ -76,7 +90,9 @@ class PaddleOCREngine(BaseEngine):
             self._ocr = PaddleOCR()
             self._init_time = time.time() - t0
             self._inited = True
+            self._init_error = None
         except Exception as e:  # noqa: BLE001
+            logger.error(f"PaddleOCR init error: {e}")
             self._init_time = time.time() - t0 if "t0" in locals() else 0.0
             self._ocr = None
             self._inited = False
@@ -99,6 +115,7 @@ class PaddleOCREngine(BaseEngine):
         try:
             results = self._ocr.predict(image)
         except Exception as e:  # noqa: BLE001
+            logger.error(f"PaddleOCR run error: {e}")
             ocr_time = time.time() - t0
             return OcrResult(
                 name=self.name,
@@ -134,9 +151,15 @@ class TesseractEngine(BaseEngine):
         try:
             import pytesseract  # noqa: F401
 
-            self._init_time = 0.0
+            t0 = time.time()
+            # Ensure native binary is reachable; raises if missing
+            pytesseract.get_tesseract_version()
+
+            self._init_time = time.time() - t0
             self._inited = True
+            self._init_error = None
         except Exception as e:  # noqa: BLE001
+            self._init_time = time.time() - t0 if "t0" in locals() else 0.0
             self._inited = False
             self._init_error = str(e)
 
@@ -144,6 +167,7 @@ class TesseractEngine(BaseEngine):
         try:
             import pytesseract  # type: ignore
         except Exception as e:  # noqa: BLE001
+            logger.error(f"Tesseract init error: {e}")
             return OcrResult(
                 name=self.name,
                 text=f"ERROR: pytesseract not available ({e})",
@@ -187,6 +211,7 @@ class TesseractEngine(BaseEngine):
                 raw_results={"config": config, "lang": lang_param},
             )
         except Exception as e:  # noqa: BLE001
+            logger.error(f"Tesseract run error: {e}")
             ocr_time = time.time() - t0
             return OcrResult(
                 name=self.name,
@@ -207,6 +232,7 @@ class RapidOCREngine(BaseEngine):
             self._ocr = RapidOCR()
             self._init_time = time.time() - t0
             self._inited = True
+            self._init_error = None
         except Exception as e:  # noqa: BLE001
             self._init_time = time.time() - t0 if "t0" in locals() else 0.0
             self._ocr = None

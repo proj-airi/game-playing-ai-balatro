@@ -1,9 +1,8 @@
-"""CLI to benchmark OCR engines (EasyOCR, PaddleOCR, Tesseract) on images.
+"""CLI to benchmark OCR engines (PaddleOCR, Tesseract, RapidOCR) on images.
 
 Examples:
-  pixi run python clis/ocr_benchmark/main.py --glob "apps/tests/outputs/**/description_*_crop.png"
-  pixi run python clis/ocr_benchmark/main.py --dir apps/tests/outputs --lang en
   pixi run python -m clis.ocr_benchmark.main --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang "en,ch_sim"
+  pixi run python -m clis.ocr_benchmark.main --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang "en,ch_sim" --judge-model "google/gemini-2.5-flash"
 """
 
 from __future__ import annotations
@@ -131,6 +130,7 @@ def run(images_dir: Path, targets: List[str] | None, lang: str, judge_model: str
                 for vname, vimg in variants.items():
                     cv2.imwrite(str(img_out / f"desc_{idx:02d}_{vname}.png"), vimg)
                     for eng in engines:
+                        logger.info(f"OCR {img_path.name} desc#{idx} variant={vname} with {eng.name}")
                         res = eng.run(vimg).to_dict()
                         candidate_texts.append(res.get("text") or "")
                         row = {

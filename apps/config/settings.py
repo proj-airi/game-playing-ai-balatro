@@ -76,16 +76,45 @@ class Settings:
         with open(self.config_path, 'w', encoding='utf-8') as f:
             yaml.dump(self._config, f, default_flow_style=False, allow_unicode=True)
 
+    # -------- Path resolution helpers --------
+    def _bases(self) -> List[Path]:
+        """Candidate bases for resolving repo-relative paths.
+
+        Order:
+        - config dir (apps/config)
+        - apps dir (parent of config)
+        - repo root (parent of apps)
+        """
+        config_dir = self.config_path.parent
+        apps_dir = config_dir.parent
+        repo_root = apps_dir.parent
+        return [config_dir, apps_dir, repo_root]
+
+    def _resolve_first_existing(self, relative: str) -> str:
+        p = Path(relative)
+        if p.is_absolute():
+            return str(p)
+        for base in self._bases():
+            cand = (base / p).resolve()
+            if cand.exists():
+                return str(cand)
+        # Fallback to apps dir resolution
+        return str((self.config_path.parent.parent / p).resolve())
+
     # Model settings
     @property
     def model_search_paths(self) -> List[str]:
         """Get model search paths."""
-        return self.get('model.search_paths', [])
+        paths = self.get('model.search_paths', [])
+        resolved: List[str] = []
+        for p in paths:
+            resolved.append(self._resolve_first_existing(p))
+        return resolved
 
     @property
     def model_classes_file(self) -> str:
         """Get model classes file path."""
-        return self.get('model.classes_file', '')
+        return self._resolve_first_existing(self.get('model.classes_file', ''))
 
     @property
     def model_default_classes(self) -> List[str]:
@@ -95,7 +124,7 @@ class Settings:
     @property
     def model_onnx_path(self) -> str:
         """Get ONNX model path."""
-        return self.get('model.onnx_path', '')
+        return self._resolve_first_existing(self.get('model.onnx_path', ''))
 
     # Detection settings
     @property

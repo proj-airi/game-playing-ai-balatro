@@ -1,9 +1,9 @@
 """OCR engine wrappers with a common interface.
 
 Engines implemented (optional imports):
-- EasyOCR
 - PaddleOCR
 - Tesseract (pytesseract)
+- RapidOCR
 
 Each engine exposes:
 - name: str
@@ -15,10 +15,12 @@ Note: PaddleOCR is optional and will be skipped if not installed.
 
 from __future__ import annotations
 
+from PIL import ImageFile
 from dataclasses import dataclass
 from typing import Any, Dict
 import time
 import cv2
+from rapidocr import RapidOCR
 
 def _to_rgb(image):
     if image is None:
@@ -59,60 +61,8 @@ class BaseEngine:
     def init(self) -> None:
         self._inited = True
 
-    def run(self, image) -> OcrResult:  # pragma: no cover - baseline
+    def run(self, image: ImageFile.ImageFile | str) -> OcrResult:
         raise NotImplementedError
-
-class EasyOCREngine(BaseEngine):
-    name = "EasyOCR"
-
-    def init(self) -> None:
-        try:
-            import easyocr  # type: ignore
-
-            t0 = time.time()
-            # Use English by default; caller can pass multi-lang like 'en,ch_sim'
-            langs = [s.strip() for s in self.lang.split(",") if s.strip()]
-            if not langs:
-                langs = ["en"]
-            self._reader = easyocr.Reader(langs)
-            self._init_time = time.time() - t0
-            self._inited = True
-        except Exception as e:  # noqa: BLE001
-            self._reader = None
-            self._inited = False
-            self._init_error = str(e)
-
-    def run(self, image) -> OcrResult:
-        if not getattr(self, "_reader", None):
-            return OcrResult(
-                name=self.name,
-                text=f"ERROR: easyocr not available ({getattr(self, '_init_error', 'not installed')})",
-                success=False,
-                init_time=self._init_time,
-                ocr_time=0.0,
-                total_time=self._init_time,
-                raw_results=[],
-            )
-
-        t0 = time.time()
-        results = self._reader.readtext(image)
-        ocr_time = time.time() - t0
-
-        texts = []
-        for (_bbox, text, conf) in results:
-            if conf > 0.3:
-                texts.append(text)
-        text_joined = " ".join(texts).strip()
-
-        return OcrResult(
-            name=self.name,
-            text=text_joined if text_joined else "",
-            success=bool(text_joined),
-            init_time=self._init_time,
-            ocr_time=ocr_time,
-            total_time=self._init_time + ocr_time,
-            raw_results=results,
-        )
 
 class PaddleOCREngine(BaseEngine):
     name = "PaddleOCR"
@@ -248,13 +198,76 @@ class TesseractEngine(BaseEngine):
                 raw_results={"config": config, "lang": lang_param},
             )
 
+class RapidOCREngine(BaseEngine):
+    name = "RapidOCR"
+
+    def init(self) -> None:
+        try:
+            t0 = time.time()
+            self._ocr = RapidOCR()
+            self._init_time = time.time() - t0
+            self._inited = True
+        except Exception as e:  # noqa: BLE001
+            self._init_time = time.time() - t0 if "t0" in locals() else 0.0
+            self._ocr = None
+            self._inited = False
+            self._init_error = str(e)
+
+    def run(self, image) -> OcrResult:
+        if not getattr(self, "_ocr", None):
+            return OcrResult(
+                name=self.name,
+                text=(f"ERROR: rapidocr not available ({getattr(self, '_init_error', 'not installed')})"),
+                success=False,
+                init_time=self._init_time,
+                ocr_time=0.0,
+                total_time=self._init_time,
+                raw_results=[],
+            )
+
+        t0 = time.time()
+        results = None
+        try:
+            results = self._ocr(image)
+        except Exception as e:  # noqa: BLE001
+            ocr_time = time.time() - t0
+            return OcrResult(
+                name=self.name,
+                text=f"ERROR: {e}",
+                success=False,
+                init_time=self._init_time,
+                ocr_time=ocr_time,
+                total_time=self._init_time + ocr_time,
+                raw_results=None,
+            )
+
+        ocr_time = time.time() - t0
+        texts = []
+
+        for line in results.to_json():
+            for text in line['txt']:
+                texts.append(text)
+            texts.append("\n")
+
+        text_joined = "".join(texts).strip()
+
+        return OcrResult(
+            name=self.name,
+            text=text_joined,
+            success=bool(text_joined),
+            init_time=self._init_time,
+            ocr_time=ocr_time,
+            total_time=self._init_time + ocr_time,
+            raw_results=results,
+        )
+
 def available_engines(lang: str = "en") -> list[BaseEngine]:
     """Instantiate engines that can at least import.
 
     We always return instances, but their `run` will report an error message if
     the backend is missing. This keeps the benchmark comparable across envs.
     """
-    engines: list[BaseEngine] = [EasyOCREngine(lang), PaddleOCREngine(lang), TesseractEngine(lang)]
+    engines: list[BaseEngine] = [PaddleOCREngine(lang), TesseractEngine(lang), RapidOCREngine(lang)]
     for e in engines:
         e.init()
     return engines

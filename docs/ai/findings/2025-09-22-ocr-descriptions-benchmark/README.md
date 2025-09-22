@@ -28,8 +28,8 @@
 # Balatro OCR (Descriptions) Benchmark Findings
 
 ## Executive Summary
-- Best success rate: **Tesseract**
-- Best efficiency (chars/sec): **Tesseract**
+- Best success rate: **RapidOCR**
+- Best efficiency (chars/sec): **RapidOCR**
 - 2x–3x scaling generally improves OCR accuracy for UI text.
 - Tesseract requires language packs (eng, chi_sim) to participate fully.
 

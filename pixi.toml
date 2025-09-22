@@ -12,9 +12,6 @@ ruff-check = "ruff check . --fix"
 style = { depends-on = ["fmt", "ruff-check", "lint"] }
 test = "pytest tests/ -v"
 quality = { depends-on = ["style", "test"] }
-ocr-bench = "python apps/ocr_benchmark_cli.py --dir apps/tests/outputs"
-ocr-e2e = "python apps/pipelines/ocr_e2e_pipeline.py"
-ocr-desc = "python apps/pipelines/ocr_descriptions_pipeline.py --targets out_00104.jpg out_00166.jpg out_00114.jpg"
 
 [dependencies]
 python = "3.12.*"

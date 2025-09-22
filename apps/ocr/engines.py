@@ -20,14 +20,12 @@ from typing import Any, Dict
 import time
 import cv2
 
-
 def _to_rgb(image):
     if image is None:
         return image
     if len(image.shape) == 3:
         return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     return image
-
 
 @dataclass
 class OcrResult:
@@ -50,7 +48,6 @@ class OcrResult:
             "raw_results": self.raw_results,
         }
 
-
 class BaseEngine:
     name = "base"
 
@@ -64,7 +61,6 @@ class BaseEngine:
 
     def run(self, image) -> OcrResult:  # pragma: no cover - baseline
         raise NotImplementedError
-
 
 class EasyOCREngine(BaseEngine):
     name = "EasyOCR"
@@ -117,7 +113,6 @@ class EasyOCREngine(BaseEngine):
             total_time=self._init_time + ocr_time,
             raw_results=results,
         )
-
 
 class PaddleOCREngine(BaseEngine):
     name = "PaddleOCR"
@@ -180,7 +175,6 @@ class PaddleOCREngine(BaseEngine):
             total_time=self._init_time + ocr_time,
             raw_results=results,
         )
-
 
 class TesseractEngine(BaseEngine):
     name = "Tesseract"
@@ -253,7 +247,6 @@ class TesseractEngine(BaseEngine):
                 total_time=self._init_time + ocr_time,
                 raw_results={"config": config, "lang": lang_param},
             )
-
 
 def available_engines(lang: str = "en") -> list[BaseEngine]:
     """Instantiate engines that can at least import.

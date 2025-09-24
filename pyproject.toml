@@ -17,7 +17,6 @@ dependencies = [
   "onnxruntime>=1.22.1,<2",
   "pillow>=11.3.0,<12",
   "pyautogui>=0.9.54,<0.10",
-  "pynput>=1.8.1,<2",
   "mss>=10.1.0,<11",
   "openai>=1.109.0,<2",
   "anthropic>=0.68.0,<0.69",
@@ -99,3 +98,4 @@ pyobjc = ">=11.1, <12"
 torch = ">=2.8.0, <3"
 torchvision = ">=0.23.0, <0.24"
 paddlepaddle = ">=3.2.0, <4"
+pynput = ">=1.8.1,<2"

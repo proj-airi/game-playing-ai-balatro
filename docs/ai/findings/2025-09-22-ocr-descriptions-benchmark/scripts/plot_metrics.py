@@ -23,6 +23,7 @@ ASSETS.mkdir(parents=True, exist_ok=True)
 
 CSV_PATH = '.output/ocr_benchmarks/descriptions_summary.csv'
 
+
 def load_rows() -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []
     with open(CSV_PATH, newline='') as f:

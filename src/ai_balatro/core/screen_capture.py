@@ -28,7 +28,7 @@ class ScreenCapture:
 
         # Try to auto-detect Balatro window on initialization
         try:
-            import Quartz
+            # import Quartz
 
             logger.info('Auto-detecting Balatro window on initialization...')
             self._detect_balatro_window()

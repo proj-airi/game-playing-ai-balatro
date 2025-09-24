@@ -10,6 +10,7 @@ import shutil
 import argparse
 from pathlib import Path
 
+
 def read_yolo_label(label_file: str) -> str:
     """Read YOLO label file and return raw content."""
     if os.path.exists(label_file):

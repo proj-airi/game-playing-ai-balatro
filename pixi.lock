@@ -208,7 +208,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/15/b3/9b1a8074496371342ec1e796a96f99c82c945a339cd81a8e73de28b4cf9e/anyio-4.11.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/da/e42d7a9d8dd33fa775f467e4028a47936da2f01e4b0e561f9ba0d74cb0ca/argcomplete-3.6.2-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/af/0f/3b8fdc946b4d9cc8cc1e8af42c4e409468c84441b933d037e101b3d72d86/astroid-3.3.11-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/25/8a/c46dcc25341b5bce5472c718902eb3d38600a903b14fa6aeecef3f21a46f/asttokens-3.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/77/06/bb80f5f86020c4551da315d78b3ab75e8228f89f0162f2c3a819e407941a/attrs-25.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c0/f5/20e9ab324b22a77970c57bc8267e586e85e2aa1277d80f2c58ca8a39a13e/bce_python_sdk-0.9.46-py3-none-any.whl
@@ -226,7 +225,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/21/e8/675963b2c48d42be49269cf4f858efe10db26abef622d2a526a4c991d140/datamodel_code_generator-0.26.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b0/d0/89247ec250369fc76db477720a26b2fce7ba079ff1380e4ab4529d2fe233/debugpy-1.8.17-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4e/8c/f3147f5c4b73e7550fe5f9352eaa956ae838d5c51eb58e7a25b9f3e2643b/decorator-5.2.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/50/3d/9373ad9c56321fdab5b41197068e1d8c25883b3fea29dd361f9b55116869/dill-0.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ba/5a/18ad964b0086c6e62e2e7500f7edc89e3faa45033c71c1893d34eed2b2de/dnspython-2.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/55/e2/2537ebcff11c1ee1ff17d8d0b6f4db75873e3b0fb32c2d4a2ee31ecb310a/docstring_parser-0.17.0-py3-none-any.whl
@@ -335,7 +333,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/e1/70/c7a4f46dbf06048c6d57d9489b8e0f9c4c3d36b7479f03c5ca97eaa2541d/PyGetWindow-0.0.9.tar.gz
       - pypi: https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/61/ad/689f02752eeec26aed679477e80e632ef1b682313be70793d798c1d5fc8f/PyJWT-2.10.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/2d/1a/711e93a7ab6c392e349428ea56e794a3902bb4e0284c1997cff2d7efdbc1/pylint-3.3.8-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/4f/ac3fa906ae8a375a536b12794128c5efacade9eaa917a35dfd27ce0c7400/pynput-1.8.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl
@@ -375,9 +372,8 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c5/74/5573615570bf010f788e977ac57c4b49db0aaf6d634134f6a9212d8dcdfd/timm-1.0.20-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/d0/c6/dc3a0db5a6766416c32c034286d7c2d406da1f498e4de04ab1b8959edd00/tokenizers-0.22.1-cp39-abi3-manylinux_2_17_x86_64.manylinux2014_x86_64.whl
-      - pypi: https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl
       - pypi: https://download.pytorch.org/whl/cu129/torch-2.8.0%2Bcu129-cp313-cp313-manylinux_2_28_x86_64.whl
-      - pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-manylinux_2_28_x86_64.whl
+      - pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-manylinux_2_28_x86_64.whl#sha256=04316e24ddd1cee3b301208811a9d7c4cfca5f566ea367f33bda059d8f0e012e
       - pypi: https://files.pythonhosted.org/packages/f9/41/fb15f06e33d7430ca89420283a8762a4e6b8025b800ea51796ab5e6d9559/tornado-6.5.2-cp39-abi3-manylinux_2_5_x86_64.manylinux1_x86_64.manylinux_2_17_x86_64.manylinux2014_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/00/c0/8f5d070730d7836adc9c9b6408dec68c6ced86b304a9b26a14df072a6e8c/traitlets-5.14.3-py3-none-any.whl
@@ -450,7 +446,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/81/29/5ecc3a15d5a33e31b26c11426c45c501e439cb865d0bff96315d86443b78/appnope-0.1.4-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/da/e42d7a9d8dd33fa775f467e4028a47936da2f01e4b0e561f9ba0d74cb0ca/argcomplete-3.6.2-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/af/0f/3b8fdc946b4d9cc8cc1e8af42c4e409468c84441b933d037e101b3d72d86/astroid-3.3.11-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/25/8a/c46dcc25341b5bce5472c718902eb3d38600a903b14fa6aeecef3f21a46f/asttokens-3.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/77/06/bb80f5f86020c4551da315d78b3ab75e8228f89f0162f2c3a819e407941a/attrs-25.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c0/f5/20e9ab324b22a77970c57bc8267e586e85e2aa1277d80f2c58ca8a39a13e/bce_python_sdk-0.9.46-py3-none-any.whl
@@ -468,7 +463,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/21/e8/675963b2c48d42be49269cf4f858efe10db26abef622d2a526a4c991d140/datamodel_code_generator-0.26.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b0/d0/89247ec250369fc76db477720a26b2fce7ba079ff1380e4ab4529d2fe233/debugpy-1.8.17-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/4e/8c/f3147f5c4b73e7550fe5f9352eaa956ae838d5c51eb58e7a25b9f3e2643b/decorator-5.2.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/50/3d/9373ad9c56321fdab5b41197068e1d8c25883b3fea29dd361f9b55116869/dill-0.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ba/5a/18ad964b0086c6e62e2e7500f7edc89e3faa45033c71c1893d34eed2b2de/dnspython-2.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/55/e2/2537ebcff11c1ee1ff17d8d0b6f4db75873e3b0fb32c2d4a2ee31ecb310a/docstring_parser-0.17.0-py3-none-any.whl
@@ -562,7 +556,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/e1/70/c7a4f46dbf06048c6d57d9489b8e0f9c4c3d36b7479f03c5ca97eaa2541d/PyGetWindow-0.0.9.tar.gz
       - pypi: https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/61/ad/689f02752eeec26aed679477e80e632ef1b682313be70793d798c1d5fc8f/PyJWT-2.10.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/2d/1a/711e93a7ab6c392e349428ea56e794a3902bb4e0284c1997cff2d7efdbc1/pylint-3.3.8-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/4f/ac3fa906ae8a375a536b12794128c5efacade9eaa917a35dfd27ce0c7400/pynput-1.8.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/a9/32/ad08b45fc0ad9850054ffe66fb0cb2ff7af3d2007c192dda14cf9a3ea893/pyobjc-11.1-py3-none-any.whl
@@ -638,7 +631,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c5/74/5573615570bf010f788e977ac57c4b49db0aaf6d634134f6a9212d8dcdfd/timm-1.0.20-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/1c/58/2aa8c874d02b974990e89ff95826a4852a8b2a273c7d1b4411cdd45a4565/tokenizers-0.22.1-cp39-abi3-macosx_11_0_arm64.whl
-      - pypi: https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/04/6e/650bb7f28f771af0cb791b02348db8b7f5f64f40f6829ee82aa6ce99aabe/torch-2.8.0-cp313-none-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/91/37/45a5b9407a7900f71d61b2b2f62db4b7c632debca397f205fdcacb502780/torchvision-0.23.0-cp313-cp313-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/f6/48/6a7529df2c9cc12efd2e8f5dd219516184d703b34c06786809670df5b3bd/tornado-6.5.2-cp39-abi3-macosx_10_9_universal2.whl
@@ -796,7 +788,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/15/b3/9b1a8074496371342ec1e796a96f99c82c945a339cd81a8e73de28b4cf9e/anyio-4.11.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/3b/00/2344469e2084fb287c2e0b57b72910309874c3245463acd6cf5e3db69324/appdirs-1.4.4-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/31/da/e42d7a9d8dd33fa775f467e4028a47936da2f01e4b0e561f9ba0d74cb0ca/argcomplete-3.6.2-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/af/0f/3b8fdc946b4d9cc8cc1e8af42c4e409468c84441b933d037e101b3d72d86/astroid-3.3.11-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/25/8a/c46dcc25341b5bce5472c718902eb3d38600a903b14fa6aeecef3f21a46f/asttokens-3.0.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/77/06/bb80f5f86020c4551da315d78b3ab75e8228f89f0162f2c3a819e407941a/attrs-25.3.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c0/f5/20e9ab324b22a77970c57bc8267e586e85e2aa1277d80f2c58ca8a39a13e/bce_python_sdk-0.9.46-py3-none-any.whl
@@ -814,7 +805,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/21/e8/675963b2c48d42be49269cf4f858efe10db26abef622d2a526a4c991d140/datamodel_code_generator-0.26.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/46/11/18c79a1cee5ff539a94ec4aa290c1c069a5580fd5cfd2fb2e282f8e905da/debugpy-1.8.17-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/4e/8c/f3147f5c4b73e7550fe5f9352eaa956ae838d5c51eb58e7a25b9f3e2643b/decorator-5.2.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/50/3d/9373ad9c56321fdab5b41197068e1d8c25883b3fea29dd361f9b55116869/dill-0.4.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/ba/5a/18ad964b0086c6e62e2e7500f7edc89e3faa45033c71c1893d34eed2b2de/dnspython-2.8.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/55/e2/2537ebcff11c1ee1ff17d8d0b6f4db75873e3b0fb32c2d4a2ee31ecb310a/docstring_parser-0.17.0-py3-none-any.whl
@@ -905,7 +895,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/e1/70/c7a4f46dbf06048c6d57d9489b8e0f9c4c3d36b7479f03c5ca97eaa2541d/PyGetWindow-0.0.9.tar.gz
       - pypi: https://files.pythonhosted.org/packages/c7/21/705964c7812476f378728bdf590ca4b771ec72385c533964653c68e86bdc/pygments-2.19.2-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/61/ad/689f02752eeec26aed679477e80e632ef1b682313be70793d798c1d5fc8f/PyJWT-2.10.1-py3-none-any.whl
-      - pypi: https://files.pythonhosted.org/packages/2d/1a/711e93a7ab6c392e349428ea56e794a3902bb4e0284c1997cff2d7efdbc1/pylint-3.3.8-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/59/4f/ac3fa906ae8a375a536b12794128c5efacade9eaa917a35dfd27ce0c7400/pynput-1.8.1-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/10/5e/1aa9a93198c6b64513c9d7752de7422c06402de6600a8767da1524f9570b/pyparsing-3.2.5-py3-none-any.whl
@@ -945,9 +934,8 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/a2/09/77d55d46fd61b4a135c444fc97158ef34a095e5681d0a6c10b75bf356191/sympy-1.14.0-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/c5/74/5573615570bf010f788e977ac57c4b49db0aaf6d634134f6a9212d8dcdfd/timm-1.0.20-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/b3/46/e33a8c93907b631a99377ef4c5f817ab453d0b34f93529421f42ff559671/tokenizers-0.22.1-cp39-abi3-win_amd64.whl
-      - pypi: https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl
       - pypi: https://download.pytorch.org/whl/cu129/torch-2.8.0%2Bcu129-cp313-cp313-win_amd64.whl
-      - pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-win_amd64.whl
+      - pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-win_amd64.whl#sha256=a486a0cee466807a17749d0b916d52088343453dc911baa20f0f459b2fa43c9a
       - pypi: https://files.pythonhosted.org/packages/c7/2a/f609b420c2f564a748a2d80ebfb2ee02a73ca80223af712fca591386cafb/tornado-6.5.2-cp39-abi3-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/d0/30/dc54f88dd4a2b5dc8a0279bdd7270e735851848b762aeb1c1184ed1f6b14/tqdm-4.67.1-py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/00/c0/8f5d070730d7836adc9c9b6408dec68c6ced86b304a9b26a14df072a6e8c/traitlets-5.14.3-py3-none-any.whl
@@ -1165,13 +1153,6 @@ packages:
   - ruff ; extra == 'test'
   - wheel ; extra == 'test'
   requires_python: '>=3.8'
-- pypi: https://files.pythonhosted.org/packages/af/0f/3b8fdc946b4d9cc8cc1e8af42c4e409468c84441b933d037e101b3d72d86/astroid-3.3.11-py3-none-any.whl
-  name: astroid
-  version: 3.3.11
-  sha256: 54c760ae8322ece1abd213057c4b5bba7c49818853fc901ef09719a60dbf9dec
-  requires_dist:
-  - typing-extensions>=4 ; python_full_version < '3.11'
-  requires_python: '>=3.9.0'
 - pypi: https://files.pythonhosted.org/packages/25/8a/c46dcc25341b5bce5472c718902eb3d38600a903b14fa6aeecef3f21a46f/asttokens-3.0.0-py3-none-any.whl
   name: asttokens
   version: 3.0.0
@@ -2774,14 +2755,6 @@ packages:
   name: decorator
   version: 5.2.1
   sha256: d316bb415a2d9e2d2b3abcc4084c6502fc09240e292cd76a76afc106a1c8e04a
-  requires_python: '>=3.8'
-- pypi: https://files.pythonhosted.org/packages/50/3d/9373ad9c56321fdab5b41197068e1d8c25883b3fea29dd361f9b55116869/dill-0.4.0-py3-none-any.whl
-  name: dill
-  version: 0.4.0
-  sha256: 44f54bf6412c2c8464c14e8243eb163690a9800dbe2c367330883b19c7561049
-  requires_dist:
-  - objgraph>=1.7.2 ; extra == 'graph'
-  - gprof2dot>=2022.7.29 ; extra == 'profile'
   requires_python: '>=3.8'
 - pypi: https://files.pythonhosted.org/packages/12/b3/231ffd4ab1fc9d679809f356cebee130ac7daa00d6d6f3206dd4fd137e9e/distro-1.9.0-py3-none-any.whl
   name: distro
@@ -8326,25 +8299,6 @@ packages:
   - coverage[toml]==5.0.4 ; extra == 'tests'
   - pytest>=6.0.0,<7.0.0 ; extra == 'tests'
   requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/2d/1a/711e93a7ab6c392e349428ea56e794a3902bb4e0284c1997cff2d7efdbc1/pylint-3.3.8-py3-none-any.whl
-  name: pylint
-  version: 3.3.8
-  sha256: 7ef94aa692a600e82fabdd17102b73fc226758218c97473c7ad67bd4cb905d83
-  requires_dist:
-  - astroid>=3.3.8,<=3.4.0.dev0
-  - colorama>=0.4.5 ; sys_platform == 'win32'
-  - dill>=0.2 ; python_full_version < '3.11'
-  - dill>=0.3.6 ; python_full_version >= '3.11'
-  - dill>=0.3.7 ; python_full_version >= '3.12'
-  - isort>=4.2.5,!=5.13,<7
-  - mccabe>=0.6,<0.8
-  - platformdirs>=2.2
-  - tomli>=1.1 ; python_full_version < '3.11'
-  - tomlkit>=0.10.1
-  - typing-extensions>=3.10 ; python_full_version < '3.10'
-  - pyenchant~=3.2 ; extra == 'spelling'
-  - gitpython>3 ; extra == 'testutils'
-  requires_python: '>=3.9.0'
 - pypi: https://files.pythonhosted.org/packages/6f/3e/08c8cac81b2b2f7502746e6b9c8e5b0ec6432cd882c605560fc409aaf087/pymsgbox-2.0.1-py3-none-any.whl
   name: pymsgbox
   version: 2.0.1
@@ -10106,11 +10060,6 @@ packages:
   - setuptools-rust ; extra == 'docs'
   - tokenizers[testing] ; extra == 'dev'
   requires_python: '>=3.9'
-- pypi: https://files.pythonhosted.org/packages/bd/75/8539d011f6be8e29f339c42e633aae3cb73bffa95dd0f9adec09b9c58e85/tomlkit-0.13.3-py3-none-any.whl
-  name: tomlkit
-  version: 0.13.3
-  sha256: c89c649d79ee40629a9fda55f8ace8c6a1b42deb912b2a8fd8d942ddadb606b0
-  requires_python: '>=3.8'
 - pypi: https://files.pythonhosted.org/packages/04/6e/650bb7f28f771af0cb791b02348db8b7f5f64f40f6829ee82aa6ce99aabe/torch-2.8.0-cp313-none-macosx_11_0_arm64.whl
   name: torch
   version: 2.8.0
@@ -10198,7 +10147,7 @@ packages:
   - gdown>=4.7.3 ; extra == 'gdown'
   - scipy ; extra == 'scipy'
   requires_python: '>=3.9'
-- pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-manylinux_2_28_x86_64.whl
+- pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-manylinux_2_28_x86_64.whl#sha256=04316e24ddd1cee3b301208811a9d7c4cfca5f566ea367f33bda059d8f0e012e
   name: torchvision
   version: 0.23.0+cu129
   sha256: 04316e24ddd1cee3b301208811a9d7c4cfca5f566ea367f33bda059d8f0e012e
@@ -10209,7 +10158,7 @@ packages:
   - gdown>=4.7.3 ; extra == 'gdown'
   - scipy ; extra == 'scipy'
   requires_python: '>=3.9'
-- pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-win_amd64.whl
+- pypi: https://download.pytorch.org/whl/cu129/torchvision-0.23.0%2Bcu129-cp313-cp313-win_amd64.whl#sha256=a486a0cee466807a17749d0b916d52088343453dc911baa20f0f459b2fa43c9a
   name: torchvision
   version: 0.23.0+cu129
   sha256: a486a0cee466807a17749d0b916d52088343453dc911baa20f0f459b2fa43c9a

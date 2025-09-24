@@ -3,6 +3,7 @@
 from typing import Tuple
 from dataclasses import dataclass
 
+
 @dataclass
 class Detection:
     """Detection result data class."""

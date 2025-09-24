@@ -7,7 +7,8 @@ from pathlib import Path
 import tempfile
 import shutil
 
-from ..utils.image_cropper import ImageCropper, RegionMatcher
+from ai_balatro.utils.image_cropper import ImageCropper, RegionMatcher
+
 
 class TestImageCropper:
     """Test cases for ImageCropper with visual debugging."""

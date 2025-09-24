@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """Generate figures and a findings doc from OCR description benchmark outputs.
 
 Inputs:
@@ -17,6 +16,7 @@ from pathlib import Path
 from typing import Dict, Any, List
 
 import matplotlib.pyplot as plt
+
 
 def load_summary(csv_path: Path) -> List[Dict[str, Any]]:
     rows: List[Dict[str, Any]] = []

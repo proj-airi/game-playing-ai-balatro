@@ -10,6 +10,7 @@ from ..utils.logger import get_logger
 
 logger = get_logger(__name__)
 
+
 class ImageCropper:
     """Generic utility for cropping detected regions from images."""
 

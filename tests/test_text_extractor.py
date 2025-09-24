@@ -3,8 +3,8 @@
 import cv2
 from pathlib import Path
 
-from ..core.text_extractor import TextExtractor
-from ..utils.logger import get_logger
+from ai_balatro.core.text_extractor import TextExtractor
+from ai_balatro.utils.logger import get_logger
 
 logger = get_logger(__name__)
 

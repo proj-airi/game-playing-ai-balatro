@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 Main entry point for Balatro game detection system.
 Real-time screen capture and YOLO model detection with annotation.
@@ -7,13 +6,17 @@ Real-time screen capture and YOLO model detection with annotation.
 import sys
 from pathlib import Path
 
-# Add apps directory to Python path
-sys.path.insert(0, str(Path(__file__).parent))
+_cli_dir = Path(__file__).parent
+_src_dir = _cli_dir.parent / 'src'
 
-from .ui.demo_app import BalatroDetectionDemo
-from .utils.logger import get_logger
+if str(_src_dir) not in sys.path:
+    sys.path.insert(0, str(_src_dir))
+
+from ai_balatro.ui.demo_app import BalatroDetectionDemo
+from ai_balatro.utils.logger import get_logger
 
 logger = get_logger(__name__)
+
 
 def main():
     """Main function."""

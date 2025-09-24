@@ -27,7 +27,6 @@ dependencies = [
   "pyyaml>=6.0.2,<7",
   "pytest>=8.4.2,<9",
   "flake8>=7.3.0,<8",
-  "pylint>=3.3.8,<4",
   "pytesseract>=0.3.13,<0.4",
   "paddleocr>=3.2.0,<4",
   "rapidocr>=3.4.1,<4"
@@ -38,15 +37,17 @@ build-backend = "hatchling.build"
 requires = ["hatchling"]
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/agent", "src/clis"]
+packages = ["src"]
 
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64", "win-64", "osx-arm64"]
 
 [tool.pixi.tasks]
+dev = "python cli/run-ai-balatro.py"
+start-benchmark = "python cli/ocr-benchmark/main.py --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang \"en,ch_sim\""
 fmt = "ruff format ."
-lint = "pylint src/ --ignore=tests"
+lint = "ruff check ."
 ruff-check = "ruff check . --fix"
 style = { depends-on = ["fmt", "ruff-check", "lint"] }
 test = "pytest tests/ -v"

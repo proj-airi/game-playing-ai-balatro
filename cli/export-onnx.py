@@ -1,6 +1,7 @@
 from ultralytics import YOLO
 from argparse import ArgumentParser
 
+
 def export_onnx(model_path: str, output_path: str):
     # Load the YOLO model
     model = YOLO(model_path)
@@ -8,6 +9,7 @@ def export_onnx(model_path: str, output_path: str):
     # Export the model to ONNX format
     model.export(format='onnx')
     print(f'Model exported to {output_path}')
+
 
 if __name__ == '__main__':
     parser = ArgumentParser(description='Export YOLO model to ONNX format')

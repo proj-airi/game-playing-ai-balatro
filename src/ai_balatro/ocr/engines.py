@@ -26,6 +26,7 @@ from ..utils.logger import get_logger
 
 logger = get_logger(__name__)
 
+
 def _to_rgb(image):
     if image is None:
         return image

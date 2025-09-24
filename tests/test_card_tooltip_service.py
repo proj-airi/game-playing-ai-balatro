@@ -4,9 +4,10 @@ import pytest
 import numpy as np
 import cv2
 
-from ..core.detection import Detection
-from ..services.card_tooltip_service import CardTooltipService
-from ..tests.test_utils import TestOutputManager
+from ai_balatro.core.detection import Detection
+from ai_balatro.services.card_tooltip_service import CardTooltipService
+from ai_balatro.utils.output import TestOutputManager
+
 
 class TestCardTooltipService:
     """Test card tooltip service with visual outputs."""

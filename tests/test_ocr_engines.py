@@ -6,12 +6,13 @@ import numpy as np
 import pytest
 import cv2
 
-from ..ocr.engines import (
+from ai_balatro.ocr.engines import (
     BaseEngine,
     PaddleOCREngine,
     RapidOCREngine,
     TesseractEngine,
 )
+
 
 @pytest.fixture(name='sample_text_image')
 def fixture_sample_text_image() -> np.ndarray:

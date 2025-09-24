@@ -8,6 +8,7 @@ from .logger import get_logger
 
 logger = get_logger(__name__)
 
+
 def find_model_file(search_paths: List[str]) -> Optional[str]:
     """
     Find the first existing model file from a list of paths.

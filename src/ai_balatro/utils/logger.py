@@ -7,6 +7,7 @@ from typing import Optional
 
 from ..config.settings import settings
 
+
 def setup_logger(name: str, log_file: Optional[str] = None) -> logging.Logger:
     """
     Set up a logger with file and console handlers.

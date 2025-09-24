@@ -1,11 +1,21 @@
 """CLI to benchmark OCR engines (PaddleOCR, Tesseract, RapidOCR) on images.
 
 Examples:
-  pixi run python -m src.clis.ocr_benchmark.main --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang "en,ch_sim"
-  pixi run python -m src.clis.ocr_benchmark.main --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang "en,ch_sim" --judge-model "google/gemini-2.5-flash"
+  pixi run python cli/ocr-benchmark/main.py --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang "en,ch_sim"
+  pixi run python cli/ocr-benchmark/main.py --images-dir data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/ --targets out_00104.jpg out_00166.jpg out_00114.jpg --lang "en,ch_sim" --judge-model "google/gemini-2.5-flash"
 """
 
 from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+_ocr_benchmark_dir = Path(__file__).parent
+_cli_dir = _ocr_benchmark_dir.parent
+_src_dir = _cli_dir.parent / 'src'
+
+if str(_src_dir) not in sys.path:
+    sys.path.insert(0, str(_src_dir))
 
 import argparse
 import csv
@@ -15,12 +25,12 @@ from typing import Any, List
 
 import cv2
 
-from src.agent.core.yolo_detector import YOLODetector
-from src.agent.config.settings import settings
-from src.agent.utils.logger import get_logger
-from src.agent.ocr.engines import available_engines
-from src.agent.ocr.llm_judge import LlmJudge
-from src.agent.tests.test_utils import TestOutputManager
+from ai_balatro.core.yolo_detector import YOLODetector
+from ai_balatro.config.settings import settings
+from ai_balatro.utils.logger import get_logger
+from ai_balatro.ocr.engines import available_engines
+from ai_balatro.ocr.llm_judge import LlmJudge
+from ai_balatro.utils.output import TestOutputManager
 
 logger = get_logger(__name__)
 

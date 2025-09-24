@@ -4,18 +4,17 @@
 model:
   # Paths to search for model files (in order of preference)
   search_paths:
-    - "../runs/v2-balatro-entities-2000-epoch/weights/best.pt"
-    - "../models/games-balatro-2024-yolo-entities-detection/model.pt"
-    - "../runs/v2-balatro-entities/weights/best.pt"
+    - "../../runs/v2-balatro-entities-2000-epoch/weights/best.pt"
+    - "../../models/games-balatro-2024-yolo-entities-detection/model.pt"
     - "runs/v2-balatro-entities-2000-epoch/weights/best.pt"
     - "models/games-balatro-2024-yolo-entities-detection/model.pt"
-  
+
   # ONNX model path (optional)
-  onnx_path: "../models/games-balatro-2024-yolo-entities-detection/onnx/model.onnx"
-  
+  onnx_path: "../../models/games-balatro-2024-yolo-entities-detection/onnx/model.onnx"
+
   # Classes file path
-  classes_file: "../data/datasets/games-balatro-2024-entities-detection/data/train/yolo/classes.txt"
-  
+  classes_file: "../../data/datasets/games-balatro-2024-entities-detection/data/train/yolo/classes.txt"
+
   # Default classes (fallback)
   default_classes:
     - "card_description"

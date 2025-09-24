@@ -7,3 +7,6 @@
 [submodule "data/datasets/games-balatro-2024-ui-detection"]
 	path = data/datasets/games-balatro-2024-ui-detection
 	url = https://huggingface.co/datasets/proj-airi/games-balatro-2024-ui-detection.git
+[submodule "models/games-balatro-2024-yolo-ui-detection"]
+	path = models/games-balatro-2024-yolo-ui-detection
+	url = https://huggingface.co/proj-airi/games-balatro-2024-yolo-ui-detection.git

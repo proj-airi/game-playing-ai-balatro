@@ -67,6 +67,17 @@ pixi run python <script_name.py|.sh>
 
 ## Project Structure & Assets
 
+### Project Organization
+- `src/agent/` — main agent implementation (AI, OCR, services, UI, utils)
+- `src/clis/` — command-line utilities and tools
+- `src/train/` — training/prototyping code
+- `configs/` — YOLO/dataset configs (e.g., `configs/**/dataset.yaml`)
+- `models/`, `data/` — model artifacts and datasets (via submodules/LFS)
+- `notebooks/` — Jupyter notebooks for experiments and benchmarks
+- `docs/` — design notes and guides
+- `test/` — test data and fixtures
+- `runs/` — training run outputs and metrics
+
 ### HuggingFace Integration
 - **Models**: Published to HuggingFace under `proj-airi/games-balatro-2024-yolo-entities-detection`
 - **Datasets**: Published to HuggingFace under `proj-airi/games-balatro-2024-entities-detection`
@@ -78,6 +89,7 @@ pixi run python <script_name.py|.sh>
 
 ### Test Data
 - **Training images**: `data/datasets/games-balatro-2024-entities-detection/data/train/yolo/images/`
+- **Test fixtures**: `test/testdata/` (image-1.png, image-2.png, etc.)
 - **Example**: `out_00001.jpg` (many more available)
 
 ### Development Setup
@@ -122,9 +134,11 @@ pixi install                 # Install all dependencies via pixi
 - **Run Python scripts**: `pixi run python <script>`
 - **Add pip package**: `pixi add --pypi <package>`
 - **Add system package**: `pixi add <package>`
-- **Run tests**: `pixi run pytest <test_file>`
+- **Run tests**: `pixi run test` (runs `pytest tests/ -v`)
+- **App/integration tests**: `pixi run pytest src/agent/tests -v`
 - **Enter shell**: `pixi shell`
-- **Lint/Type check**: Use project-specific commands (check README/project files)
+- **Lint/format**: `pixi run fmt`, `pixi run ruff-check`, `pixi run lint`
+- **Quality gate**: `pixi run style` or `pixi run quality`
 
 ## Documentation Standards
 

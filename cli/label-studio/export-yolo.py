@@ -105,7 +105,7 @@ def run(url: str, api_key: str, project_id: int):
     )
 
     logger.info('Converting to YOLO format.')
-    output_dir = 'data/labelled/v2-balatro-entities'
+    output_dir = 'data/labelled/v1-balatro-ui'
     converter.convert_to_yolo(
         input_data=snapshot_path, output_dir=output_dir, is_dir=False
     )

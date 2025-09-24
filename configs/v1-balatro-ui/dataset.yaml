@@ -1,0 +1,40 @@
+# YOLO dataset configuration for Balatro game AI
+train: ../../../data/labelled/v1-balatro-ui/images
+val: ../../../data/labelled/v1-balatro-ui/images  # Using same folder for now, split if needed
+
+# Classes
+nc: 33  # number of classes
+names:
+  0: button_back
+  1: button_card_pack_skip
+  2: button_cash_out
+  3: button_discard
+  4: button_level_select
+  5: button_level_skip
+  6: button_main_menu
+  7: button_main_menu_play
+  8: button_new_run
+  9: button_new_run_play
+  10: button_options
+  11: button_play
+  12: button_purchase
+  13: button_run_info
+  14: button_sell
+  15: button_sort_hand_rank
+  16: button_sort_hand_suits
+  17: button_store_next_round
+  18: button_store_reroll
+  19: button_use
+  20: ui_card_value
+  21: ui_data_cash
+  22: ui_data_discards_left
+  23: ui_data_hands_left
+  24: ui_round_ante_current
+  25: ui_round_ante_left
+  26: ui_round_round_current
+  27: ui_round_round_left
+  28: ui_score_chips
+  29: ui_score_current
+  30: ui_score_mult
+  31: ui_score_round_score
+  32: ui_score_target_score

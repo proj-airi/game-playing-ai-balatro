@@ -10,7 +10,6 @@ dependencies = [
   "numpy>=2.3.3,<3",
   "opencv-python>=4.11.0.86,<5",
   "ipykernel>=6.30.1,<7",
-  "tqdm>=4.67.1,<5",
   "label-studio-sdk>=2.0.5,<3",
   "onnx>=1.19.0,<2",
   "onnxslim>=0.1.69,<0.2",
@@ -29,7 +28,7 @@ dependencies = [
   "pytesseract>=0.3.13,<0.4",
   "paddleocr>=3.2.0,<4",
   "rapidocr>=3.4.1,<4"
-]
+, "tqdm>=4.67.1,<5"]
 
 [build-system]
 build-backend = "hatchling.build"

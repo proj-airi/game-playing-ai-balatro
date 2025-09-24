@@ -27,8 +27,10 @@ dependencies = [
   "flake8>=7.3.0,<8",
   "pytesseract>=0.3.13,<0.4",
   "paddleocr>=3.2.0,<4",
-  "rapidocr>=3.4.1,<4"
-, "tqdm>=4.67.1,<5"]
+  "rapidocr>=3.4.1,<4",
+  "httpx>=0.28.1,<0.29",
+  "tqdm>=4.67.1,<5"
+]
 
 [build-system]
 build-backend = "hatchling.build"

@@ -18,6 +18,7 @@ node_modules
 
 dist
 out/
+.output/
 **/prediction_outputs
 
 # model training

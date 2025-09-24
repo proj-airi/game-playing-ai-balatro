@@ -394,7 +394,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/b5/123f13c975e9f27ab9c0770f514345bd406d0e8d3b7a0723af9d43f710af/wcwidth-0.2.14-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/0c/37/6faf15cfa41bf1f3dba80cd3f5ccc6622dfccb660ab26ed79f0178c7497f/wrapt-1.17.3-cp313-cp313-manylinux1_x86_64.manylinux_2_28_x86_64.manylinux_2_5_x86_64.whl
       - pypi: https://files.pythonhosted.org/packages/91/2d/7191efe15406b8b99e2b5905ca676a8a3dc2936416ade7ed17752902c250/xmljson-0.2.1-py2.py3-none-any.whl
-      - pypi: ./
       osx-arm64:
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/bzip2-1.0.8-hd037594_8.conda
       - conda: https://conda.anaconda.org/conda-forge/osx-arm64/c-ares-1.34.5-h5505292_0.conda
@@ -657,7 +656,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/b5/123f13c975e9f27ab9c0770f514345bd406d0e8d3b7a0723af9d43f710af/wcwidth-0.2.14-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/45/35/6a08de0f2c96dcdd7fe464d7420ddb9a7655a6561150e5fc4da9356aeaab/wrapt-1.17.3-cp313-cp313-macosx_11_0_arm64.whl
       - pypi: https://files.pythonhosted.org/packages/91/2d/7191efe15406b8b99e2b5905ca676a8a3dc2936416ade7ed17752902c250/xmljson-0.2.1-py2.py3-none-any.whl
-      - pypi: ./
       win-64:
       - conda: https://conda.anaconda.org/conda-forge/win-64/_openmp_mutex-4.5-2_gnu.conda
       - conda: https://conda.anaconda.org/conda-forge/win-64/bzip2-1.0.8-h0ad9c76_8.conda
@@ -965,7 +963,6 @@ environments:
       - pypi: https://files.pythonhosted.org/packages/af/b5/123f13c975e9f27ab9c0770f514345bd406d0e8d3b7a0723af9d43f710af/wcwidth-0.2.14-py2.py3-none-any.whl
       - pypi: https://files.pythonhosted.org/packages/57/54/35a84d0a4d23ea675994104e667ceff49227ce473ba6a59ba2c84f250b74/wrapt-1.17.3-cp313-cp313-win_amd64.whl
       - pypi: https://files.pythonhosted.org/packages/91/2d/7191efe15406b8b99e2b5905ca676a8a3dc2936416ade7ed17752902c250/xmljson-0.2.1-py2.py3-none-any.whl
-      - pypi: ./
 packages:
 - conda: https://conda.anaconda.org/conda-forge/linux-64/_libgcc_mutex-0.1-conda_forge.tar.bz2
   sha256: fe51de6107f9edc7aa4f786a70f4a883943bc9d39b3bb7307c04c41410990726
@@ -3200,40 +3197,6 @@ packages:
   version: 1.0.0
   sha256: 929292d34f5872e70396626ef385ec22355a1fae8ad29e1a734c3e43f9fbc216
   requires_python: '>=2.6,!=3.0.*,!=3.1.*,!=3.2.*'
-- pypi: ./
-  name: game-playing-ai-balatro
-  version: 0.1.0
-  sha256: 576e1aedaf75e41b0f282ffb985aa3b3c8a1da96afb3e330d0b99b2a03eb9cff
-  requires_dist:
-  - ultralytics>=8.3.203,<9
-  - wandb>=0.22.0,<0.23
-  - matplotlib>=3.10.6,<4
-  - numpy>=2.3.3,<3
-  - opencv-python>=4.11.0.86,<5
-  - ipykernel>=6.30.1,<7
-  - tqdm>=4.67.1,<5
-  - label-studio-sdk>=2.0.5,<3
-  - onnx>=1.19.0,<2
-  - onnxslim>=0.1.69,<0.2
-  - onnxruntime>=1.22.1,<2
-  - pillow>=11.3.0,<12
-  - pyautogui>=0.9.54,<0.10
-  - pynput>=1.8.1,<2
-  - mss>=10.1.0,<11
-  - openai>=1.109.0,<2
-  - anthropic>=0.68.0,<0.69
-  - transformers>=4.56.2,<5
-  - timm>=1.0.20,<2
-  - accelerate>=1.10.1,<2
-  - pyyaml>=6.0.2,<7
-  - pytest>=8.4.2,<9
-  - flake8>=7.3.0,<8
-  - pylint>=3.3.8,<4
-  - pytesseract>=0.3.13,<0.4
-  - paddleocr>=3.2.0,<4
-  - rapidocr>=3.4.1,<4
-  requires_python: '>=3.11'
-  editable: true
 - conda: https://conda.anaconda.org/conda-forge/linux-64/gcc_impl_linux-64-15.1.0-h4393ad2_5.conda
   sha256: 725aac2128459f5a7d38df35024e300c02bec33dc4ebb9d2bdd79e15858c5046
   md5: 4c1dbd9316a6916e63439f79d7a81c4b

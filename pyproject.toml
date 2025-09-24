@@ -37,14 +37,20 @@ dependencies = [
 build-backend = "hatchling.build"
 requires = ["hatchling"]
 
+[tool.hatch.build.targets.wheel]
+packages = ["src/agent", "src/clis"]
+
 [tool.pixi.workspace]
 channels = ["conda-forge"]
 platforms = ["linux-64", "win-64", "osx-arm64"]
 
-[tool.pixi.pypi-dependencies]
-game_playing_ai_balatro = { path = ".", editable = true }
-
 [tool.pixi.tasks]
+fmt = "ruff format ."
+lint = "pylint src/ --ignore=tests"
+ruff-check = "ruff check . --fix"
+style = { depends-on = ["fmt", "ruff-check", "lint"] }
+test = "pytest tests/ -v"
+quality = { depends-on = ["style", "test"] }
 
 [tool.pixi.dependencies]
 python = "3.13.*"
@@ -92,4 +98,3 @@ pyobjc = ">=11.1, <12"
 torch = ">=2.8.0, <3"
 torchvision = ">=0.23.0, <0.24"
 paddlepaddle = ">=3.2.0, <4"
-

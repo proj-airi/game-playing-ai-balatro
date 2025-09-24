@@ -53,8 +53,14 @@ htmlcov/
 devenv.*
 
 # pixi environments
+.pixi/*
+!.pixi/config.toml
+# pixi environments
 .pixi
 *.egg-info
+
+# PyPI configuration file
+.pypirc
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -193,5 +199,3 @@ cython_debug/
 # Ruff stuff:
 .ruff_cache/
 
-# PyPI configuration file
-.pypirc

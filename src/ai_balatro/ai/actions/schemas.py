@@ -7,7 +7,7 @@ from dataclasses import dataclass
 
 class ActionType(Enum):
     """Types of game actions."""
-    
+
     SELECT_CARDS = "select_cards"
     PLAY_CARDS = "play_cards"
     DISCARD_CARDS = "discard_cards"
@@ -18,31 +18,31 @@ class ActionType(Enum):
 @dataclass
 class CardAction:
     """Represents an action on cards using position array."""
-    
+
     action_type: ActionType
     positions: List[int]  # Array like [1, 1, 1, 0] or [-1, -1, 0, 0]
     description: str = ""
-    
+
     @property
     def selected_indices(self) -> List[int]:
         """Get indices of cards to select (1 values)."""
         return [i for i, val in enumerate(self.positions) if val == 1]
-    
+
     @property
     def discard_indices(self) -> List[int]:
         """Get indices of cards to discard (-1 values)."""
         return [i for i, val in enumerate(self.positions) if val == -1]
-    
+
     @property
     def is_play_action(self) -> bool:
         """Check if this is a play action (has positive values)."""
         return any(val > 0 for val in self.positions)
-    
+
     @property
     def is_discard_action(self) -> bool:
         """Check if this is a discard action (has negative values)."""
         return any(val < 0 for val in self.positions)
-    
+
     @classmethod
     def from_array(cls, positions: List[int], description: str = "") -> 'CardAction':
         """Create CardAction from position array."""
@@ -52,7 +52,7 @@ class CardAction:
             action_type = ActionType.DISCARD_CARDS
         else:
             action_type = ActionType.SELECT_CARDS
-            
+
         return cls(
             action_type=action_type,
             positions=positions,
@@ -69,7 +69,7 @@ GAME_ACTIONS = [
             "type": "object",
             "properties": {
                 "positions": {
-                    "type": "array", 
+                    "type": "array",
                     "items": {"type": "integer", "enum": [-1, 0, 1]},
                     "description": "位置数组：1表示选择出牌，-1表示弃牌，0表示不操作"
                 },
@@ -104,7 +104,7 @@ GAME_ACTIONS = [
         "name": "click_button",
         "description": "点击游戏界面按钮",
         "parameters": {
-            "type": "object", 
+            "type": "object",
             "properties": {
                 "button_type": {
                     "type": "string",

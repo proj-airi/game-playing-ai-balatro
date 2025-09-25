@@ -298,6 +298,6 @@ class ActionExecutor(BaseProcessor):
                 - applescript: 仅macOS，使用AppleScript激活应用
         """
         if hasattr(self, 'card_engine'):
-            self.card_engine.ensure_window_focus = enable
-            self.card_engine.focus_method = method
+            self.card_engine.mouse_controller.ensure_window_focus = enable
+            self.card_engine.mouse_controller.focus_method = method
             logger.info(f'窗口焦点设置更新: 启用={enable}, 方法={method}')

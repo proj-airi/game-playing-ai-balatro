@@ -116,10 +116,13 @@ class CardActionEngine:
                 # Use multi-model detector's entity model to detect cards
                 detections = self.multi_detector.detect_entities(frame)
                 logger.info(f'Multi-model detector (entity model) detected {len(detections)} objects')
-            else:
+            elif self.yolo_detector is not None:
                 # Backward compatibility: use single detector
                 detections = self.yolo_detector.detect(frame)
                 logger.info(f'Single detector detected {len(detections)} objects')
+            else:
+                logger.error('No detector available')
+                return False
 
             hand_cards = self.position_detector.get_hand_cards(detections)
 
@@ -185,8 +188,11 @@ class CardActionEngine:
             # Detect hand cards
             if self.multi_detector is not None:
                 detections = self.multi_detector.detect_entities(frame)
-            else:
+            elif self.yolo_detector is not None:
                 detections = self.yolo_detector.detect(frame)
+            else:
+                logger.error('No detector available')
+                return False
 
             hand_cards = self.position_detector.get_hand_cards(detections)
 

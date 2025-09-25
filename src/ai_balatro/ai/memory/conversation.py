@@ -201,8 +201,7 @@ class ConversationMemory:
 
     def set_active(self, conversation_id: str):
         """Set active conversation."""
-        if conversation_id in self.conversations:
-            self.active_conversation = conversation_id
+        self.active_conversation = conversation_id
 
     def get_active(self) -> Optional[ConversationState]:
         """Get active conversation."""

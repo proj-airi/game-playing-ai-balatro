@@ -110,6 +110,9 @@ class PromptTemplate:
             var_name = match.group(1)
             if var_name in context:
                 value = context[var_name]
+                if value is None:
+                    # Raise KeyError for None values so they can be handled
+                    raise KeyError(var_name)
                 if isinstance(value, (list, dict)):
                     # Format complex types nicely
                     if isinstance(value, list):
@@ -118,7 +121,8 @@ class PromptTemplate:
                         return '\n'.join(f'- {k}: {v}' for k, v in value.items())
                 return str(value)
             else:
-                return match.group(0)  # Keep original if not found
+                # Raise KeyError for missing variables so they can be handled
+                raise KeyError(var_name)
 
         return re.sub(r'\{([^}]+)\}', replace_var, content)
 

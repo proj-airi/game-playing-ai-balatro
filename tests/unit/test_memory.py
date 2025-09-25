@@ -185,7 +185,7 @@ class TestConversationPersistence:
         """Test saving and loading conversation."""
         # Create conversation
         original = ConversationState(system_message='Test system')
-        original.add_user_message('User message', metadata={'test': True})
+        original.add_user_message('User message', test=True)
         original.add_assistant_message('Assistant response')
 
         # Save to temporary file

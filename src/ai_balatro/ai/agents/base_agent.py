@@ -271,7 +271,11 @@ class BaseAgent(ABC):
 
         except Exception as e:
             logger.error(f'LLM query failed: {e}')
-            return AgentResult(success=False, errors=[f'LLM query failed: {e}'])
+            return AgentResult(
+                success=False,
+                errors=[f'LLM query failed: {e}'],
+                context=context
+            )
 
     def _render_prompt(self, template_name: str, context: Dict[str, Any]) -> str:
         """Render prompt using template."""

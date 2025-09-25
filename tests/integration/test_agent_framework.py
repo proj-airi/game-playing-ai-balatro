@@ -98,6 +98,7 @@ class TestAgent(BaseAgent):
             success=result.success,
             reasoning=result.reasoning or 'Analyzed test situation',
             context=context,
+            errors=result.errors,
         )
 
     def plan_action(self, context: AgentContext) -> AgentResult:
@@ -115,6 +116,7 @@ class TestAgent(BaseAgent):
             action=result.action,
             reasoning=result.reasoning or 'Planned test action',
             context=context,
+            errors=result.errors,
         )
 
     def execute_action(self, action: dict, context: AgentContext) -> AgentResult:

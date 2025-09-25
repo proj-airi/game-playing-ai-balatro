@@ -125,7 +125,7 @@ class TestActionExecutor:
 
         # Verify card engine was called
         executor.card_engine.execute_card_action.assert_called_with(
-            [1, 1, 0, 0], '出前两张牌'
+            [1, 1, 0, 0], '出前两张牌', False
         )
 
     def test_process_invalid_positions(self):
@@ -157,7 +157,7 @@ class TestActionExecutor:
 
         assert success
         executor.card_engine.execute_card_action.assert_called_with(
-            [1, 1, 1, 0], '测试出牌'
+            [1, 1, 1, 0], '测试出牌', False
         )
 
 

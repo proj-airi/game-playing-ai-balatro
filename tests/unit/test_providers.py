@@ -215,7 +215,7 @@ class TestChatRequestHandling:
     def test_engine_failure(self):
         """Test handling of engine failure."""
         self.provider.engine.make_request.return_value = ProcessingResult(
-            success=False, errors=['Network error']
+            success=False, data=None, errors=['Network error']
         )
 
         result = self.provider._make_chat_request(

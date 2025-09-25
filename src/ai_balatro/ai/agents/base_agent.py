@@ -1,15 +1,15 @@
 """Base agent framework for extensible AI agents."""
 
 from abc import ABC, abstractmethod
-from typing import Dict, Any, List, Optional, Callable
+from typing import Dict, Any, List, Optional
 from dataclasses import dataclass, field
 from enum import Enum
 import time
 import uuid
 
 from ..providers.base import LLMProvider
-from ..memory.conversation import ConversationMemory, MessageRole
-from ..templates.prompt_template import PromptTemplateManager, render_prompt
+from ..memory.conversation import ConversationMemory
+from ..templates.prompt_template import PromptTemplateManager
 from ...utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -17,17 +17,19 @@ logger = get_logger(__name__)
 
 class AgentState(Enum):
     """Agent execution states."""
-    IDLE = "idle"
-    THINKING = "thinking"
-    ACTING = "acting"
-    WAITING = "waiting"
-    ERROR = "error"
-    STOPPED = "stopped"
+
+    IDLE = 'idle'
+    THINKING = 'thinking'
+    ACTING = 'acting'
+    WAITING = 'waiting'
+    ERROR = 'error'
+    STOPPED = 'stopped'
 
 
 @dataclass
 class AgentContext:
     """Context passed between agent methods."""
+
     session_id: str
     game_state: Dict[str, Any] = field(default_factory=dict)
     previous_actions: List[Dict[str, Any]] = field(default_factory=list)
@@ -38,6 +40,7 @@ class AgentContext:
 @dataclass
 class AgentResult:
     """Result from agent execution."""
+
     success: bool
     action: Optional[Dict[str, Any]] = None
     reasoning: Optional[str] = None
@@ -56,7 +59,7 @@ class BaseAgent(ABC):
         llm_provider: LLMProvider,
         conversation_memory: Optional[ConversationMemory] = None,
         template_manager: Optional[PromptTemplateManager] = None,
-        max_iterations: int = 10
+        max_iterations: int = 10,
     ):
         """
         Initialize base agent.
@@ -95,7 +98,9 @@ class BaseAgent(ABC):
         pass
 
     @abstractmethod
-    def execute_action(self, action: Dict[str, Any], context: AgentContext) -> AgentResult:
+    def execute_action(
+        self, action: Dict[str, Any], context: AgentContext
+    ) -> AgentResult:
         """Execute the planned action."""
         pass
 
@@ -112,7 +117,7 @@ class BaseAgent(ABC):
 
         try:
             while iteration < self.max_iterations:
-                logger.info(f"Agent {self.name} - Iteration {iteration + 1}")
+                logger.info(f'Agent {self.name} - Iteration {iteration + 1}')
 
                 # Analyze situation
                 analysis_result = self.analyze_situation(self.current_context)
@@ -135,14 +140,15 @@ class BaseAgent(ABC):
                 if planning_result.action:
                     self.current_state = AgentState.ACTING
                     execution_result = self.execute_action(
-                        planning_result.action,
-                        self.current_context
+                        planning_result.action, self.current_context
                     )
                     self.execution_history.append(execution_result)
 
                     # Update context with action
                     if self.current_context:
-                        self.current_context.previous_actions.append(planning_result.action)
+                        self.current_context.previous_actions.append(
+                            planning_result.action
+                        )
 
                     if not execution_result.success:
                         self.current_state = AgentState.ERROR
@@ -159,38 +165,38 @@ class BaseAgent(ABC):
             self.current_state = AgentState.IDLE
             return AgentResult(
                 success=True,
-                reasoning="Maximum iterations reached",
+                reasoning='Maximum iterations reached',
                 state=self.current_state,
                 context=self.current_context,
-                metadata={"iterations": iteration}
+                metadata={'iterations': iteration},
             )
 
         except Exception as e:
             self.current_state = AgentState.ERROR
-            logger.error(f"Agent {self.name} execution failed: {e}")
+            logger.error(f'Agent {self.name} execution failed: {e}')
 
             return AgentResult(
                 success=False,
                 state=self.current_state,
                 context=self.current_context,
-                errors=[f"Execution failed: {e}"]
+                errors=[f'Execution failed: {e}'],
             )
 
     def stop(self):
         """Stop agent execution."""
         self.current_state = AgentState.STOPPED
-        logger.info(f"Agent {self.name} stopped")
+        logger.info(f'Agent {self.name} stopped')
 
     def reset(self):
         """Reset agent state."""
         self.current_state = AgentState.IDLE
         self.current_context = None
         self.execution_history = []
-        logger.info(f"Agent {self.name} reset")
+        logger.info(f'Agent {self.name} reset')
 
     def get_conversation_id(self) -> str:
         """Get conversation ID for this agent session."""
-        return f"{self.name}_{self.agent_id}"
+        return f'{self.name}_{self.agent_id}'
 
     def _init_conversation(self):
         """Initialize conversation memory."""
@@ -198,34 +204,32 @@ class BaseAgent(ABC):
         system_message = self._get_system_message()
 
         self.conversation_memory.create_conversation(
-            conversation_id=conversation_id,
-            system_message=system_message
+            conversation_id=conversation_id, system_message=system_message
         )
         self.conversation_memory.set_active(conversation_id)
 
     def _get_system_message(self) -> str:
         """Get system message for this agent."""
         # Override in subclasses for specific system messages
-        return f"You are {self.name}, an AI agent designed to analyze situations and take actions."
+        return f'You are {self.name}, an AI agent designed to analyze situations and take actions.'
 
     def _should_stop(self, result: AgentResult) -> bool:
         """Determine if agent should stop execution."""
         # Override in subclasses for specific stop conditions
-        return result.metadata.get("should_stop", False)
+        return result.metadata.get('should_stop', False)
 
     def _llm_query(
         self,
         prompt: str,
         use_functions: bool = False,
-        functions: Optional[List[Dict]] = None
+        functions: Optional[List[Dict]] = None,
     ) -> AgentResult:
         """Query LLM with conversation context."""
         try:
             conversation = self.conversation_memory.get_active()
             if not conversation:
                 return AgentResult(
-                    success=False,
-                    errors=["No active conversation found"]
+                    success=False, errors=['No active conversation found']
                 )
 
             # Add user message
@@ -233,9 +237,11 @@ class BaseAgent(ABC):
 
             # Prepare context
             context = {
-                "history": conversation.get_messages_for_api()[:-1],  # Exclude current message
-                "max_tokens": 1000,
-                "temperature": 0.3
+                'history': conversation.get_messages_for_api()[
+                    :-1
+                ],  # Exclude current message
+                'max_tokens': 1000,
+                'temperature': 0.3,
             }
 
             # Query LLM
@@ -246,36 +252,33 @@ class BaseAgent(ABC):
 
             if result.success:
                 # Add assistant response
-                content = result.data.get("content", "")
+                content = result.data.get('content', '')
                 if content:
                     conversation.add_assistant_message(content)
 
                 return AgentResult(
                     success=True,
-                    action=result.data.get("function_calls", [{}])[0] if use_functions else None,
+                    action=result.data.get('function_calls', [{}])[0]
+                    if use_functions
+                    else None,
                     reasoning=content,
-                    metadata=result.metadata
+                    metadata=result.metadata,
                 )
             else:
                 return AgentResult(
-                    success=False,
-                    errors=result.errors,
-                    metadata=result.metadata
+                    success=False, errors=result.errors, metadata=result.metadata
                 )
 
         except Exception as e:
-            logger.error(f"LLM query failed: {e}")
-            return AgentResult(
-                success=False,
-                errors=[f"LLM query failed: {e}"]
-            )
+            logger.error(f'LLM query failed: {e}')
+            return AgentResult(success=False, errors=[f'LLM query failed: {e}'])
 
     def _render_prompt(self, template_name: str, context: Dict[str, Any]) -> str:
         """Render prompt using template."""
         try:
             return self.template_manager.render_template(template_name, context)
         except Exception as e:
-            logger.error(f"Template rendering failed: {e}")
+            logger.error(f'Template rendering failed: {e}')
             return f"Error rendering template '{template_name}': {e}"
 
 
@@ -301,7 +304,7 @@ class AgentOrchestrator:
             # Add to end
             self.execution_order.append(agent.name)
 
-        logger.info(f"Registered agent: {agent.name}")
+        logger.info(f'Registered agent: {agent.name}')
 
     def run_agents(self, context: Optional[AgentContext] = None) -> List[AgentResult]:
         """Run all agents in execution order."""
@@ -315,10 +318,10 @@ class AgentOrchestrator:
             if not agent:
                 continue
 
-            logger.info(f"Running agent: {agent_name}")
+            logger.info(f'Running agent: {agent_name}')
 
             # Update context with previous results
-            self.shared_context.metadata["previous_results"] = results
+            self.shared_context.metadata['previous_results'] = results
 
             result = agent.run(self.shared_context)
             results.append(result)
@@ -326,11 +329,13 @@ class AgentOrchestrator:
             # Update shared context
             if result.context:
                 self.shared_context.game_state.update(result.context.game_state)
-                self.shared_context.previous_actions.extend(result.context.previous_actions)
+                self.shared_context.previous_actions.extend(
+                    result.context.previous_actions
+                )
 
             # Stop on error if configured
             if not result.success:
-                logger.error(f"Agent {agent_name} failed: {result.errors}")
+                logger.error(f'Agent {agent_name} failed: {result.errors}')
                 break
 
         return results

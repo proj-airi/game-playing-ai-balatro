@@ -9,16 +9,18 @@ import json
 
 class MessageRole(Enum):
     """Message roles in conversation."""
-    SYSTEM = "system"
-    USER = "user"
-    ASSISTANT = "assistant"
-    FUNCTION = "function"
-    TOOL = "tool"
+
+    SYSTEM = 'system'
+    USER = 'user'
+    ASSISTANT = 'assistant'
+    FUNCTION = 'function'
+    TOOL = 'tool'
 
 
 @dataclass
 class Message:
     """Single conversation message."""
+
     role: MessageRole
     content: str
     timestamp: float = field(default_factory=time.time)
@@ -27,10 +29,7 @@ class Message:
 
     def to_dict(self) -> Dict[str, Any]:
         """Convert to dict for API calls."""
-        return {
-            "role": self.role.value,
-            "content": self.content
-        }
+        return {'role': self.role.value, 'content': self.content}
 
     def estimate_tokens(self) -> int:
         """Rough token estimation (4 chars = 1 token)."""
@@ -42,6 +41,7 @@ class Message:
 @dataclass
 class ConversationState:
     """Current state of conversation."""
+
     messages: List[Message] = field(default_factory=list)
     max_messages: int = 50
     max_tokens: int = 4000
@@ -78,10 +78,7 @@ class ConversationState:
 
         # Add system message first if exists
         if self.system_message:
-            messages.append({
-                "role": "system",
-                "content": self.system_message
-            })
+            messages.append({'role': 'system', 'content': self.system_message})
 
         # Add conversation messages (skip system messages in history)
         for msg in self.messages:
@@ -93,7 +90,10 @@ class ConversationState:
     def _manage_limits(self):
         """Manage message count and token limits."""
         # Remove oldest non-system messages if over limits
-        while len(self.messages) > self.max_messages or self.get_total_tokens() > self.max_tokens:
+        while (
+            len(self.messages) > self.max_messages
+            or self.get_total_tokens() > self.max_tokens
+        ):
             if len(self.messages) <= 1:  # Keep at least one message
                 break
 
@@ -108,7 +108,9 @@ class ConversationState:
     def clear_history(self, keep_system: bool = True):
         """Clear conversation history."""
         if keep_system and self.system_message:
-            self.messages = [msg for msg in self.messages if msg.role == MessageRole.SYSTEM]
+            self.messages = [
+                msg for msg in self.messages if msg.role == MessageRole.SYSTEM
+            ]
         else:
             self.messages = []
             self.system_message = None
@@ -121,24 +123,24 @@ class ConversationState:
         for msg in recent_messages:
             if msg.role != MessageRole.SYSTEM:
                 role_name = msg.role.value.upper()
-                context_lines.append(f"{role_name}: {msg.content[:200]}...")
+                context_lines.append(f'{role_name}: {msg.content[:200]}...')
 
-        return "\n".join(context_lines)
+        return '\n'.join(context_lines)
 
     def save_to_file(self, filepath: str):
         """Save conversation to file."""
         data = {
-            "system_message": self.system_message,
-            "messages": [
+            'system_message': self.system_message,
+            'messages': [
                 {
-                    "role": msg.role.value,
-                    "content": msg.content,
-                    "timestamp": msg.timestamp,
-                    "metadata": msg.metadata
+                    'role': msg.role.value,
+                    'content': msg.content,
+                    'timestamp': msg.timestamp,
+                    'metadata': msg.metadata,
                 }
                 for msg in self.messages
             ],
-            "metadata": self.metadata
+            'metadata': self.metadata,
         }
 
         with open(filepath, 'w', encoding='utf-8') as f:
@@ -151,15 +153,15 @@ class ConversationState:
             data = json.load(f)
 
         state = cls()
-        state.system_message = data.get("system_message")
-        state.metadata = data.get("metadata", {})
+        state.system_message = data.get('system_message')
+        state.metadata = data.get('metadata', {})
 
-        for msg_data in data.get("messages", []):
+        for msg_data in data.get('messages', []):
             message = Message(
-                role=MessageRole(msg_data["role"]),
-                content=msg_data["content"],
-                timestamp=msg_data.get("timestamp", time.time()),
-                metadata=msg_data.get("metadata", {})
+                role=MessageRole(msg_data['role']),
+                content=msg_data['content'],
+                timestamp=msg_data.get('timestamp', time.time()),
+                metadata=msg_data.get('metadata', {}),
             )
             state.messages.append(message)
 
@@ -178,13 +180,13 @@ class ConversationMemory:
         conversation_id: str,
         system_message: Optional[str] = None,
         max_messages: int = 50,
-        max_tokens: int = 4000
+        max_tokens: int = 4000,
     ) -> ConversationState:
         """Create new conversation."""
         state = ConversationState(
             max_messages=max_messages,
             max_tokens=max_tokens,
-            system_message=system_message
+            system_message=system_message,
         )
 
         if system_message:

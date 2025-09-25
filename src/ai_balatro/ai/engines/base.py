@@ -8,6 +8,7 @@ from enum import Enum
 
 class EngineType(Enum):
     """Types of computational engines."""
+
     LOCAL = 'local'
     API_PROVIDER = 'api_provider'
     TRANSFORMERS = 'transformers'
@@ -16,6 +17,7 @@ class EngineType(Enum):
 @dataclass
 class EngineConfig:
     """Configuration for engines."""
+
     engine_type: EngineType
     device: Optional[str] = None  # cuda, mps, cpu
     timeout: int = 30
@@ -54,7 +56,7 @@ class BaseEngine(ABC):
     def __enter__(self):
         """Context manager entry."""
         if not self.initialize():
-            raise RuntimeError(f"Failed to initialize engine {self.name}")
+            raise RuntimeError(f'Failed to initialize engine {self.name}')
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):

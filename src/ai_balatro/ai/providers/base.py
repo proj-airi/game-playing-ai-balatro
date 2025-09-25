@@ -11,6 +11,7 @@ from ..llm.base import ProcessingResult
 
 class ProviderType(Enum):
     """Types of AI providers."""
+
     LLM = 'llm'
     VLM = 'vlm'
     EMBEDDING = 'embedding'
@@ -21,6 +22,7 @@ class ProviderType(Enum):
 @dataclass
 class ProviderConfig:
     """Configuration for providers."""
+
     provider_type: ProviderType
     model_name: str
     api_key: Optional[str] = None
@@ -50,19 +52,14 @@ class BaseProvider(ABC):
 
     @abstractmethod
     def generate_text(
-        self,
-        prompt: str,
-        context: Optional[Dict] = None
+        self, prompt: str, context: Optional[Dict] = None
     ) -> ProcessingResult:
         """Generate text response."""
         pass
 
     @abstractmethod
     def function_call(
-        self,
-        prompt: str,
-        functions: List[Dict],
-        context: Optional[Dict] = None
+        self, prompt: str, functions: List[Dict], context: Optional[Dict] = None
     ) -> ProcessingResult:
         """Generate function calls."""
         pass
@@ -70,7 +67,7 @@ class BaseProvider(ABC):
     def __enter__(self):
         """Context manager entry."""
         if not self.initialize():
-            raise RuntimeError(f"Failed to initialize provider {self.name}")
+            raise RuntimeError(f'Failed to initialize provider {self.name}')
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
@@ -106,10 +103,7 @@ class VLMProvider(BaseProvider):
 
     @abstractmethod
     def analyze_image(
-        self,
-        image_data: bytes,
-        prompt: str,
-        context: Optional[Dict] = None
+        self, image_data: bytes, prompt: str, context: Optional[Dict] = None
     ) -> ProcessingResult:
         """Analyze image with text prompt."""
         pass

@@ -50,7 +50,7 @@ def get_project_root() -> Path:
     Returns:
         Path to project root
     """
-    return Path(__file__).parent.parent.parent
+    return Path(__file__).parent.parent.parent.parent
 
 
 def resolve_path(path: str, relative_to: Optional[str] = None) -> str:

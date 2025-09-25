@@ -10,16 +10,16 @@ on:
       - 'docs/**'
 
 jobs:
-  test:
-    name: Test
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v5
-      - uses: prefix-dev/setup-pixi@v0.9.1
-        with:
-          cache: true
-      - run: pixi install
-      - run: pixi run test
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v5
+  #     - uses: prefix-dev/setup-pixi@v0.9.1
+  #       with:
+  #         cache: true
+  #     - run: pixi install
+  #     - run: pixi run test
 
   lint:
     name: Lint

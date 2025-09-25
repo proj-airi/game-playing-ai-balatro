@@ -29,7 +29,8 @@ dependencies = [
   "paddleocr>=3.2.0,<4",
   "rapidocr>=3.4.1,<4",
   "httpx>=0.28.1,<0.29",
-  "tqdm>=4.67.1,<5"
+  "tqdm>=4.67.1,<5",
+  "pynput>=1.8.1,<2"
 ]
 
 [build-system]
@@ -99,4 +100,3 @@ pyobjc = ">=11.1, <12"
 torch = ">=2.8.0, <3"
 torchvision = ">=0.23.0, <0.24"
 paddlepaddle = ">=3.2.0, <4"
-pynput = ">=1.8.1,<2"

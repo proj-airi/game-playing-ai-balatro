@@ -3,7 +3,9 @@
     "allow": [
       "Bash(pixi list:*)",
       "Bash(pixi run:*)",
-      "WebSearch"
+      "WebSearch",
+      "Bash(grep:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

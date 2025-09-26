@@ -8,6 +8,7 @@ from ...core.yolo_detector import YOLODetector
 from ...core.multi_yolo_detector import MultiYOLODetector
 from ...core.screen_capture import ScreenCapture
 from ...utils.logger import get_logger
+from ...services.card_tooltip_service import CardTooltipService
 from .schemas import CardAction
 from .detection_models import ButtonDetection
 from .card_detector import CardPositionDetector
@@ -61,6 +62,15 @@ class CardActionEngine:
         self.button_detector = ButtonDetector(self.multi_detector)
         self.visualizer = DetectionVisualizer()
         self.mouse_controller = MouseController(self.screen_capture)
+        self.card_tooltip_service = CardTooltipService(
+            screen_capture=self.screen_capture,
+            mouse_controller=self.mouse_controller,
+            multi_detector=self.multi_detector
+        )
+
+        # Card hover settings
+        self.enable_card_hovering = True  # Enable card hovering by default
+        self.hover_before_action = True  # Hover cards before Play/Discard actions
 
         logger.info('CardActionEngine initialization complete')
 
@@ -82,12 +92,33 @@ class CardActionEngine:
             move_duration, move_steps, click_hold_duration
         )
 
+    def set_card_hover_settings(
+        self,
+        enable_hovering: bool = True,
+        hover_before_action: bool = True,
+        save_debug_images: bool = False
+    ) -> None:
+        """
+        Configure card hovering settings.
+
+        Args:
+            enable_hovering: Whether to enable card hovering
+            hover_before_action: Whether to hover cards before Play/Discard actions
+            save_debug_images: Whether to save debug images during hovering
+        """
+        self.enable_card_hovering = enable_hovering
+        self.hover_before_action = hover_before_action
+        self.save_debug_images = save_debug_images
+
+        logger.info(f"Card hover settings updated: hovering={enable_hovering}, before_action={hover_before_action}, debug_images={save_debug_images}")
+
     def execute_card_action(
         self,
         positions: List[int],
         description: str = '',
         show_visualization: bool = False,
-    ) -> bool:
+        return_card_descriptions: bool = False,
+    ) -> dict:
         """
         Execute card action.
 
@@ -95,40 +126,60 @@ class CardActionEngine:
             positions: Position array, like [1, 1, 1, 0] or [-1, -1, 0, 0]
             description: Action description
             show_visualization: Whether to show visualization window
+            return_card_descriptions: Whether to return card descriptions from hovering
 
         Returns:
-            Whether execution was successful
+            Dictionary with execution results and optionally card descriptions
         """
         logger.info(f'Executing card action: {positions} - {description}')
 
         # Create CardAction object
         action = CardAction.from_array(positions, description)
 
+        result = {
+            'success': False,
+            'card_descriptions': [],
+            'action_executed': False,
+            'error_message': ''
+        }
+
         try:
             # 1. Capture current screen
             frame = self.screen_capture.capture_once()
             if frame is None:
+                result['error_message'] = 'Screen capture failed'
                 logger.error('Screen capture failed')
-                return False
+                return result
 
             # 2. Detect hand cards
+            combined_detections: List[Detection]
             if self.multi_detector is not None:
-                # Use multi-model detector's entity model to detect cards
-                detections = self.multi_detector.detect_entities(frame)
-                logger.info(f'Multi-model detector (entity model) detected {len(detections)} objects')
+                # Use multi-model detector's entity and UI models
+                entity_detections = self.multi_detector.detect_entities(frame)
+                ui_detections = self.multi_detector.detect_ui(frame)
+                detections = entity_detections
+                combined_detections = entity_detections + ui_detections
+                logger.info(
+                    'Multi-model detector found %d entities and %d UI elements',
+                    len(entity_detections),
+                    len(ui_detections),
+                )
             elif self.yolo_detector is not None:
                 # Backward compatibility: use single detector
                 detections = self.yolo_detector.detect(frame)
+                combined_detections = detections
                 logger.info(f'Single detector detected {len(detections)} objects')
             else:
+                result['error_message'] = 'No detector available'
                 logger.error('No detector available')
-                return False
+                return result
 
             hand_cards = self.position_detector.get_hand_cards(detections)
 
             if not hand_cards:
+                result['error_message'] = 'No hand cards detected'
                 logger.error('No hand cards detected')
-                return False
+                return result
 
             # 3. Validate position array length
             if len(positions) > len(hand_cards):
@@ -138,13 +189,41 @@ class CardActionEngine:
                 # Truncate position array
                 positions = positions[: len(hand_cards)]
 
-            # 4. Show visualization (if enabled)
+            # 4. Hover cards to capture descriptions (NEW FEATURE)
+            if self.enable_card_hovering and self.hover_before_action:
+                logger.info('Capturing card descriptions before action...')
+
+                card_descriptions = self.card_tooltip_service.collect_card_infos(
+                    frame,
+                    hand_cards,
+                    detections=combined_detections,
+                    auto_hover_missing=True,
+                    save_debug_images=getattr(self, 'save_debug_images', False)
+                )
+
+                result['card_descriptions'] = card_descriptions
+                logger.info(f'Successfully captured descriptions for {len(card_descriptions)} cards')
+
+                for i, card_desc in enumerate(card_descriptions):
+                    if card_desc['description_detected'] and card_desc['description_text']:
+                        truncated = (
+                            card_desc['description_text'][:50] + '...'
+                            if len(card_desc['description_text']) > 50
+                            else card_desc['description_text']
+                        )
+                        logger.info(f'  Card {i}: {truncated}')
+                    else:
+                        logger.info(f'  Card {i}: No description captured')
+            else:
+                logger.info('Card hovering disabled, skipping description capture')
+
+            # 5. Show visualization (if enabled)
             if show_visualization:
                 self._show_card_action_visualization(
                     frame, hand_cards, action, positions
                 )
 
-            # 5. Ensure game window focus
+            # 6. Ensure game window focus
             logger.info('Ensuring game window has focus...')
             focus_success = self.mouse_controller.ensure_game_window_focus()
             if focus_success:
@@ -152,19 +231,123 @@ class CardActionEngine:
             else:
                 logger.warning('! Window focus handling failed, continuing with operation')
 
-            # 6. Execute click operations
-            success = self._execute_clicks(hand_cards, action)
+            # 7. Execute click operations
+            click_success = self._execute_clicks(hand_cards, action)
 
-            if success:
-                # 7. Execute confirmation action (play or discard)
+            if click_success:
+                # 8. Execute confirmation action (play or discard)
                 time.sleep(0.5)  # Action delay
-                success = self._execute_confirm_action(action, show_visualization)
+                confirm_success = self._execute_confirm_action(action, show_visualization)
 
-            return success
+                if confirm_success:
+                    result['success'] = True
+                    result['action_executed'] = True
+                    logger.info('✓ Card action executed successfully')
+                else:
+                    result['error_message'] = 'Failed to execute confirmation action (Play/Discard button)'
+                    logger.error('Failed to execute confirmation action')
+            else:
+                result['error_message'] = 'Failed to execute card click operations'
+                logger.error('Failed to execute card click operations')
+
+            return result
 
         except Exception as e:
+            result['error_message'] = f'Error occurred while executing card action: {e}'
             logger.error(f'Error occurred while executing card action: {e}')
-            return False
+            return result
+
+    def get_card_descriptions(self, save_debug_images: bool = False) -> List[dict]:
+        """
+        Get card descriptions by hovering over all cards in hand.
+
+        Args:
+            save_debug_images: Whether to save debug images during hovering
+
+        Returns:
+            List of card description dictionaries
+        """
+        logger.info('Capturing card descriptions by hovering over hand cards...')
+
+        try:
+            # 1. Capture current screen
+            frame = self.screen_capture.capture_once()
+            if frame is None:
+                logger.error('Screen capture failed')
+                return []
+
+            # 2. Detect hand cards
+            if self.multi_detector is not None:
+                entity_detections = self.multi_detector.detect_entities(frame)
+                ui_detections = self.multi_detector.detect_ui(frame)
+                detections = entity_detections + ui_detections
+                logger.info(
+                    'Multi-model detector found %d entities and %d UI elements',
+                    len(entity_detections),
+                    len(ui_detections),
+                )
+            elif self.yolo_detector is not None:
+                detections = self.yolo_detector.detect(frame)
+                logger.info(f'Single detector detected {len(detections)} objects')
+            else:
+                logger.error('No detector available')
+                return []
+
+            hand_cards = self.position_detector.get_hand_cards(detections)
+
+            if not hand_cards:
+                logger.error('No hand cards detected')
+                return []
+
+            card_descriptions = self.card_tooltip_service.collect_card_infos(
+                frame,
+                hand_cards,
+                detections=detections,
+                auto_hover_missing=True,
+                save_debug_images=save_debug_images
+            )
+
+            logger.info(f'Successfully captured descriptions for {len(card_descriptions)} cards')
+            return card_descriptions
+
+        except Exception as e:
+            logger.error(f'Error getting card descriptions: {e}')
+            return []
+
+    def get_card_descriptions_from_frame(
+        self,
+        frame: np.ndarray,
+        detections: List[Detection],
+        auto_hover_missing: bool = True,
+        save_debug_images: bool = False
+    ) -> List[dict]:
+        """Collect card descriptions from an existing frame and detections."""
+
+        hand_cards = self.position_detector.get_hand_cards(detections)
+
+        if not hand_cards:
+            logger.warning('No hand cards available when collecting descriptions')
+            return []
+
+        return self.card_tooltip_service.collect_card_infos(
+            frame,
+            hand_cards,
+            detections=detections,
+            auto_hover_missing=auto_hover_missing,
+            save_debug_images=save_debug_images
+        )
+
+    def format_card_descriptions_for_llm(self, card_descriptions: List[dict]) -> str:
+        """
+        Format card descriptions for LLM prompt.
+
+        Args:
+            card_descriptions: List of card description dictionaries
+
+        Returns:
+            Formatted string for LLM prompt
+        """
+        return self.card_tooltip_service.format_card_info_for_llm(card_descriptions)
 
     def hover_card(self, card_index: int, duration: float = 1.0) -> bool:
         """

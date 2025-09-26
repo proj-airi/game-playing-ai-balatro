@@ -62,49 +62,30 @@ class CardAction:
 GAME_ACTIONS = [
     {
         'name': 'select_cards_by_position',
-        'description': '选择指定位置的牌，使用位置数组表示',
+        'description': 'Select cards by position using array notation for play/discard actions',
         'parameters': {
             'type': 'object',
             'properties': {
                 'positions': {
                     'type': 'array',
                     'items': {'type': 'integer', 'enum': [-1, 0, 1]},
-                    'description': '位置数组：1表示选择出牌，-1表示弃牌，0表示不操作',
+                    'description': 'Position array: 1=play card, -1=discard card, 0=no action',
                 },
-                'description': {'type': 'string', 'description': '操作描述'},
+                'description': {'type': 'string', 'description': 'Action description'},
             },
             'required': ['positions'],
         },
     },
     {
-        'name': 'hover_card',
-        'description': '悬停在指定牌上查看详情',
-        'parameters': {
-            'type': 'object',
-            'properties': {
-                'card_index': {
-                    'type': 'integer',
-                    'description': '牌的位置索引（从0开始）',
-                },
-                'duration': {
-                    'type': 'number',
-                    'description': '悬停持续时间（秒）',
-                    'default': 1.0,
-                },
-            },
-            'required': ['card_index'],
-        },
-    },
-    {
         'name': 'click_button',
-        'description': '点击游戏界面按钮',
+        'description': 'Click game interface button',
         'parameters': {
             'type': 'object',
             'properties': {
                 'button_type': {
                     'type': 'string',
-                    'enum': ['play', 'discard', 'skip', 'shop', 'next'],
-                    'description': '按钮类型',
+                    'enum': ['play', 'discard', 'skip', 'shop', 'next', 'sort_hand_rank', 'sort_hand_suits'],
+                    'description': 'Button type to click',
                 }
             },
             'required': ['button_type'],
@@ -122,5 +103,21 @@ BUTTON_CONFIG = {
     'next': {
         'keywords': ['next', '下一个', 'continue'],
         'description': '继续/下一步按钮',
+    },
+    'button_sort_hand_rank': {
+        'keywords': ['sort_hand_rank', 'sort', 'rank'],
+        'description': '按牌面大小排序按钮',
+    },
+    'button_sort_hand_suits': {
+        'keywords': ['sort_hand_suits', 'sort', 'suits'],
+        'description': '按花色排序按钮',
+    },
+    'button_run_info': {
+        'keywords': ['run_info', 'info', 'information'],
+        'description': '游戏信息按钮',
+    },
+    'button_options': {
+        'keywords': ['options', 'settings', '设置'],
+        'description': '选项设置按钮',
     },
 }

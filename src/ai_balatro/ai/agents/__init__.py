@@ -7,6 +7,7 @@ from .base_agent import (
     AgentResult,
     AgentOrchestrator,
 )
+from .balatro_agent import BalatroReasoningAgent
 
 __all__ = [
     'BaseAgent',
@@ -14,4 +15,5 @@ __all__ = [
     'AgentContext',
     'AgentResult',
     'AgentOrchestrator',
+    'BalatroReasoningAgent',
 ]

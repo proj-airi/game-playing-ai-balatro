@@ -208,19 +208,119 @@ class ActionExecutor(BaseProcessor):
                 success=False, data=None, errors=[f'不支持的按钮类型: {button_type}']
             )
 
-        # TODO: 实现按钮点击逻辑
-        logger.warning(f'按钮点击功能待实现: {button_type}')
+        # Use button detector to find and click the button
+        try:
+            # Capture current frame
+            frame = self.screen_capture.capture_once()
+            if frame is None:
+                return ProcessingResult(
+                    success=False,
+                    data=None,
+                    errors=['无法捕获屏幕画面']
+                )
 
-        return ProcessingResult(
-            success=False,
-            data={
-                'action': 'click_button',
-                'button_type': button_type,
-                'executed': False,
-                'message': '按钮点击功能待实现',
-            },
-            errors=['按钮点击功能待实现'],
-        )
+            # Find the button using the button detector
+            button_config = BUTTON_CONFIG[button_type]
+            keywords = button_config['keywords']
+
+            # Detect UI elements
+            if self.multi_detector:
+                ui_detections = self.multi_detector.detect_ui(frame)
+            else:
+                # Fallback for single detector (should not happen normally)
+                logger.warning('使用单一检测器作为后备方案')
+                ui_detections = []
+
+            # Look for button by matching keywords in class names
+            target_button = None
+            for detection in ui_detections:
+                class_name_lower = detection.class_name.lower()
+                if any(keyword.lower() in class_name_lower for keyword in keywords):
+                    target_button = detection
+                    break
+
+            if target_button is None:
+                return ProcessingResult(
+                    success=False,
+                    data={
+                        'action': 'click_button',
+                        'button_type': button_type,
+                        'executed': False,
+                        'available_buttons': [d.class_name for d in ui_detections if 'button' in d.class_name.lower()],
+                    },
+                    errors=[f'未找到对应按钮: {button_type}，可能按钮不可见或检测失败']
+                )
+
+            # Ensure the Balatro window is focused before attempting the click
+            focus_ok = self.card_engine.mouse_controller.ensure_game_window_focus()
+            if not focus_ok:
+                logger.warning('窗口焦点处理失败，继续尝试点击按钮')
+
+            # Convert detection coordinates to screen coordinates
+            capture_region = self.screen_capture.get_capture_region()
+            frame_height, frame_width = frame.shape[:2]
+            if capture_region:
+                scale_x = capture_region['width'] / frame_width
+                scale_y = capture_region['height'] / frame_height
+                screen_x = int(capture_region['left'] + target_button.center[0] * scale_x)
+                screen_y = int(capture_region['top'] + target_button.center[1] * scale_y)
+            else:
+                logger.debug('未设置截图区域，使用检测坐标作为屏幕坐标')
+                screen_x = int(target_button.center[0])
+                screen_y = int(target_button.center[1])
+
+            screen_position = (screen_x, screen_y)
+            logger.info(
+                f'按钮 {button_type} 检测中心 {target_button.center} -> 屏幕坐标 {screen_position}'
+            )
+
+            # Click the button using the card engine's mouse controller
+            move_success = self.card_engine.mouse_controller.smooth_move_to(
+                screen_x, screen_y
+            )
+
+            if move_success:
+                # Add a small delay before clicking
+                import time
+
+                time.sleep(0.1)
+                # Click at the button location
+                click_success = self.card_engine.mouse_controller.click_at(
+                    screen_x, screen_y, move_first=False
+                )
+
+                if click_success:
+                    logger.info(f'成功点击按钮: {button_type} at {screen_position}')
+                else:
+                    logger.warning(
+                        f'按钮点击可能失败: {button_type} at {screen_position}'
+                    )
+
+                return ProcessingResult(
+                    success=True,
+                    data={
+                        'action': 'click_button',
+                        'button_type': button_type,
+                        'executed': True,
+                        'button_position': screen_position,
+                        'button_class': target_button.class_name,
+                        'confidence': target_button.confidence
+                    }
+                )
+            else:
+                return ProcessingResult(
+                    success=False,
+                    data=None,
+                    errors=[f'鼠标移动到按钮位置失败: {screen_position}']
+                )
+
+        except Exception as e:
+            logger.error(f'按钮点击执行失败: {e}')
+            return ProcessingResult(
+                success=False,
+                data=None,
+                errors=[f'按钮点击执行失败: {e}']
+            )
 
     def execute_from_array(
         self,

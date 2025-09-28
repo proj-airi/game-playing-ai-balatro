@@ -32,7 +32,7 @@ jobs:
         # - https://github.com/moses-palmer/pynput/issues/659#issuecomment-3179971798
         # - https://github.com/moses-palmer/pynput/issues/659
         # - https://github.com/gvalkov/python-evdev/issues/245
-      - run: sudo apt install -y python3-devel
+      - run: sudo apt install -y python3-dev
       - uses: prefix-dev/setup-pixi@v0.9.1
         with:
           cache: true

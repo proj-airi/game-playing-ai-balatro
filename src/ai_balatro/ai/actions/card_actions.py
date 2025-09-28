@@ -2,7 +2,7 @@
 
 This module has been refactored into smaller, more focused modules:
 - detection_models.py: Data models for detection results
-- card_detector.py: Card position detection functionality  
+- card_detector.py: Card position detection functionality
 - visualizer.py: Detection result visualization
 - button_detector.py: Button detection and recognition
 - mouse_controller.py: Mouse control and movement
@@ -24,7 +24,7 @@ from .schemas import CardAction, BUTTON_CONFIG
 
 __all__ = [
     'ButtonDetection',
-    'CardPositionDetector', 
+    'CardPositionDetector',
     'DetectionVisualizer',
     'ButtonDetector',
     'MouseController',

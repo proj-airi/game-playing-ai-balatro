@@ -366,7 +366,8 @@ class TestAgentOrchestrator:
         orchestrator.register_agent(agent2)
 
         with mock_provider:
-            results = orchestrator.run_agents(sample_context)
+            # TODO: assert results
+            results = orchestrator.run_agents(sample_context)  # noqa: F841
 
             # Second agent should have access to first agent's results
             shared_context = orchestrator.shared_context

@@ -21,7 +21,7 @@ class CardTooltipService:
         image_cropper: Optional[ImageCropper] = None,
         screen_capture=None,
         mouse_controller=None,
-        multi_detector: Optional[MultiYOLODetector] = None
+        multi_detector: Optional[MultiYOLODetector] = None,
     ):
         """
         Initialize service.
@@ -42,7 +42,9 @@ class CardTooltipService:
         if self.multi_detector is None:
             try:
                 self.multi_detector = MultiYOLODetector()
-                logger.info('CardTooltipService created default MultiYOLODetector instance')
+                logger.info(
+                    'CardTooltipService created default MultiYOLODetector instance'
+                )
             except Exception as exc:  # pragma: no cover - runtime dependency
                 logger.warning(f'Failed to initialize default MultiYOLODetector: {exc}')
 
@@ -55,11 +57,12 @@ class CardTooltipService:
         self.ocr_enabled = self._check_ocr_availability()
         if self.ocr_enabled:
             from ..ocr.engines import RapidOCREngine
+
             self.ocr_engine = RapidOCREngine()
             self.ocr_engine.init()
         else:
             self.ocr_engine = None
-            logger.warning("RapidOCR not available, text extraction will be limited")
+            logger.warning('RapidOCR not available, text extraction will be limited')
 
         # Balatro-specific class mappings
         self.tooltip_classes = {'card_description', 'poker_card_description'}
@@ -76,20 +79,23 @@ class CardTooltipService:
         self.card_info_cache: Dict[str, Dict] = {}
 
         logger.info(
-            "CardTooltipService initialized "
-            f"(OCR: {self.ocr_enabled}, Hover: {screen_capture is not None}, "
-            f"MultiDetector: {self.multi_detector is not None})"
+            'CardTooltipService initialized '
+            f'(OCR: {self.ocr_enabled}, Hover: {screen_capture is not None}, '
+            f'MultiDetector: {self.multi_detector is not None})'
         )
 
     def _check_ocr_availability(self) -> bool:
         """Check if RapidOCR is available."""
         try:
-            from rapidocr import RapidOCR
+            from rapidocr import RapidOCR  # noqa: F401
+
             return True
         except ImportError:
             return False
 
-    def _prepare_card_info(self, card: Detection, position_index: int) -> Dict[str, Any]:
+    def _prepare_card_info(
+        self, card: Detection, position_index: int
+    ) -> Dict[str, Any]:
         """Create a baseline card info dictionary."""
         card_center_x, card_center_y = card.center
         hover_x = card_center_x + self.card_hover_offset[0]
@@ -108,14 +114,11 @@ class CardTooltipService:
             'description_detected': False,
             'tooltip_match': None,
             'ocr_confidence': 0.0,
-            'debug_image_path': None
+            'debug_image_path': None,
         }
 
     def _frame_to_screen_coordinates(
-        self,
-        x: float,
-        y: float,
-        frame_shape: Optional[Tuple[int, int, int]] = None
+        self, x: float, y: float, frame_shape: Optional[Tuple[int, int, int]] = None
     ) -> Tuple[int, int]:
         """Convert frame-relative coordinates to absolute screen coordinates."""
         if not self.screen_capture:
@@ -150,7 +153,7 @@ class CardTooltipService:
         self,
         hand_cards: List[Detection],
         capture_descriptions: bool = True,
-        save_debug_images: bool = False
+        save_debug_images: bool = False,
     ) -> List[Dict[str, Any]]:
         """
         Hover over each card in sequence to capture descriptions.
@@ -164,14 +167,16 @@ class CardTooltipService:
             List of card information dictionaries
         """
         if not hand_cards:
-            logger.warning("No hand cards provided for hovering")
+            logger.warning('No hand cards provided for hovering')
             return []
 
         if not self.screen_capture or not self.mouse_controller:
-            logger.error("Screen capture or mouse controller not available for hovering")
+            logger.error(
+                'Screen capture or mouse controller not available for hovering'
+            )
             return []
 
-        logger.info(f"Starting hover sequence for {len(hand_cards)} cards")
+        logger.info(f'Starting hover sequence for {len(hand_cards)} cards')
 
         # Store original mouse position to restore later
         original_pos = self.mouse_controller.mouse.position
@@ -183,7 +188,9 @@ class CardTooltipService:
             frame_shape = reference_frame.shape if reference_frame is not None else None
 
             for i, card in enumerate(hand_cards):
-                logger.info(f"Hovering over card {i+1}/{len(hand_cards)}: {card.class_name}")
+                logger.info(
+                    f'Hovering over card {i + 1}/{len(hand_cards)}: {card.class_name}'
+                )
 
                 # Hover over card and capture description
                 card_info = self.hover_card_and_capture(
@@ -191,7 +198,7 @@ class CardTooltipService:
                     position_index=i,
                     capture_description=capture_descriptions,
                     save_debug_image=save_debug_images,
-                    reference_frame_shape=frame_shape
+                    reference_frame_shape=frame_shape,
                 )
 
                 card_infos.append(card_info)
@@ -204,14 +211,16 @@ class CardTooltipService:
             self.mouse_controller.smooth_move_to(original_pos[0], original_pos[1])
 
         except Exception as e:
-            logger.error(f"Error in hover sequence: {e}")
+            logger.error(f'Error in hover sequence: {e}')
             # Try to restore mouse position even on error
             try:
                 self.mouse_controller.mouse.position = original_pos
-            except:
+            except: # noqa: E722
                 pass
 
-        logger.info(f"Completed hover sequence, captured {len(card_infos)} card descriptions")
+        logger.info(
+            f'Completed hover sequence, captured {len(card_infos)} card descriptions'
+        )
         return card_infos
 
     def hover_card_and_capture(
@@ -220,7 +229,7 @@ class CardTooltipService:
         position_index: int = 0,
         capture_description: bool = True,
         save_debug_image: bool = False,
-        reference_frame_shape: Optional[Tuple[int, int, int]] = None
+        reference_frame_shape: Optional[Tuple[int, int, int]] = None,
     ) -> Dict[str, Any]:
         """
         Hover over a single card and capture its description.
@@ -239,20 +248,20 @@ class CardTooltipService:
 
         hover_x, hover_y = card_info['hover_position']
         screen_x, screen_y = self._frame_to_screen_coordinates(
-            hover_x,
-            hover_y,
-            reference_frame_shape
+            hover_x, hover_y, reference_frame_shape
         )
         card_info['hover_screen_position'] = (screen_x, screen_y)
 
         if not self.mouse_controller:
-            logger.warning("Mouse controller not available for hovering")
+            logger.warning('Mouse controller not available for hovering')
             return card_info
 
         try:
             # Move to hover position
             if not self.mouse_controller.smooth_move_to(screen_x, screen_y):
-                logger.warning(f"Failed to move to card {position_index} hover position")
+                logger.warning(
+                    f'Failed to move to card {position_index} hover position'
+                )
                 return card_info
 
             # Wait for tooltip to appear
@@ -264,17 +273,16 @@ class CardTooltipService:
                 if hover_frame is not None:
                     # Process the frame to find and OCR description
                     description_info = self._process_hovered_card_frame(
-                        hover_frame,
-                        card,
-                        position_index,
-                        save_debug_image
+                        hover_frame, card, position_index, save_debug_image
                     )
                     card_info.update(description_info)
                 else:
-                    logger.warning(f"Failed to capture screen for card {position_index}")
+                    logger.warning(
+                        f'Failed to capture screen for card {position_index}'
+                    )
 
         except Exception as e:
-            logger.error(f"Error hovering over card {position_index}: {e}")
+            logger.error(f'Error hovering over card {position_index}: {e}')
 
         return card_info
 
@@ -284,7 +292,7 @@ class CardTooltipService:
         hand_cards: List[Detection],
         detections: Optional[List[Detection]] = None,
         auto_hover_missing: bool = True,
-        save_debug_images: bool = False
+        save_debug_images: bool = False,
     ) -> List[Dict[str, Any]]:
         """Collect card information with optional hover fallback for missing descriptions."""
 
@@ -316,9 +324,7 @@ class CardTooltipService:
             card_info = self._prepare_card_info(card, idx)
             hover_x, hover_y = card_info['hover_position']
             screen_x, screen_y = self._frame_to_screen_coordinates(
-                hover_x,
-                hover_y,
-                frame.shape
+                hover_x, hover_y, frame.shape
             )
             card_info['hover_screen_position'] = (screen_x, screen_y)
 
@@ -346,7 +352,7 @@ class CardTooltipService:
                     position_index=idx,
                     capture_description=True,
                     save_debug_image=save_debug_images,
-                    reference_frame_shape=frame.shape
+                    reference_frame_shape=frame.shape,
                 )
                 card_infos.append(hover_result)
             else:
@@ -368,20 +374,20 @@ class CardTooltipService:
             Formatted string for LLM prompt
         """
         if not card_infos:
-            return "No cards detected in hand."
+            return 'No cards detected in hand.'
 
-        formatted_lines = [f"CURRENT HAND ({len(card_infos)} cards):"]
+        formatted_lines = [f'CURRENT HAND ({len(card_infos)} cards):']
 
         for card_info in card_infos:
-            card_line = f"Card {card_info['position_index']}: {card_info['card_class']} (confidence: {card_info['card_confidence']:.2f})"
+            card_line = f'Card {card_info["position_index"]}: {card_info["card_class"]} (confidence: {card_info["card_confidence"]:.2f})'
 
             if card_info['description_detected'] and card_info['description_text']:
                 # Include OCR'd description text
                 desc_text = card_info['description_text'][:200]  # Limit length
-                card_line += f" - Description: {desc_text}"
+                card_line += f' - Description: {desc_text}'
 
                 if card_info['ocr_confidence'] > 0:
-                    card_line += f" (OCR confidence: {card_info['ocr_confidence']:.2f})"
+                    card_line += f' (OCR confidence: {card_info["ocr_confidence"]:.2f})'
 
             formatted_lines.append(card_line)
 
@@ -511,7 +517,7 @@ class CardTooltipService:
         frame: np.ndarray,
         card: Detection,
         position_index: int,
-        save_debug_image: bool = False
+        save_debug_image: bool = False,
     ) -> Dict[str, Any]:
         """
         Process captured frame to extract card description.
@@ -530,13 +536,15 @@ class CardTooltipService:
             'description_detected': False,
             'tooltip_match': None,
             'ocr_confidence': 0.0,
-            'debug_image_path': None
+            'debug_image_path': None,
         }
 
         try:
             # Use the configured multi-detector to find description elements
             if self.multi_detector is None:
-                logger.warning("Multi detector not available for hovered frame processing")
+                logger.warning(
+                    'Multi detector not available for hovered frame processing'
+                )
                 return description_info
 
             entity_detections = self.multi_detector.detect_entities(frame)
@@ -544,7 +552,7 @@ class CardTooltipService:
             detections = entity_detections + ui_detections
 
             if not detections:
-                logger.warning("No detections found in hovered frame")
+                logger.warning('No detections found in hovered frame')
                 return description_info
 
             tooltip_matches = self.match_tooltips_to_cards(detections)
@@ -558,7 +566,10 @@ class CardTooltipService:
                 description_info['description_detected'] = True
 
                 # Extract text from description area using OCR
-                if self.ocr_enabled and hovered_card_match.get('tooltip_crop') is not None:
+                if (
+                    self.ocr_enabled
+                    and hovered_card_match.get('tooltip_crop') is not None
+                ):
                     ocr_result = self._ocr_description_crop(
                         hovered_card_match['tooltip_crop']
                     )
@@ -572,17 +583,19 @@ class CardTooltipService:
                     description_info['debug_image_path'] = debug_path
 
             else:
-                logger.warning(f"No tooltip match found for hovered card {position_index}")
+                logger.warning(
+                    f'No tooltip match found for hovered card {position_index}'
+                )
 
         except Exception as e:
-            logger.error(f"Error processing hovered frame for card {position_index}: {e}")
+            logger.error(
+                f'Error processing hovered frame for card {position_index}: {e}'
+            )
 
         return description_info
 
     def _find_matching_tooltip(
-        self,
-        tooltip_matches: List[Dict[str, Any]],
-        target_card: Detection
+        self, tooltip_matches: List[Dict[str, Any]], target_card: Detection
     ) -> Optional[Dict[str, Any]]:
         """
         Find the tooltip match that corresponds to the target card.
@@ -610,7 +623,7 @@ class CardTooltipService:
             # Calculate distance between card centers
             dx = target_center[0] - match_center[0]
             dy = target_center[1] - match_center[1]
-            distance = (dx**2 + dy**2)**0.5
+            distance = (dx**2 + dy**2) ** 0.5
 
             if distance < min_distance:
                 min_distance = distance
@@ -632,10 +645,7 @@ class CardTooltipService:
         Returns:
             Dictionary with OCR results
         """
-        ocr_result = {
-            'description_text': '',
-            'ocr_confidence': 0.0
-        }
+        ocr_result = {'description_text': '', 'ocr_confidence': 0.0}
 
         if not self.ocr_enabled or description_crop is None or self.ocr_engine is None:
             return ocr_result
@@ -650,18 +660,17 @@ class CardTooltipService:
                 # but we can use success as a basic confidence indicator
                 ocr_result['ocr_confidence'] = 0.8 if result.success else 0.0
 
-                logger.info(f"RapidOCR extracted text: '{ocr_result['description_text'][:50]}...' (success: {result.success})")
+                logger.info(
+                    f"RapidOCR extracted text: '{ocr_result['description_text'][:50]}...' (success: {result.success})"
+                )
 
         except Exception as e:
-            logger.error(f"OCR processing failed: {e}")
+            logger.error(f'OCR processing failed: {e}')
 
         return ocr_result
 
     def _save_debug_image(
-        self,
-        frame: np.ndarray,
-        tooltip_match: Dict[str, Any],
-        position_index: int
+        self, frame: np.ndarray, tooltip_match: Dict[str, Any], position_index: int
     ) -> Optional[str]:
         """
         Save debug image showing card and tooltip match.
@@ -681,38 +690,44 @@ class CardTooltipService:
 
             # Draw card bbox in green
             card_bbox = tooltip_match['card_bbox']
-            cv2.rectangle(debug_frame,
-                         (int(card_bbox[0]), int(card_bbox[1])),
-                         (int(card_bbox[2]), int(card_bbox[3])),
-                         (0, 255, 0), 2)
+            cv2.rectangle(
+                debug_frame,
+                (int(card_bbox[0]), int(card_bbox[1])),
+                (int(card_bbox[2]), int(card_bbox[3])),
+                (0, 255, 0),
+                2,
+            )
 
             # Draw tooltip bbox in red
             tooltip_bbox = tooltip_match['tooltip_bbox']
-            cv2.rectangle(debug_frame,
-                         (int(tooltip_bbox[0]), int(tooltip_bbox[1])),
-                         (int(tooltip_bbox[2]), int(tooltip_bbox[3])),
-                         (0, 0, 255), 2)
+            cv2.rectangle(
+                debug_frame,
+                (int(tooltip_bbox[0]), int(tooltip_bbox[1])),
+                (int(tooltip_bbox[2]), int(tooltip_bbox[3])),
+                (0, 0, 255),
+                2,
+            )
 
             # Save debug image
-            debug_dir = Path("debug/card_hover")
+            debug_dir = Path('debug/card_hover')
             debug_dir.mkdir(parents=True, exist_ok=True)
 
             timestamp = int(time.time())
-            debug_path = debug_dir / f"card_{position_index}_{timestamp}.jpg"
+            debug_path = debug_dir / f'card_{position_index}_{timestamp}.jpg'
 
             cv2.imwrite(str(debug_path), debug_frame)
-            logger.info(f"Saved debug image: {debug_path}")
+            logger.info(f'Saved debug image: {debug_path}')
 
             return str(debug_path)
 
         except Exception as e:
-            logger.error(f"Failed to save debug image: {e}")
+            logger.error(f'Failed to save debug image: {e}')
             return None
 
     def clear_cache(self):
         """Clear the card information cache."""
         self.card_info_cache.clear()
-        logger.info("Card information cache cleared")
+        logger.info('Card information cache cleared')
 
     def _find_nearby_cards(
         self, tooltip: Detection, cards: List[Detection], max_distance: float

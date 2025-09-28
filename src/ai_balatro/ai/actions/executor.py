@@ -214,9 +214,7 @@ class ActionExecutor(BaseProcessor):
             frame = self.screen_capture.capture_once()
             if frame is None:
                 return ProcessingResult(
-                    success=False,
-                    data=None,
-                    errors=['无法捕获屏幕画面']
+                    success=False, data=None, errors=['无法捕获屏幕画面']
                 )
 
             # Find the button using the button detector
@@ -246,9 +244,13 @@ class ActionExecutor(BaseProcessor):
                         'action': 'click_button',
                         'button_type': button_type,
                         'executed': False,
-                        'available_buttons': [d.class_name for d in ui_detections if 'button' in d.class_name.lower()],
+                        'available_buttons': [
+                            d.class_name
+                            for d in ui_detections
+                            if 'button' in d.class_name.lower()
+                        ],
                     },
-                    errors=[f'未找到对应按钮: {button_type}，可能按钮不可见或检测失败']
+                    errors=[f'未找到对应按钮: {button_type}，可能按钮不可见或检测失败'],
                 )
 
             # Ensure the Balatro window is focused before attempting the click
@@ -262,8 +264,12 @@ class ActionExecutor(BaseProcessor):
             if capture_region:
                 scale_x = capture_region['width'] / frame_width
                 scale_y = capture_region['height'] / frame_height
-                screen_x = int(capture_region['left'] + target_button.center[0] * scale_x)
-                screen_y = int(capture_region['top'] + target_button.center[1] * scale_y)
+                screen_x = int(
+                    capture_region['left'] + target_button.center[0] * scale_x
+                )
+                screen_y = int(
+                    capture_region['top'] + target_button.center[1] * scale_y
+                )
             else:
                 logger.debug('未设置截图区域，使用检测坐标作为屏幕坐标')
                 screen_x = int(target_button.center[0])
@@ -304,22 +310,20 @@ class ActionExecutor(BaseProcessor):
                         'executed': True,
                         'button_position': screen_position,
                         'button_class': target_button.class_name,
-                        'confidence': target_button.confidence
-                    }
+                        'confidence': target_button.confidence,
+                    },
                 )
             else:
                 return ProcessingResult(
                     success=False,
                     data=None,
-                    errors=[f'鼠标移动到按钮位置失败: {screen_position}']
+                    errors=[f'鼠标移动到按钮位置失败: {screen_position}'],
                 )
 
         except Exception as e:
             logger.error(f'按钮点击执行失败: {e}')
             return ProcessingResult(
-                success=False,
-                data=None,
-                errors=[f'按钮点击执行失败: {e}']
+                success=False, data=None, errors=[f'按钮点击执行失败: {e}']
             )
 
     def execute_from_array(

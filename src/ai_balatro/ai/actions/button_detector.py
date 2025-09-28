@@ -182,7 +182,9 @@ class ButtonDetector:
                 return button_type
 
         # Default return generic button type
-        logger.warning(f'Cannot recognize button type: {class_name}, returning default type')
+        logger.warning(
+            f'Cannot recognize button type: {class_name}, returning default type'
+        )
         return 'unknown'
 
     def _matches_button_keywords(self, class_name: str) -> bool:

@@ -245,46 +245,57 @@ class BaseAgent(ABC):
             }
 
             if use_functions and functions:
-                logger.info(f"   Function Count: {len(functions)}")
-                logger.info(f"   Available Functions: {[f.get('name', 'unknown') for f in functions]}")
+                logger.info(f'   Function Count: {len(functions)}')
+                logger.info(
+                    f'   Available Functions: {[f.get("name", "unknown") for f in functions]}'
+                )
 
             # Log conversation history length
             history_length = len(context['history'])
-            logger.info(f"   Conversation History: {history_length} messages")
+            logger.info(f'   Conversation History: {history_length} messages')
 
             # Log prompt preview (truncated for readability)
-            prompt_preview = prompt[:200] + "..." if len(prompt) > 200 else prompt
-            logger.info(f"   Prompt Preview: {prompt_preview}")
+            prompt_preview = prompt[:200] + '...' if len(prompt) > 200 else prompt
+            logger.info(f'   Prompt Preview: {prompt_preview}')
 
             # Log full prompt for detailed debugging (can be disabled if too verbose)
             if logger.isEnabledFor(10):  # DEBUG level
-                logger.debug(f"   Full Prompt:\n{prompt}")
+                logger.debug(f'   Full Prompt:\n{prompt}')
                 if history_length > 0:
-                    logger.debug(f"   Conversation History:\n{context['history']}")
+                    logger.debug(f'   Conversation History:\n{context["history"]}')
 
             # Query LLM
             if use_functions and functions:
-                logger.info("   Calling LLM with function calling...")
+                logger.info('   Calling LLM with function calling...')
                 result = self.llm_provider.function_call(prompt, functions, context)
             else:
-                logger.info("   Calling LLM for text generation...")
+                logger.info('   Calling LLM for text generation...')
                 result = self.llm_provider.generate_text(prompt, context)
 
             # Log response details
-            logger.info(f"   LLM Response Success: {result.success}")
+            logger.info(f'   LLM Response Success: {result.success}')
             if result.success:
                 response_data = result.data
                 if response_data:
-                    logger.info(f"   Response Content Length: {len(response_data.get('content', ''))}")
-                    if 'function_calls' in response_data and response_data['function_calls']:
-                        logger.info(f"   Function Calls: {len(response_data['function_calls'])}")
+                    logger.info(
+                        f'   Response Content Length: {len(response_data.get("content", ""))}'
+                    )
+                    if (
+                        'function_calls' in response_data
+                        and response_data['function_calls']
+                    ):
+                        logger.info(
+                            f'   Function Calls: {len(response_data["function_calls"])}'
+                        )
                         for i, fc in enumerate(response_data['function_calls']):
-                            logger.info(f"     {i+1}. {fc.get('name', 'unknown')}({fc.get('arguments', {})})")
+                            logger.info(
+                                f'     {i + 1}. {fc.get("name", "unknown")}({fc.get("arguments", {})})'
+                            )
                     if 'usage' in response_data:
                         usage = response_data['usage']
-                        logger.info(f"   Token Usage: {usage}")
+                        logger.info(f'   Token Usage: {usage}')
             else:
-                logger.error(f"   LLM Error: {result.errors}")
+                logger.error(f'   LLM Error: {result.errors}')
 
             if result.success:
                 # Add assistant response
@@ -308,9 +319,7 @@ class BaseAgent(ABC):
         except Exception as e:
             logger.error(f'LLM query failed: {e}')
             return AgentResult(
-                success=False,
-                errors=[f'LLM query failed: {e}'],
-                context=context
+                success=False, errors=[f'LLM query failed: {e}'], context=context
             )
 
     def _render_prompt(self, template_name: str, context: Dict[str, Any]) -> str:

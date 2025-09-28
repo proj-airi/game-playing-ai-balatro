@@ -50,7 +50,9 @@ class CardActionEngine:
         elif yolo_detector is not None:
             self.yolo_detector = yolo_detector
             self.multi_detector = None
-            logger.info('Using traditional single YOLO detector (backward compatibility mode)')
+            logger.info(
+                'Using traditional single YOLO detector (backward compatibility mode)'
+            )
         else:
             # Default to creating multi-model detector
             self.multi_detector = MultiYOLODetector()
@@ -65,7 +67,7 @@ class CardActionEngine:
         self.card_tooltip_service = CardTooltipService(
             screen_capture=self.screen_capture,
             mouse_controller=self.mouse_controller,
-            multi_detector=self.multi_detector
+            multi_detector=self.multi_detector,
         )
 
         # Card hover settings
@@ -96,7 +98,7 @@ class CardActionEngine:
         self,
         enable_hovering: bool = True,
         hover_before_action: bool = True,
-        save_debug_images: bool = False
+        save_debug_images: bool = False,
     ) -> None:
         """
         Configure card hovering settings.
@@ -110,7 +112,9 @@ class CardActionEngine:
         self.hover_before_action = hover_before_action
         self.save_debug_images = save_debug_images
 
-        logger.info(f"Card hover settings updated: hovering={enable_hovering}, before_action={hover_before_action}, debug_images={save_debug_images}")
+        logger.info(
+            f'Card hover settings updated: hovering={enable_hovering}, before_action={hover_before_action}, debug_images={save_debug_images}'
+        )
 
     def execute_card_action(
         self,
@@ -140,7 +144,7 @@ class CardActionEngine:
             'success': False,
             'card_descriptions': [],
             'action_executed': False,
-            'error_message': ''
+            'error_message': '',
         }
 
         try:
@@ -198,14 +202,19 @@ class CardActionEngine:
                     hand_cards,
                     detections=combined_detections,
                     auto_hover_missing=True,
-                    save_debug_images=getattr(self, 'save_debug_images', False)
+                    save_debug_images=getattr(self, 'save_debug_images', False),
                 )
 
                 result['card_descriptions'] = card_descriptions
-                logger.info(f'Successfully captured descriptions for {len(card_descriptions)} cards')
+                logger.info(
+                    f'Successfully captured descriptions for {len(card_descriptions)} cards'
+                )
 
                 for i, card_desc in enumerate(card_descriptions):
-                    if card_desc['description_detected'] and card_desc['description_text']:
+                    if (
+                        card_desc['description_detected']
+                        and card_desc['description_text']
+                    ):
                         truncated = (
                             card_desc['description_text'][:50] + '...'
                             if len(card_desc['description_text']) > 50
@@ -229,7 +238,9 @@ class CardActionEngine:
             if focus_success:
                 logger.info('✓ Game window focus ready')
             else:
-                logger.warning('! Window focus handling failed, continuing with operation')
+                logger.warning(
+                    '! Window focus handling failed, continuing with operation'
+                )
 
             # 7. Execute click operations
             click_success = self._execute_clicks(hand_cards, action)
@@ -237,14 +248,18 @@ class CardActionEngine:
             if click_success:
                 # 8. Execute confirmation action (play or discard)
                 time.sleep(0.5)  # Action delay
-                confirm_success = self._execute_confirm_action(action, show_visualization)
+                confirm_success = self._execute_confirm_action(
+                    action, show_visualization
+                )
 
                 if confirm_success:
                     result['success'] = True
                     result['action_executed'] = True
                     logger.info('✓ Card action executed successfully')
                 else:
-                    result['error_message'] = 'Failed to execute confirmation action (Play/Discard button)'
+                    result['error_message'] = (
+                        'Failed to execute confirmation action (Play/Discard button)'
+                    )
                     logger.error('Failed to execute confirmation action')
             else:
                 result['error_message'] = 'Failed to execute card click operations'
@@ -304,10 +319,12 @@ class CardActionEngine:
                 hand_cards,
                 detections=detections,
                 auto_hover_missing=True,
-                save_debug_images=save_debug_images
+                save_debug_images=save_debug_images,
             )
 
-            logger.info(f'Successfully captured descriptions for {len(card_descriptions)} cards')
+            logger.info(
+                f'Successfully captured descriptions for {len(card_descriptions)} cards'
+            )
             return card_descriptions
 
         except Exception as e:
@@ -319,7 +336,7 @@ class CardActionEngine:
         frame: np.ndarray,
         detections: List[Detection],
         auto_hover_missing: bool = True,
-        save_debug_images: bool = False
+        save_debug_images: bool = False,
     ) -> List[dict]:
         """Collect card descriptions from an existing frame and detections."""
 
@@ -334,7 +351,7 @@ class CardActionEngine:
             hand_cards,
             detections=detections,
             auto_hover_missing=auto_hover_missing,
-            save_debug_images=save_debug_images
+            save_debug_images=save_debug_images,
         )
 
     def format_card_descriptions_for_llm(self, card_descriptions: List[dict]) -> str:
@@ -361,7 +378,9 @@ class CardActionEngine:
             Whether execution was successful
         """
         try:
-            logger.info(f'Hovering over card at position {card_index} for {duration} seconds')
+            logger.info(
+                f'Hovering over card at position {card_index} for {duration} seconds'
+            )
 
             # Capture screen and detect hand cards
             frame = self.screen_capture.capture_once()
@@ -380,7 +399,9 @@ class CardActionEngine:
             hand_cards = self.position_detector.get_hand_cards(detections)
 
             if card_index >= len(hand_cards):
-                logger.error(f'Position {card_index} exceeds hand card range (total {len(hand_cards)} cards)')
+                logger.error(
+                    f'Position {card_index} exceeds hand card range (total {len(hand_cards)} cards)'
+                )
                 return False
 
             card = hand_cards[card_index]
@@ -527,7 +548,9 @@ class CardActionEngine:
             target_button = self.button_detector.find_best_button(frame, button_type)
 
             if target_button is None:
-                logger.warning(f'{button_type} button not found, trying to find all buttons...')
+                logger.warning(
+                    f'{button_type} button not found, trying to find all buttons...'
+                )
                 all_buttons = self.button_detector.find_buttons(frame)
 
                 if all_buttons:
@@ -549,7 +572,9 @@ class CardActionEngine:
                         )
 
                     # Could consider using other suitable buttons as alternatives
-                    logger.info('Please manually click the appropriate button to complete the operation')
+                    logger.info(
+                        'Please manually click the appropriate button to complete the operation'
+                    )
                 else:
                     logger.error('No buttons detected')
 
@@ -745,7 +770,9 @@ class CardActionEngine:
             cv2.imshow(window_name, vis_image)
 
             # Wait for user input
-            logger.info('Displaying action preview window, press any key to continue...')
+            logger.info(
+                'Displaying action preview window, press any key to continue...'
+            )
             key = cv2.waitKey(0) & 0xFF
             cv2.destroyWindow(window_name)
 

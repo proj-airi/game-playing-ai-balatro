@@ -22,7 +22,7 @@ class MouseController:
             screen_capture: Screen capture instance for window focus management
         """
         self.screen_capture = screen_capture
-        
+
         # Mouse control
         self.mouse = mouse.Controller()
         self.mouse_button = mouse.Button  # Save Button reference
@@ -37,7 +37,9 @@ class MouseController:
         self.click_hold_duration = 0.08  # Click hold time (seconds)
 
         # Window focus settings
-        self.ensure_window_focus = True  # Whether to ensure window focus before clicking
+        self.ensure_window_focus = (
+            True  # Whether to ensure window focus before clicking
+        )
         self.focus_method = 'auto'  # Focus method: auto, click, applescript
 
         logger.info('MouseController initialized')
@@ -123,7 +125,9 @@ class MouseController:
 
             # Verify final position
             final_x, final_y = self.mouse.position
-            logger.info(f'Mouse movement complete: final position ({final_x}, {final_y})')
+            logger.info(
+                f'Mouse movement complete: final position ({final_x}, {final_y})'
+            )
 
             return True
 

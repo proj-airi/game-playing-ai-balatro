@@ -84,7 +84,15 @@ GAME_ACTIONS = [
             'properties': {
                 'button_type': {
                     'type': 'string',
-                    'enum': ['play', 'discard', 'skip', 'shop', 'next', 'sort_hand_rank', 'sort_hand_suits'],
+                    'enum': [
+                        'play',
+                        'discard',
+                        'skip',
+                        'shop',
+                        'next',
+                        'sort_hand_rank',
+                        'sort_hand_suits',
+                    ],
                     'description': 'Button type to click',
                 }
             },

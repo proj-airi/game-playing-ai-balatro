@@ -81,6 +81,7 @@ cuda-nvcc = ">=13.0.88,<14"
 cuda-nvtx = ">=13.0.85,<14"
 gcc = ">=15.1.0,<15.2"
 gxx = ">=15.1.0,<15.2"
+evdev = ">=1.9.2,<2"
 
 [tool.pixi.target.linux-64.pypi-dependencies]
 torch = { version = ">=2.8.0, <3", index = "https://download.pytorch.org/whl/cu129" }

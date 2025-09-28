@@ -26,6 +26,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
+        # Required by evdev (which brought by pynput) where
+        # I found the reply indicating we are missing python3-devel header for this
+        #
+        # - https://github.com/moses-palmer/pynput/issues/659#issuecomment-3179971798
+        # - https://github.com/moses-palmer/pynput/issues/659
+        # - https://github.com/gvalkov/python-evdev/issues/245
+      - run: apt install -y python3-devel
       - uses: prefix-dev/setup-pixi@v0.9.1
         with:
           cache: true

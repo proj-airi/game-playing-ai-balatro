@@ -7,7 +7,7 @@
 </h1>
 
 <p align="center">
-  🤗 <a href="https://huggingface.co/proj-airi/games-balatro-2024-yolo-entities-detection">Model</a> | 🤗 <a href="https://huggingface.co/datasets/proj-airi/games-balatro-2024-entities-detection">Dataset</a>
+  🤗 <a href="https://huggingface.co/collections/proj-airi/play-balatro-68d24c74ef9568b287f3ce94">HuggingFace Collection</a>
 </p>
 
 > This project is part of (and also associate to) the [Project AIRI](https://github.com/moeru-ai/airi), we aim to build a LLM-driven VTuber like [Neuro-sama](https://www.youtube.com/@Neurosama) (subscribe if you didn't!) if you are interested in, please do give it a try on [live demo](https://airi.moeru.ai).
@@ -17,6 +17,12 @@
 > We are a group of currently non-funded talented people made up with computer scientists, experts in multi-modal fields, designers, product managers, and popular open source contributors who loves the goal of where we are heading now.
 
 ## Models
+
+| Name      | Purpose                      | Base    | 🤗 HuggingFace                                                                              |
+| --------- | ---------------------------- | ------- | ------------------------------------------------------------------------------------------- |
+| Entities  | Cards, Card Stack            | YOLO11n | [🤗 Get Model](https://huggingface.co/proj-airi/games-balatro-2024-yolo-entities-detection) |
+| UI        | Data panels, Scores, Buttons | YOLO11n | [🤗 Get Model](https://huggingface.co/proj-airi/games-balatro-2024-yolo-ui-detection)       |
+| Unified   | Entities + UI                | YOLO11n | N/A                                                                                         |
 
 | Basic                     | Multiple card types       | Description               | Crowded cards             |
 | ------------------------- | ------------------------- | ------------------------- | ------------------------- |

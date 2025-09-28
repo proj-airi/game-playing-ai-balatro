@@ -16,31 +16,6 @@
 >
 > We are a group of currently non-funded talented people made up with computer scientists, experts in multi-modal fields, designers, product managers, and popular open source contributors who loves the goal of where we are heading now.
 
-## Development
-
-```shell
-git clone git@github.com:proj-airi/game-playing-ai-balatro.git
-git lfs install
-git submodule init
-git submodule update
-
-pixi install
-```
-
-> [!NOTE]
-> For macOS, when running the UI automation and doing Game AI playing, you may need to give the terminal (or your IDE, in our case, Visual Studio Code) the permissions:
->
-> - Access to other apps
->   ![](./docs/permissions-macos-1.png)
-> - Screen Recording
->   ![](./docs/permissions-macos-2.png)
-> - Bypass private window picker
->   ![](./docs/permissions-macos-3.png)
-> - Accessibility
->   ![](./docs/permissions-macos-4.png)
->
-> After assigning the permissions, please restart your terminal or IDE to make it work.
-
 ## Models
 
 | Basic                     | Multiple card types       | Description               | Crowded cards             |
@@ -72,6 +47,38 @@ The training was performed on a single NVIDIA 4080Super GPU with 16GB VRAM, the 
 ![](./docs/training-metrics-1.png)
 
 ![](./docs/training-metrics-2.jpg)
+
+## Development
+
+```shell
+git clone git@github.com:proj-airi/game-playing-ai-balatro.git
+git lfs install
+git submodule init
+git submodule update
+
+pixi install
+```
+
+> [!NOTE]
+> For macOS, when running the UI automation and doing Game AI playing, you may need to give the terminal (or your IDE, in our case, Visual Studio Code) the permissions:
+>
+> 1. Access to other apps
+>
+> - <img src="./docs/permissions-macos-1.png" width="300">
+>
+> 2. Screen Recording
+>
+> - <img src="./docs/permissions-macos-2.png" width="300">
+>
+> 3. Bypass private window picker
+>
+> - <img src="./docs/permissions-macos-3.png" width="300">
+>
+> 4. Accessibility
+>
+> - <img src="./docs/permissions-macos-4.png" width="300">
+>
+> After assigning the permissions, please restart your terminal or IDE to make it work.
 
 ## Citation
 

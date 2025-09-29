@@ -8,6 +8,7 @@ from pathlib import Path
 from ..core.detection import Detection
 from ..core.multi_yolo_detector import MultiYOLODetector
 from ..utils.image_cropper import ImageCropper, RegionMatcher
+from ..utils.card_text_parser import parse_card_description
 from ..utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -115,7 +116,20 @@ class CardTooltipService:
             'tooltip_match': None,
             'ocr_confidence': 0.0,
             'debug_image_path': None,
+            'parsed_description': None,
         }
+
+    @staticmethod
+    def _attach_parsed_description(card_info: Dict[str, Any]) -> None:
+        """Augment a card info dict with parsed rank/suit metadata if available."""
+
+        description_text = card_info.get('description_text', '')
+        if not description_text:
+            return
+
+        parsed = parse_card_description(description_text)
+        if parsed:
+            card_info['parsed_description'] = parsed
 
     def _frame_to_screen_coordinates(
         self, x: float, y: float, frame_shape: Optional[Tuple[int, int, int]] = None
@@ -276,6 +290,8 @@ class CardTooltipService:
                         hover_frame, card, position_index, save_debug_image
                     )
                     card_info.update(description_info)
+                    if not card_info.get('parsed_description'):
+                        self._attach_parsed_description(card_info)
                 else:
                     logger.warning(
                         f'Failed to capture screen for card {position_index}'
@@ -337,6 +353,7 @@ class CardTooltipService:
                 if self.ocr_enabled and match.get('tooltip_crop') is not None:
                     ocr_result = self._ocr_description_crop(match['tooltip_crop'])
                     card_info.update(ocr_result)
+                    self._attach_parsed_description(card_info)
 
                 if save_debug_images:
                     debug_path = self._save_debug_image(frame, match, idx)
@@ -354,6 +371,7 @@ class CardTooltipService:
                     save_debug_image=save_debug_images,
                     reference_frame_shape=frame.shape,
                 )
+                self._attach_parsed_description(hover_result)
                 card_infos.append(hover_result)
             else:
                 card_infos.append(card_info)
@@ -381,13 +399,20 @@ class CardTooltipService:
         for card_info in card_infos:
             card_line = f'Card {card_info["position_index"]}: {card_info["card_class"]} (confidence: {card_info["card_confidence"]:.2f})'
 
-            if card_info['description_detected'] and card_info['description_text']:
-                # Include OCR'd description text
-                desc_text = card_info['description_text'][:200]  # Limit length
-                card_line += f' - Description: {desc_text}'
+            parsed = card_info.get('parsed_description') or {}
+            if parsed.get('english_name'):
+                descriptor = parsed['english_name']
+                short_code = parsed.get('short_code')
+                if short_code:
+                    descriptor += f' [{short_code}]'
+                card_line += f' -> {descriptor}'
+            elif card_info['description_detected'] and card_info['description_text']:
+                # Provide raw tooltip text when parsing fails
+                desc_text = card_info['description_text'][:200]
+                card_line += f' -> {desc_text}'
 
-                if card_info['ocr_confidence'] > 0:
-                    card_line += f' (OCR confidence: {card_info["ocr_confidence"]:.2f})'
+            if card_info['description_detected'] and card_info['ocr_confidence'] > 0:
+                card_line += f' (OCR confidence: {card_info["ocr_confidence"]:.2f})'
 
             formatted_lines.append(card_line)
 
@@ -537,6 +562,7 @@ class CardTooltipService:
             'tooltip_match': None,
             'ocr_confidence': 0.0,
             'debug_image_path': None,
+            'parsed_description': None,
         }
 
         try:
@@ -574,6 +600,7 @@ class CardTooltipService:
                         hovered_card_match['tooltip_crop']
                     )
                     description_info.update(ocr_result)
+                    self._attach_parsed_description(description_info)
 
                 # Save debug image if requested
                 if save_debug_image:

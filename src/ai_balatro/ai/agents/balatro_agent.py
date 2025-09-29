@@ -259,6 +259,10 @@ Make immediate, optimal decisions based on the complete card information provide
                         'center': detection.center,
                         'width': detection.width,
                         'height': detection.height,
+                        'description_text': '',
+                        'description_detected': False,
+                        'parsed_description': None,
+                        'ocr_confidence': 0.0,
                     }
                 )
             elif 'joker' in detection.class_name.lower():
@@ -299,7 +303,11 @@ Make immediate, optimal decisions based on the complete card information provide
 
         # Determine game phase based on available buttons
         button_types = [btn['class_name'].lower() for btn in game_state['ui_buttons']]
-        if any('play' in btn for btn in button_types):
+        playing_keywords = ('play', 'discard', 'hand', 'hold')
+        if any(
+            any(keyword in btn for keyword in playing_keywords)
+            for btn in button_types
+        ):
             game_state['game_phase'] = 'playing'
         elif any('shop' in btn for btn in button_types):
             game_state['game_phase'] = 'shop'
@@ -307,11 +315,7 @@ Make immediate, optimal decisions based on the complete card information provide
             game_state['game_phase'] = 'transition'
 
         # Capture card descriptions if requested and cards are available
-        if (
-            capture_card_descriptions
-            and game_state['cards']
-            and game_state['game_phase'] == 'playing'
-        ):
+        if capture_card_descriptions and game_state['cards']:
             logger.info(
                 'Capturing card descriptions for enhanced game state analysis...'
             )
@@ -326,6 +330,23 @@ Make immediate, optimal decisions based on the complete card information provide
                     )
                 )
                 game_state['card_descriptions'] = card_descriptions
+                for card_index, card_desc in enumerate(card_descriptions):
+                    if card_index < len(game_state['cards']):
+                        card_entry = game_state['cards'][card_index]
+                        card_entry['description_text'] = card_desc.get(
+                            'description_text',
+                            '',
+                        )
+                        card_entry['description_detected'] = card_desc.get(
+                            'description_detected',
+                            False,
+                        )
+                        card_entry['parsed_description'] = card_desc.get(
+                            'parsed_description'
+                        )
+                        card_entry['ocr_confidence'] = card_desc.get(
+                            'ocr_confidence', 0.0
+                        )
                 logger.info(
                     f'Successfully captured descriptions for {len(card_descriptions)} cards'
                 )
@@ -338,26 +359,28 @@ Make immediate, optimal decisions based on the complete card information provide
     def _create_analysis_prompt(self, game_state: Dict[str, Any]) -> str:
         """Create prompt for game state analysis."""
         cards_info = []
-        card_descriptions = game_state.get('card_descriptions', [])
 
-        # Enhanced card info with OCR descriptions
         for i, card in enumerate(game_state.get('cards', [])):
-            card_line = (
+            base_line = (
                 f'Card {i}: {card["class_name"]} (confidence: {card["confidence"]:.2f})'
             )
 
-            # Add OCR description if available
-            if i < len(card_descriptions) and card_descriptions[i].get(
-                'description_detected'
-            ):
-                desc_text = card_descriptions[i]['description_text']
-                if desc_text:
-                    # Truncate long descriptions
-                    if len(desc_text) > 100:
-                        desc_text = desc_text[:100] + '...'
-                    card_line += f' - {desc_text}'
+            parsed = card.get('parsed_description') or {}
+            if parsed.get('english_name'):
+                descriptor = parsed['english_name']
+                short_code = parsed.get('short_code')
+                if short_code:
+                    descriptor += f' [{short_code}]'
+                cards_info.append(f'{base_line} -> {descriptor}')
+                continue
 
-            cards_info.append(card_line)
+            if card.get('description_text'):
+                desc_text = card['description_text']
+                if len(desc_text) > 100:
+                    desc_text = desc_text[:100] + '...'
+                cards_info.append(f'{base_line} -> {desc_text}')
+            else:
+                cards_info.append(base_line)
 
         jokers_info = []
         for joker in game_state.get('jokers', []):
@@ -371,11 +394,23 @@ Make immediate, optimal decisions based on the complete card information provide
 
         # Add OCR capture status
         ocr_status = ''
-        if card_descriptions:
+        if game_state.get('cards'):
             captured_count = sum(
-                1 for desc in card_descriptions if desc.get('description_detected')
+                1
+                for card in game_state['cards']
+                if card.get('description_detected')
             )
-            ocr_status = f'\nCARD DESCRIPTIONS CAPTURED: {captured_count}/{len(card_descriptions)} cards'
+            total_cards = len(game_state['cards'])
+            ocr_status = (
+                f'\nCARD DESCRIPTIONS CAPTURED: {captured_count}/{total_cards} cards'
+            )
+
+        poker_objectives = (
+            '\nPOKER OBJECTIVES:\n'
+            '- Form the strongest five-card poker hand from the detected cards.\n'
+            '- Favor high-ranking combinations (pairs, straights, flushes, full houses, etc.).\n'
+            '- Discard low-value cards that do not contribute to potential strong hands.'
+        )
 
         return f"""Make an immediate strategic decision for the current Balatro game state:
 
@@ -391,12 +426,15 @@ UI ELEMENTS:
 GAME PHASE: {game_state.get('game_phase', 'unknown')}
 
 Based on the card descriptions and game state, make the optimal strategic decision:
-1. Identify the best poker hand you can form
-2. If in playing phase, select cards to play using select_cards_by_position with optimal positions array
-3. If no good hand available, select cards to discard
-4. Consider joker effects when making decisions
+{poker_objectives}
 
-Execute the best action immediately using the available functions."""
+Based on the card descriptions and game state, decide whether to play or discard:
+1. Identify the best poker hand you can currently form (up to five cards).
+2. If a strong hand exists, play it using select_cards_by_position (use 1 for cards to play, 0 to hold).
+3. If no meaningful hand is available, discard strategically using -1 for cards to throw away.
+4. When relevant, request button clicks with click_button.
+
+Execute the best action immediately using the available functions and provide concise reasoning."""
 
     def _create_decision_prompt_legacy(self, game_state: Dict[str, Any]) -> str:
         """Legacy planning prompt - replaced by integrated decision making."""

@@ -100,65 +100,98 @@ class TestActionExecutor:
 
         assert len(actions) == len(GAME_ACTIONS)
         action_names = [action['name'] for action in actions]
-        assert 'select_cards_by_position' in action_names
-        assert 'hover_card' in action_names
+        assert 'play_cards' in action_names
+        assert 'discard_cards' in action_names
         assert 'click_button' in action_names
 
-    def test_process_card_positions(self):
-        """Test processing card position actions."""
+    def test_process_play_cards(self):
+        """Test processing play_cards actions."""
         executor = ActionExecutor(Mock(), Mock())
         executor.initialize()
 
         # Mock card engine
         executor.card_engine = Mock()
-        executor.card_engine.execute_card_action.return_value = True
+        executor.card_engine.execute_card_action.return_value = {'success': True, 'card_descriptions': []}
 
-        # Test play action
-        result = executor.process(
-            {'positions': [1, 1, 0, 0], 'description': '出前两张牌'}
-        )
+        # Test play action with function call
+        result = executor.process({
+            'function_call': {
+                'name': 'play_cards',
+                'arguments': {
+                    'indices': [0, 1, 2],
+                    'description': '出前三张牌'
+                }
+            }
+        })
 
         assert result.success
-        assert result.data['action'] == 'card_positions'
-        assert result.data['positions'] == [1, 1, 0, 0]
-        assert result.data['executed']
+        assert result.data['action'] == 'play_cards'
+        assert result.data['indices'] == [0, 1, 2]
 
-        # Verify card engine was called
-        executor.card_engine.execute_card_action.assert_called_with(
-            [1, 1, 0, 0], '出前两张牌', False
-        )
+        # Verify card engine was called with correct positions
+        executor.card_engine.execute_card_action.assert_called_once()
+        call_args = executor.card_engine.execute_card_action.call_args
+        assert call_args[0][0] == [1, 1, 1]  # positions array
 
-    def test_process_invalid_positions(self):
-        """Test processing invalid position arrays."""
-        executor = ActionExecutor(Mock(), Mock())
-        executor.initialize()
-
-        # Invalid values in positions
-        result = executor.process(
-            {
-                'positions': [2, 1, 0, -2]  # 2 and -2 are invalid
-            }
-        )
-
-        assert not result.success
-        assert '位置数组只能包含-1, 0, 1' in result.errors
-
-    def test_execute_from_array_convenience_method(self):
-        """Test convenience method for direct array execution."""
+    def test_process_discard_cards(self):
+        """Test processing discard_cards actions."""
         executor = ActionExecutor(Mock(), Mock())
         executor.initialize()
 
         # Mock card engine
         executor.card_engine = Mock()
-        executor.card_engine.execute_card_action.return_value = True
+        executor.card_engine.execute_card_action.return_value = {'success': True, 'card_descriptions': []}
 
-        # Test convenience method
+        # Test discard action with function call
+        result = executor.process({
+            'function_call': {
+                'name': 'discard_cards',
+                'arguments': {
+                    'indices': [3, 4],
+                    'description': '弃掉后两张牌'
+                }
+            }
+        })
+
+        assert result.success
+        assert result.data['action'] == 'discard_cards'
+        assert result.data['indices'] == [3, 4]
+
+        # Verify card engine was called with correct positions
+        executor.card_engine.execute_card_action.assert_called_once()
+        call_args = executor.card_engine.execute_card_action.call_args
+        assert call_args[0][0] == [0, 0, 0, -1, -1]  # positions array
+
+    def test_execute_from_array_convenience_method(self):
+        """Test convenience method converts position array to index-based calls."""
+        executor = ActionExecutor(Mock(), Mock())
+        executor.initialize()
+
+        # Mock card engine's new methods
+        executor.card_engine = Mock()
+        executor.card_engine.execute_play_cards.return_value = {'success': True, 'card_descriptions': []}
+        executor.card_engine.execute_discard_cards.return_value = {'success': True, 'card_descriptions': []}
+
+        # Test convenience method with play positions [1, 1, 1, 0]
+        # Should convert to play_cards([0, 1, 2])
         success = executor.execute_from_array([1, 1, 1, 0], '测试出牌')
-
         assert success
-        executor.card_engine.execute_card_action.assert_called_with(
-            [1, 1, 1, 0], '测试出牌', False
-        )
+
+        # Verify it called execute_play_cards with correct indices
+        executor.card_engine.execute_play_cards.assert_called_once()
+        call_args = executor.card_engine.execute_play_cards.call_args
+        assert call_args[0][0] == [0, 1, 2]  # Indices [0, 1, 2]
+
+        # Test with discard positions [-1, -1, 0, 0]
+        # Should convert to discard_cards([0, 1])
+        executor.card_engine.execute_play_cards.reset_mock()
+        success = executor.execute_from_array([-1, -1, 0, 0], '测试弃牌')
+        assert success
+
+        # Verify it called execute_discard_cards with correct indices
+        executor.card_engine.execute_discard_cards.assert_called_once()
+        call_args = executor.card_engine.execute_discard_cards.call_args
+        assert call_args[0][0] == [0, 1]  # Indices [0, 1]
 
 
 class TestGameActionSchemas:
@@ -173,16 +206,29 @@ class TestGameActionSchemas:
             assert 'type' in action['parameters']
             assert 'properties' in action['parameters']
 
-    def test_select_cards_schema(self):
-        """Test select_cards_by_position schema."""
+    def test_play_cards_schema(self):
+        """Test play_cards schema."""
         action = next(
-            a for a in GAME_ACTIONS if a['name'] == 'select_cards_by_position'
+            a for a in GAME_ACTIONS if a['name'] == 'play_cards'
         )
 
         params = action['parameters']['properties']
-        assert 'positions' in params
-        assert params['positions']['type'] == 'array'
-        assert params['positions']['items']['enum'] == [-1, 0, 1]
+        assert 'indices' in params
+        assert params['indices']['type'] == 'array'
+        assert params['indices']['items']['type'] == 'integer'
+        assert params['indices']['items']['minimum'] == 0
+
+    def test_discard_cards_schema(self):
+        """Test discard_cards schema."""
+        action = next(
+            a for a in GAME_ACTIONS if a['name'] == 'discard_cards'
+        )
+
+        params = action['parameters']['properties']
+        assert 'indices' in params
+        assert params['indices']['type'] == 'array'
+        assert params['indices']['items']['type'] == 'integer'
+        assert params['indices']['items']['minimum'] == 0
 
 
 def test_integration_example():

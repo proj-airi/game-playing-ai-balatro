@@ -204,19 +204,30 @@ executor.set_window_focus_settings(enable=False)
 
 ## LLM函数调用支持
 
-支持OpenAI风格的函数调用格式，可直接集成到LLM Agent中：
+支持OpenAI风格的函数调用格式，可直接集成到LLM Agent中。
+
+使用基于索引的简洁接口：
 
 ```python
-# 1. 选择牌的位置（出牌/弃牌）
+# 1. 出牌 - 通过卡牌索引
 {
-    "name": "select_cards_by_position",
+    "name": "play_cards",
     "arguments": {
-        "positions": [1, 1, 1, 0],
-        "description": "选择前三张牌出牌"
+        "indices": [0, 1, 2],  # 出第0、1、2张牌
+        "description": "Playing three of a kind"
     }
 }
 
-# 2. 悬停查看牌的详细信息
+# 2. 弃牌 - 通过卡牌索引  
+{
+    "name": "discard_cards",
+    "arguments": {
+        "indices": [3, 4],  # 弃掉第3、4张牌
+        "description": "Discarding low value cards"
+    }
+}
+
+# 3. 悬停查看牌的详细信息
 {
     "name": "hover_card",
     "arguments": {
@@ -225,13 +236,53 @@ executor.set_window_focus_settings(enable=False)
     }
 }
 
-# 3. 点击游戏按钮
+# 4. 点击游戏按钮
 {
     "name": "click_button",
     "arguments": {
         "button_type": "shop"  # play/discard/skip/shop/next等
     }
 }
+```
+
+### 接口优势
+
+使用索引而不是位置数组的好处：
+
+1. **更直观**: `play_cards([0, 2, 4])` 比 `[1, 0, 1, 0, 1]` 更清晰
+2. **更简洁**: 只需要指定要操作的牌，不需要填充0
+3. **LLM友好**: LLM更容易理解"出第0、1、2张牌"而不是"位置数组"
+4. **类型安全**: 索引必须是非负整数，避免混淆
+
+### Python代码示例
+
+```python
+from ai_balatro.ai.actions import ActionExecutor
+
+# 初始化
+executor = ActionExecutor(...)
+
+# 使用新接口 - 出牌
+result = executor.process({
+    "function_call": {
+        "name": "play_cards",
+        "arguments": {
+            "indices": [0, 1, 2],
+            "description": "Playing straight"
+        }
+    }
+})
+
+# 使用新接口 - 弃牌
+result = executor.process({
+    "function_call": {
+        "name": "discard_cards",
+        "arguments": {
+            "indices": [3, 4, 5],
+            "description": "Discarding weak cards"
+        }
+    }
+})
 ```
 
 ### 可用的按钮类型:

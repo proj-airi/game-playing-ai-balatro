@@ -61,19 +61,35 @@ class CardAction:
 # Function calling schemas for LLM integration
 GAME_ACTIONS = [
     {
-        'name': 'select_cards_by_position',
-        'description': 'Select cards by position using array notation for play/discard actions',
+        'name': 'play_cards',
+        'description': 'Play selected cards from your hand by their index numbers (0-based)',
         'parameters': {
             'type': 'object',
             'properties': {
-                'positions': {
+                'indices': {
                     'type': 'array',
-                    'items': {'type': 'integer', 'enum': [-1, 0, 1]},
-                    'description': 'Position array: 1=play card, -1=discard card, 0=no action',
+                    'items': {'type': 'integer', 'minimum': 0},
+                    'description': 'Array of card indices to play (e.g., [0, 1, 2] plays cards 0, 1, and 2)',
                 },
-                'description': {'type': 'string', 'description': 'Action description'},
+                'description': {'type': 'string', 'description': 'Strategy explanation for this play'},
             },
-            'required': ['positions'],
+            'required': ['indices'],
+        },
+    },
+    {
+        'name': 'discard_cards',
+        'description': 'Discard selected cards from your hand by their index numbers (0-based)',
+        'parameters': {
+            'type': 'object',
+            'properties': {
+                'indices': {
+                    'type': 'array',
+                    'items': {'type': 'integer', 'minimum': 0},
+                    'description': 'Array of card indices to discard (e.g., [3, 4] discards cards 3 and 4)',
+                },
+                'description': {'type': 'string', 'description': 'Reason for discarding these cards'},
+            },
+            'required': ['indices'],
         },
     },
     {

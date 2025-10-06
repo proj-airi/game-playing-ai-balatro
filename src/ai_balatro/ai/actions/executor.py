@@ -129,8 +129,10 @@ class ActionExecutor(BaseProcessor):
         logger.info(f'执行函数调用: {function_name}')
         logger.info(f'参数: {arguments}')
 
-        if function_name == 'select_cards_by_position':
-            return self._execute_card_positions(arguments)
+        if function_name == 'play_cards':
+            return self._execute_play_cards(arguments)
+        elif function_name == 'discard_cards':
+            return self._execute_discard_cards(arguments)
         elif function_name == 'hover_card':
             return self._execute_hover_card(arguments)
         elif function_name == 'click_button':
@@ -140,36 +142,78 @@ class ActionExecutor(BaseProcessor):
                 success=False, data=None, errors=[f'未知的函数: {function_name}']
             )
 
-    def _execute_card_positions(
-        self, args: Dict[str, Any], show_visualization: bool = False
-    ) -> ProcessingResult:
-        """执行基于位置数组的牌操作。"""
-        positions = args.get('positions', [])
+    def _execute_play_cards(self, args: Dict[str, Any]) -> ProcessingResult:
+        """执行出牌操作（通过卡牌索引）。"""
+        indices = args.get('indices', [])
         description = args.get('description', '')
 
-        if not positions:
+        if not isinstance(indices, list):
             return ProcessingResult(
-                success=False, data=None, errors=['位置数组不能为空']
+                success=False, data=None, errors=['indices 必须是数组']
             )
 
-        # 验证位置数组格式
-        if not all(val in [-1, 0, 1] for val in positions):
+        if not indices:
             return ProcessingResult(
-                success=False, data=None, errors=['位置数组只能包含-1, 0, 1']
+                success=False, data=None, errors=['必须至少选择一张牌出牌']
             )
 
-        success = self.card_engine.execute_card_action(
-            positions, description, show_visualization
-        )
+        # 验证索引是否为非负整数
+        if not all(isinstance(i, int) and i >= 0 for i in indices):
+            return ProcessingResult(
+                success=False, data=None, errors=['所有索引必须是非负整数']
+            )
+
+        logger.info(f'出牌操作: 索引 {indices} - {description}')
+
+        # 直接使用新方法，传入索引
+        result = self.card_engine.execute_play_cards(indices, description, False)
 
         return ProcessingResult(
-            success=success,
+            success=result['success'],
             data={
-                'action': 'card_positions',
-                'positions': positions,
+                'action': 'play_cards',
+                'indices': indices,
                 'description': description,
-                'executed': success,
+                'card_descriptions': result.get('card_descriptions', []),
             },
+            errors=[result.get('error_message')] if not result['success'] else [],
+        )
+
+    def _execute_discard_cards(self, args: Dict[str, Any]) -> ProcessingResult:
+        """执行弃牌操作（通过卡牌索引）。"""
+        indices = args.get('indices', [])
+        description = args.get('description', '')
+
+        if not isinstance(indices, list):
+            return ProcessingResult(
+                success=False, data=None, errors=['indices 必须是数组']
+            )
+
+        if not indices:
+            return ProcessingResult(
+                success=False, data=None, errors=['必须至少选择一张牌弃掉']
+            )
+
+        # 验证索引是否为非负整数
+        if not all(isinstance(i, int) and i >= 0 for i in indices):
+            return ProcessingResult(
+                success=False, data=None, errors=['所有索引必须是非负整数']
+            )
+
+        logger.info(f'弃牌操作: 索引 {indices} - {description}')
+
+        # 直接使用新方法，传入索引
+        result = self.card_engine.execute_discard_cards(indices, description, False)
+
+        return ProcessingResult(
+            success=result['success'],
+            data={
+                'action': 'discard_cards',
+                'indices': indices,
+                'description': description,
+                'card_descriptions': result.get('card_descriptions', []),
+            },
+            errors=[result.get('error_message')] if not result['success'] else [],
         )
 
     def _execute_hover_card(self, args: Dict[str, Any]) -> ProcessingResult:
@@ -333,7 +377,9 @@ class ActionExecutor(BaseProcessor):
         show_visualization: bool = False,
     ) -> bool:
         """
-        便捷方法：直接从位置数组执行动作。
+        便捷方法：从位置数组执行动作。
+
+        内部自动转换为 play_cards 或 discard_cards 索引方法。
 
         Args:
             positions: 位置数组，如 [1, 1, 1, 0] 或 [-1, -1, 0, 0]
@@ -344,15 +390,27 @@ class ActionExecutor(BaseProcessor):
             是否执行成功
 
         Example:
-            # 选择前三张牌出牌（带可视化）
-            executor.execute_from_array([1, 1, 1, 0], "出前三张牌", show_visualization=True)
+            # 选择前三张牌出牌（内部转为 play_cards([0, 1, 2])）
+            executor.execute_from_array([1, 1, 1, 0], "出前三张牌")
 
-            # 弃掉前两张牌
+            # 弃掉前两张牌（内部转为 discard_cards([0, 1])）
             executor.execute_from_array([-1, -1, 0, 0], "弃掉前两张牌")
         """
-        result = self._execute_card_positions(
-            {'positions': positions, 'description': description}, show_visualization
-        )
+        # 转换位置数组为索引数组
+        if any(val > 0 for val in positions):
+            # 出牌操作：提取所有值为1的索引
+            indices = [i for i, val in enumerate(positions) if val > 0]
+            logger.info(f'Converting position array {positions} to play_cards with indices {indices}')
+            result = self._execute_play_cards({'indices': indices, 'description': description})
+        elif any(val < 0 for val in positions):
+            # 弃牌操作：提取所有值为-1的索引
+            indices = [i for i, val in enumerate(positions) if val < 0]
+            logger.info(f'Converting position array {positions} to discard_cards with indices {indices}')
+            result = self._execute_discard_cards({'indices': indices, 'description': description})
+        else:
+            logger.warning('Position array contains no actions (all zeros)')
+            return False
+
         return result.success
 
     def get_available_actions(self) -> List[Dict[str, Any]]:

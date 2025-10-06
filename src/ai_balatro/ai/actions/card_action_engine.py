@@ -116,29 +116,66 @@ class CardActionEngine:
             f'Card hover settings updated: hovering={enable_hovering}, before_action={hover_before_action}, debug_images={save_debug_images}'
         )
 
-    def execute_card_action(
+    def execute_play_cards(
         self,
-        positions: List[int],
+        indices: List[int],
         description: str = '',
         show_visualization: bool = False,
-        return_card_descriptions: bool = False,
     ) -> dict:
         """
-        Execute card action.
+        Execute play cards action using card indices.
 
         Args:
-            positions: Position array, like [1, 1, 1, 0] or [-1, -1, 0, 0]
+            indices: Card indices to play (0-based), e.g., [0, 1, 2]
             description: Action description
             show_visualization: Whether to show visualization window
-            return_card_descriptions: Whether to return card descriptions from hovering
 
         Returns:
-            Dictionary with execution results and optionally card descriptions
+            Dictionary with execution results
         """
-        logger.info(f'Executing card action: {positions} - {description}')
+        logger.info(f'Playing cards at indices {indices} - {description}')
+        return self._execute_card_indices(indices, 'play', description, show_visualization)
 
-        # Create CardAction object
-        action = CardAction.from_array(positions, description)
+    def execute_discard_cards(
+        self,
+        indices: List[int],
+        description: str = '',
+        show_visualization: bool = False,
+    ) -> dict:
+        """
+        Execute discard cards action using card indices.
+
+        Args:
+            indices: Card indices to discard (0-based), e.g., [3, 4]
+            description: Action description
+            show_visualization: Whether to show visualization window
+
+        Returns:
+            Dictionary with execution results
+        """
+        logger.info(f'Discarding cards at indices {indices} - {description}')
+        return self._execute_card_indices(indices, 'discard', description, show_visualization)
+
+    def _execute_card_indices(
+        self,
+        indices: List[int],
+        action_type: str,  # 'play' or 'discard'
+        description: str = '',
+        show_visualization: bool = False,
+    ) -> dict:
+        """
+        Internal method to execute card action using indices.
+
+        Args:
+            indices: Card indices (0-based)
+            action_type: 'play' or 'discard'
+            description: Action description
+            show_visualization: Whether to show visualization window
+
+        Returns:
+            Dictionary with execution results
+        """
+        logger.info(f'Executing {action_type} action with indices {indices} - {description}')
 
         result = {
             'success': False,
@@ -158,7 +195,6 @@ class CardActionEngine:
             # 2. Detect hand cards
             combined_detections: List[Detection]
             if self.multi_detector is not None:
-                # Use multi-model detector's entity and UI models
                 entity_detections = self.multi_detector.detect_entities(frame)
                 ui_detections = self.multi_detector.detect_ui(frame)
                 detections = entity_detections
@@ -169,7 +205,6 @@ class CardActionEngine:
                     len(ui_detections),
                 )
             elif self.yolo_detector is not None:
-                # Backward compatibility: use single detector
                 detections = self.yolo_detector.detect(frame)
                 combined_detections = detections
                 logger.info(f'Single detector detected {len(detections)} objects')
@@ -185,52 +220,69 @@ class CardActionEngine:
                 logger.error('No hand cards detected')
                 return result
 
-            # 3. Validate position array length
-            if len(positions) > len(hand_cards):
-                logger.warning(
-                    f'Position array length ({len(positions)}) exceeds hand card count ({len(hand_cards)})'
-                )
-                # Truncate position array
-                positions = positions[: len(hand_cards)]
+            # 3. Validate indices
+            invalid_indices = [i for i in indices if i < 0 or i >= len(hand_cards)]
+            if invalid_indices:
+                result['error_message'] = f'Invalid indices {invalid_indices}: must be between 0 and {len(hand_cards)-1}'
+                logger.error(result['error_message'])
+                return result
 
-            # 5. Show visualization (if enabled)
-            if show_visualization:
-                self._show_card_action_visualization(
-                    frame, hand_cards, action, positions
+            # 4. Capture card descriptions (if enabled)
+            if self.enable_card_hovering and self.hover_before_action:
+                logger.info('Capturing card descriptions before action...')
+                card_descriptions = self.card_tooltip_service.collect_card_infos(
+                    frame,
+                    hand_cards,
+                    detections=combined_detections,
+                    auto_hover_missing=True,
+                    save_debug_images=getattr(self, 'save_debug_images', False),
                 )
+                result['card_descriptions'] = card_descriptions
+                logger.info(f'Successfully captured descriptions for {len(card_descriptions)} cards')
 
-            # 6. Ensure game window focus
+            # 5. Ensure game window focus
             logger.info('Ensuring game window has focus...')
             focus_success = self.mouse_controller.ensure_game_window_focus()
             if focus_success:
                 logger.info('✓ Game window focus ready')
             else:
-                logger.warning(
-                    '! Window focus handling failed, continuing with operation'
-                )
+                logger.warning('! Window focus handling failed, continuing with operation')
 
-            # 7. Execute click operations
-            click_success = self._execute_clicks(hand_cards, action)
-
-            if click_success:
-                # 8. Execute confirmation action (play or discard)
-                time.sleep(0.5)  # Action delay
-                confirm_success = self._execute_confirm_action(
-                    action, show_visualization
-                )
-
-                if confirm_success:
-                    result['success'] = True
-                    result['action_executed'] = True
-                    logger.info('✓ Card action executed successfully')
+            # 6. Click selected cards by indices
+            logger.info(f'Selecting cards at indices {indices} for {action_type}')
+            clicked_count = 0
+            for index in indices:
+                card = hand_cards[index]
+                success = self._click_card(card, index)
+                if success:
+                    clicked_count += 1
+                    time.sleep(self.mouse_controller.click_interval)
                 else:
-                    result['error_message'] = (
-                        'Failed to execute confirmation action (Play/Discard button)'
-                    )
-                    logger.error('Failed to execute confirmation action')
+                    logger.error(f'Failed to click card at index {index}')
+                    result['error_message'] = f'Failed to click card at index {index}'
+                    return result
+
+            logger.info(f'Successfully clicked {clicked_count} cards')
+
+            # 7. Wait for button to appear and click confirmation button
+            time.sleep(0.8)  # Wait for UI to update after clicking cards
+
+            # Recapture screen to get updated button state
+            frame = self.screen_capture.capture_once()
+            if frame is None:
+                logger.warning('Cannot recapture screen for button detection, using old frame')
+
+            button_type = 'play' if action_type == 'play' else 'discard'
+            logger.info(f'Looking for {button_type} button in updated screen')
+            confirm_success = self._click_action_button(button_type, frame, show_visualization)
+
+            if confirm_success:
+                result['success'] = True
+                result['action_executed'] = True
+                logger.info(f'✓ {action_type.capitalize()} action executed successfully')
             else:
-                result['error_message'] = 'Failed to execute card click operations'
-                logger.error('Failed to execute card click operations')
+                result['error_message'] = f'Failed to click {button_type} button'
+                logger.error(result['error_message'])
 
             return result
 
@@ -487,10 +539,66 @@ class CardActionEngine:
             logger.error(f'Error occurred while clicking card: {e}')
             return False
 
+    def _click_action_button(
+        self, button_type: str, frame, show_visualization: bool = False
+    ) -> bool:
+        """
+        Click action button (play or discard).
+
+        Args:
+            button_type: 'play' or 'discard'
+            frame: Current screen frame (can be None, will capture if needed)
+            show_visualization: Whether to show visualization on failure
+
+        Returns:
+            True if button was clicked successfully
+        """
+        try:
+            logger.info(f'Finding and clicking {button_type} button')
+
+            # Capture current screen if not provided
+            if frame is None:
+                frame = self.screen_capture.capture_once()
+                if frame is None:
+                    logger.error('Cannot capture screen to find button')
+                    return False
+
+            # Use UI model to detect button
+            logger.info(f'Using UI model to detect {button_type} button...')
+            target_button = self.button_detector.find_best_button(frame, button_type)
+
+            if target_button is None:
+                logger.warning(f'{button_type} button not found')
+                if show_visualization:
+                    all_buttons = self.button_detector.find_buttons(frame)
+                    if all_buttons:
+                        button_detections: List[Detection] = [btn for btn in all_buttons]
+                        self.visualizer.show_detection_results(
+                            frame,
+                            button_detections,
+                            f'All Detected Buttons (Target: {button_type})',
+                        )
+                return False
+
+            # Click found button
+            logger.info(f'Found {button_type} button, preparing to click...')
+            success = self._click_button(target_button)
+
+            if success:
+                logger.info(f'✓ Successfully clicked {button_type} button')
+            else:
+                logger.error(f'Failed to click {button_type} button')
+
+            return success
+
+        except Exception as e:
+            logger.error(f'Error clicking {button_type} button: {e}')
+            return False
+
     def _execute_confirm_action(
         self, action: CardAction, show_visualization: bool = False
     ) -> bool:
-        """Execute confirmation action (play or discard button)."""
+        """Execute confirmation action (play or discard button) - legacy method."""
         try:
             if action.is_play_action:
                 button_type = 'play'

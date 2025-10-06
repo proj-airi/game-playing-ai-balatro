@@ -92,16 +92,24 @@ class BalatroReasoningAgent(BaseAgent):
         return """You are a Balatro expert AI agent. You analyze game states and make immediate strategic decisions to maximize scores.
 
 Your capabilities:
-- Analyze detected cards with full OCR text descriptions
+- Analyze detected cards with full OCR text descriptions (card names, ranks, suits)
 - Understand poker hands and scoring mechanics
-- Make strategic card plays and discards
-- Execute actions using position-based arrays
+- Make strategic card plays and discards based on card indices
+- Execute actions through simple function calls
 
 Available actions:
-- select_cards_by_position: Use position array [1,1,0,0] for play, [-1,-1,0,0] for discard
-- click_button: Press UI buttons (play, discard, skip, shop, next)
+- play_cards(indices=[0,1,2]): Play selected cards by their index numbers (0-based)
+  Example: play_cards(indices=[0,1,2]) plays the first three cards
+- discard_cards(indices=[3,4]): Discard selected cards by their index numbers (0-based)
+  Example: discard_cards(indices=[3,4]) discards cards at positions 3 and 4
+- click_button(button_type='...'): Press UI buttons (play, discard, skip, shop, next)
 
-Make immediate, optimal decisions based on the complete card information provided. No additional information gathering needed."""
+Card indexing:
+- Cards are numbered starting from 0 (leftmost card is index 0)
+- Each card in your hand has a unique index
+- Use the provided card information (Card 0, Card 1, etc.) to select cards
+
+Make immediate, optimal decisions based on the complete card information provided."""
 
     def analyze_situation(self, context: AgentContext) -> AgentResult:
         """Analyze current Balatro game state and make immediate strategic decision."""
@@ -368,7 +376,30 @@ GAME PHASE: {game_state.get('game_phase', 'unknown')}
 Based on the card descriptions and game state, make the optimal strategic decision:
 {poker_objectives}
 
-Execute the best action immediately using the available functions and provide concise reasoning."""
+ACTION INSTRUCTIONS:
+1. Analyze the cards listed above (Card 0, Card 1, Card 2, etc.) with their descriptions
+2. Identify the best poker hand you can form from these cards
+3. Choose ONE action:
+
+   a) If you have a strong playable hand:
+      - Use play_cards(indices=[...]) with the indices of cards to play
+      - Example: play_cards(indices=[0, 1, 2, 3, 4]) to play first 5 cards
+      - Example: play_cards(indices=[0, 2, 4, 6, 7]) to play specific cards
+
+   b) If you need better cards:
+      - Use discard_cards(indices=[...]) with the indices of cards to discard
+      - Example: discard_cards(indices=[5, 6, 7]) to discard last 3 cards
+      - Example: discard_cards(indices=[1, 3]) to discard specific unwanted cards
+
+   c) If you need to interact with UI:
+      - Use click_button(button_type='...') for UI actions
+
+Remember:
+- Cards are indexed from 0 (Card 0 is the leftmost)
+- You can only play OR discard in one action, not both
+- Provide clear reasoning for your choice
+
+Execute the best action immediately and explain your strategic reasoning."""
 
     def _create_decision_prompt_legacy(self, game_state: Dict[str, Any]) -> str:
         """Legacy planning prompt - replaced by integrated decision making."""

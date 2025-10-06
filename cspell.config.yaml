@@ -20,6 +20,7 @@ words:
   - onnxruntime
   - onnxslim
   - opencv
+  - openrouter
   - paddleocr
   - paddlepaddle
   - pixi

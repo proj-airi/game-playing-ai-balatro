@@ -9,6 +9,9 @@ from ..actions.executor import ActionExecutor
 from ..actions.schemas import GAME_ACTIONS
 from ...core.multi_yolo_detector import MultiYOLODetector
 from ...core.screen_capture import ScreenCapture
+from ...core.detection import Detection
+from ...services.ui_text_service import UITextExtractionService
+from ...services.game_state_extraction import GameStateExtractionService
 from ...utils.logger import get_logger
 
 logger = get_logger(__name__)
@@ -48,6 +51,15 @@ class BalatroReasoningAgent(BaseAgent):
         )
         self.action_executor.initialize()
 
+        self.ui_text_service = UITextExtractionService()
+        self.game_state_extractor = GameStateExtractionService(
+            screen_capture=self.screen_capture,
+            multi_detector=self.multi_detector,
+            mouse_controller=self.action_executor.card_engine.mouse_controller,
+            card_tooltip_service=self.action_executor.card_engine.card_tooltip_service,
+            ui_text_service=self.ui_text_service,
+        )
+
         # Game state tracking
         self.current_game_state: Dict[str, Any] = {}
         self.game_history: List[Dict[str, Any]] = []
@@ -59,18 +71,14 @@ class BalatroReasoningAgent(BaseAgent):
         logger.info(f'Running {self.name} - integrated decision cycle')
 
         try:
-            # Single integrated analysis and decision phase
             result = self.analyze_situation(context)
 
             if result.success and result.action:
-                # Execute the decided action
                 execution_result = self.execute_action(result.action, result.context)
                 return execution_result
             elif result.success:
-                # Analysis successful but no action decided
                 return result
             else:
-                # Analysis failed
                 return result
 
         except Exception as e:
@@ -100,23 +108,19 @@ Make immediate, optimal decisions based on the complete card information provide
         try:
             logger.info('Analyzing Balatro game situation and planning action...')
 
-            # Capture current screen
-            frame = self.screen_capture.capture_once()
-            if frame is None:
+            game_state = self.game_state_extractor.capture_state(
+                capture_card_descriptions=True
+            )
+
+            if game_state is None:
                 return AgentResult(
                     success=False,
                     errors=['Failed to capture screen'],
                     state=AgentState.ERROR,
                 )
 
-            # Detect entities using multi-YOLO system
-            entities_detection = self.multi_detector.detect_entities(frame)
-            ui_detection = self.multi_detector.detect_ui(frame)
-
-            # Extract game state information WITH card descriptions
-            game_state = self._extract_game_state(
-                entities_detection, ui_detection, frame, capture_card_descriptions=True
-            )
+            entities_detection = game_state.get('entities_raw', [])
+            ui_detection = game_state.get('ui_elements_raw', [])
 
             # Update context with current state
             context.game_state.update(game_state)
@@ -229,132 +233,31 @@ Make immediate, optimal decisions based on the complete card information provide
 
     def _extract_game_state(
         self,
-        entities_detection: List,
-        ui_detection: List,
+        entities_detection: Optional[List[Detection]] = None,
+        ui_detection: Optional[List[Detection]] = None,
         frame=None,
         capture_card_descriptions: bool = True,
     ) -> Dict[str, Any]:
-        """Extract structured game state from detection results."""
-        game_state = {
+        """Compatibility wrapper delegating to game state extractor."""
+        snapshot = self.game_state_extractor.capture_state(
+            frame=frame,
+            entities_detection=entities_detection,
+            ui_detection=ui_detection,
+            capture_card_descriptions=capture_card_descriptions,
+        )
+
+        return snapshot or {
             'timestamp': time.time(),
-            'entities_raw': entities_detection,
-            'ui_elements_raw': ui_detection,
+            'entities_raw': entities_detection or [],
+            'ui_elements_raw': ui_detection or [],
             'cards': [],
             'jokers': [],
             'ui_buttons': [],
             'game_phase': 'unknown',
             'card_descriptions': [],
+            'ui_text_elements': [],
+            'ui_text_values': {},
         }
-
-        # Process entity detections
-        for detection in entities_detection:
-            if 'card' in detection.class_name.lower():
-                x1, y1, x2, y2 = detection.bbox
-                game_state['cards'].append(
-                    {
-                        'index': len(game_state['cards']),
-                        'class_name': detection.class_name,
-                        'confidence': detection.confidence,
-                        'position': [x1, y1, x2, y2],  # bbox format
-                        'center': detection.center,
-                        'width': detection.width,
-                        'height': detection.height,
-                        'description_text': '',
-                        'description_detected': False,
-                        'parsed_description': None,
-                        'ocr_confidence': 0.0,
-                    }
-                )
-            elif 'joker' in detection.class_name.lower():
-                x1, y1, x2, y2 = detection.bbox
-                game_state['jokers'].append(
-                    {
-                        'index': len(game_state['jokers']),
-                        'class_name': detection.class_name,
-                        'confidence': detection.confidence,
-                        'position': [x1, y1, x2, y2],  # bbox format
-                        'center': detection.center,
-                        'width': detection.width,
-                        'height': detection.height,
-                    }
-                )
-
-        # Process UI detections
-        for detection in ui_detection:
-            if 'button' in detection.class_name.lower():
-                x1, y1, x2, y2 = detection.bbox
-                game_state['ui_buttons'].append(
-                    {
-                        'class_name': detection.class_name,
-                        'confidence': detection.confidence,
-                        'position': [x1, y1, x2, y2],  # bbox format
-                        'center': detection.center,
-                        'width': detection.width,
-                        'height': detection.height,
-                    }
-                )
-
-        # Sort cards by position (left to right)
-        game_state['cards'].sort(key=lambda c: c['position'][0])
-
-        # Re-index cards after sorting
-        for i, card in enumerate(game_state['cards']):
-            card['index'] = i
-
-        # Determine game phase based on available buttons
-        button_types = [btn['class_name'].lower() for btn in game_state['ui_buttons']]
-        playing_keywords = ('play', 'discard', 'hand', 'hold')
-        if any(
-            any(keyword in btn for keyword in playing_keywords)
-            for btn in button_types
-        ):
-            game_state['game_phase'] = 'playing'
-        elif any('shop' in btn for btn in button_types):
-            game_state['game_phase'] = 'shop'
-        elif any('next' in btn for btn in button_types):
-            game_state['game_phase'] = 'transition'
-
-        # Capture card descriptions if requested and cards are available
-        if capture_card_descriptions and game_state['cards']:
-            logger.info(
-                'Capturing card descriptions for enhanced game state analysis...'
-            )
-            try:
-                combined_detections = list(entities_detection) + list(ui_detection)
-                card_descriptions = (
-                    self.action_executor.card_engine.get_card_descriptions_from_frame(
-                        frame,
-                        combined_detections,
-                        auto_hover_missing=True,
-                        save_debug_images=False,
-                    )
-                )
-                game_state['card_descriptions'] = card_descriptions
-                for card_index, card_desc in enumerate(card_descriptions):
-                    if card_index < len(game_state['cards']):
-                        card_entry = game_state['cards'][card_index]
-                        card_entry['description_text'] = card_desc.get(
-                            'description_text',
-                            '',
-                        )
-                        card_entry['description_detected'] = card_desc.get(
-                            'description_detected',
-                            False,
-                        )
-                        card_entry['parsed_description'] = card_desc.get(
-                            'parsed_description'
-                        )
-                        card_entry['ocr_confidence'] = card_desc.get(
-                            'ocr_confidence', 0.0
-                        )
-                logger.info(
-                    f'Successfully captured descriptions for {len(card_descriptions)} cards'
-                )
-            except Exception as e:
-                logger.warning(f'Failed to capture card descriptions: {e}')
-                game_state['card_descriptions'] = []
-
-        return game_state
 
     def _create_analysis_prompt(self, game_state: Dict[str, Any]) -> str:
         """Create prompt for game state analysis."""
@@ -392,6 +295,18 @@ Make immediate, optimal decisions based on the complete card information provide
         for button in game_state.get('ui_buttons', []):
             buttons_info.append(f'Button: {button["class_name"]}')
 
+        ui_text_info = []
+        for ui_item in game_state.get('ui_text_elements', []):
+            value_text = ui_item.get('text', '')
+            value_compact = ' '.join(value_text.split()) if value_text else '(no text)'
+            confidence = ui_item.get('ocr_confidence')
+            if confidence is not None and confidence > 0:
+                ui_text_info.append(
+                    f"{ui_item['class_name']}: {value_compact} (OCR {confidence:.2f})"
+                )
+            else:
+                ui_text_info.append(f"{ui_item['class_name']}: {value_compact}")
+
         # Add OCR capture status
         ocr_status = ''
         if game_state.get('cards'):
@@ -412,27 +327,46 @@ Make immediate, optimal decisions based on the complete card information provide
             '- Discard low-value cards that do not contribute to potential strong hands.'
         )
 
-        return f"""Make an immediate strategic decision for the current Balatro game state:
+        return f"""You are playing a game called Balatro, a game borrowed the concept of Texas Hold'em Poker and enhanced the gameplay with rogue-like level setup, and many different joker cards to manipulate the game rules.
+Most strategy comes from understanding the Texas Hold'em poker rules and making optimal plays based on the current hand and game phase.
 
-CURRENT HAND ({len(game_state.get('cards', []))}) cards):
+In Texas Hold'em, the poker hand rankings from highest to lowest are:
+
+1. Royal Flush
+2. Straight Flush
+3. Four of a Kind
+4. Full House
+5. Flush
+6. Straight
+7. Three of a Kind
+8. Two Pair
+9. One Pair
+10. High Card
+
+It's the same in Balatro, but instead of gaming with other opponents, you are playing against the game system to achieve the highest score possible.
+The total play card stack is default to 52 without joker cards, you may purchase more playing cards later on the progressing the game.
+During the play, you can play cards or discard cards to optimize your hand, once played, new numbers of cards you played will be drawn from the card stack to refill your hand to the maximum hand size (default to 5 cards).
+When discarding cards, you will not be able to draw new cards to refill your hand too.
+Your goal is to maximize your score by forming the best possible poker hands using the cards in your hand, while strategically managing joker cards that can modify game rules.
+
+Here is your current known game state:
+
+Current cards in ({len(game_state.get('cards', []))}) cards) hand:
 {chr(10).join(cards_info) if cards_info else 'No cards detected'}{ocr_status}
 
-JOKERS ({len(game_state.get('jokers', []))} active):
+Current Joker cards ({len(game_state.get('jokers', []))} active) enabled:
 {chr(10).join(jokers_info) if jokers_info else 'No jokers detected'}
 
-UI ELEMENTS:
+UI elements you can interact with ({len(game_state.get('ui_buttons', []))} buttons):
 {chr(10).join(buttons_info) if buttons_info else 'No buttons detected'}
+
+Dynamic UI values ({len(game_state.get('ui_text_elements', []))} tracked):
+{chr(10).join(ui_text_info) if ui_text_info else 'No dynamic UI text detected'}
 
 GAME PHASE: {game_state.get('game_phase', 'unknown')}
 
 Based on the card descriptions and game state, make the optimal strategic decision:
 {poker_objectives}
-
-Based on the card descriptions and game state, decide whether to play or discard:
-1. Identify the best poker hand you can currently form (up to five cards).
-2. If a strong hand exists, play it using select_cards_by_position (use 1 for cards to play, 0 to hold).
-3. If no meaningful hand is available, discard strategically using -1 for cards to throw away.
-4. When relevant, request button clicks with click_button.
 
 Execute the best action immediately using the available functions and provide concise reasoning."""
 

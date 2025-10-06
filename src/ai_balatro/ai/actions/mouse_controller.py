@@ -3,7 +3,7 @@
 import time
 import sys
 import subprocess
-from typing import Optional
+from typing import Optional, Sequence, Callable, Tuple
 from pynput import mouse
 from ...core.screen_capture import ScreenCapture
 from ...utils.logger import get_logger
@@ -71,6 +71,54 @@ class MouseController:
         logger.info(
             f'Updated mouse movement settings: duration={move_duration}s, steps={move_steps}, click hold={click_hold_duration}s'
         )
+
+    def sweep_path(
+        self,
+        positions: Sequence[Tuple[int, int]],
+        dwell_time: float = 0.25,
+        move_duration: Optional[float] = None,
+        capture_callback: Optional[Callable[[int, int, int], None]] = None,
+        restore_position: bool = True,
+    ) -> bool:
+        """Sweep mouse cursor through positions with optional capture callback."""
+        if not positions:
+            return False
+
+        original_position = self.mouse.position
+        original_move_duration = self.mouse_move_duration
+        original_move_steps = self.mouse_move_steps
+
+        try:
+            if move_duration is not None:
+                # Adjust movement parameters for faster sweep
+                self.mouse_move_duration = move_duration
+                self.mouse_move_steps = max(5, int(move_duration / 0.01))
+
+            for idx, (x, y) in enumerate(positions):
+                if not self.smooth_move_to(x, y):
+                    logger.warning(f'Failed to reach sweep position {idx}: ({x}, {y})')
+                    continue
+
+                time.sleep(max(dwell_time, 0.0))
+
+                if capture_callback:
+                    try:
+                        capture_callback(idx, x, y)
+                    except Exception as exc:  # noqa: BLE001
+                        logger.warning(f'Sweep capture callback failed at {idx}: {exc}')
+
+            return True
+
+        finally:
+            if move_duration is not None:
+                self.mouse_move_duration = original_move_duration
+                self.mouse_move_steps = original_move_steps
+
+            if restore_position:
+                try:
+                    self.mouse.position = original_position
+                except Exception:
+                    logger.debug('Failed to restore original mouse position after sweep')
 
     def smooth_move_to(self, target_x: int, target_y: int) -> bool:
         """

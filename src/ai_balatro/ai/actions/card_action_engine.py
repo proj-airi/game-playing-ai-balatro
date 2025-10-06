@@ -193,39 +193,6 @@ class CardActionEngine:
                 # Truncate position array
                 positions = positions[: len(hand_cards)]
 
-            # 4. Hover cards to capture descriptions (NEW FEATURE)
-            if self.enable_card_hovering and self.hover_before_action:
-                logger.info('Capturing card descriptions before action...')
-
-                card_descriptions = self.card_tooltip_service.collect_card_infos(
-                    frame,
-                    hand_cards,
-                    detections=combined_detections,
-                    auto_hover_missing=True,
-                    save_debug_images=getattr(self, 'save_debug_images', False),
-                )
-
-                result['card_descriptions'] = card_descriptions
-                logger.info(
-                    f'Successfully captured descriptions for {len(card_descriptions)} cards'
-                )
-
-                for i, card_desc in enumerate(card_descriptions):
-                    if (
-                        card_desc['description_detected']
-                        and card_desc['description_text']
-                    ):
-                        truncated = (
-                            card_desc['description_text'][:50] + '...'
-                            if len(card_desc['description_text']) > 50
-                            else card_desc['description_text']
-                        )
-                        logger.info(f'  Card {i}: {truncated}')
-                    else:
-                        logger.info(f'  Card {i}: No description captured')
-            else:
-                logger.info('Card hovering disabled, skipping description capture')
-
             # 5. Show visualization (if enabled)
             if show_visualization:
                 self._show_card_action_visualization(

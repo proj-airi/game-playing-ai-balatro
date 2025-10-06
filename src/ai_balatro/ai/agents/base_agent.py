@@ -254,9 +254,7 @@ class BaseAgent(ABC):
             history_length = len(context['history'])
             logger.info(f'   Conversation History: {history_length} messages')
 
-            # Log prompt preview (truncated for readability)
-            prompt_preview = prompt[:200] + '...' if len(prompt) > 200 else prompt
-            logger.info(f'   Prompt Preview: {prompt_preview}')
+            print(prompt)
 
             # Log full prompt for detailed debugging (can be disabled if too verbose)
             if logger.isEnabledFor(10):  # DEBUG level

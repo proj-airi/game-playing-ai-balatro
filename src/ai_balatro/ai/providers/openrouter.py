@@ -65,7 +65,7 @@ class OpenRouterProvider(LLMProvider):
 
             # Test connection
             test_result = self._make_chat_request(
-                messages=[{'role': 'user', 'content': 'Hello'}], max_tokens=10
+                messages=[{'role': 'user', 'content': 'Hello'}], max_tokens=100
             )
 
             if test_result.success:
@@ -278,6 +278,8 @@ class OpenRouterProvider(LLMProvider):
             'meta-llama/llama-3.1-405b-instruct',
             'meta-llama/llama-3.1-70b-instruct',
             'google/gemini-pro',
+            'openai/gpt-4.1-mini',
+            'openai/gpt-5-mini',
             'mistralai/mistral-7b-instruct',
         ]
 

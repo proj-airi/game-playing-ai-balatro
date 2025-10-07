@@ -227,19 +227,6 @@ class CardActionEngine:
                 logger.error(result['error_message'])
                 return result
 
-            # 4. Capture card descriptions (if enabled)
-            if self.enable_card_hovering and self.hover_before_action:
-                logger.info('Capturing card descriptions before action...')
-                card_descriptions = self.card_tooltip_service.collect_card_infos(
-                    frame,
-                    hand_cards,
-                    detections=combined_detections,
-                    auto_hover_missing=True,
-                    save_debug_images=getattr(self, 'save_debug_images', False),
-                )
-                result['card_descriptions'] = card_descriptions
-                logger.info(f'Successfully captured descriptions for {len(card_descriptions)} cards')
-
             # 5. Ensure game window focus
             logger.info('Ensuring game window has focus...')
             focus_success = self.mouse_controller.ensure_game_window_focus()

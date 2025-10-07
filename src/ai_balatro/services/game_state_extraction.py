@@ -299,13 +299,6 @@ class GameStateExtractionService:
             description_info = self._process_hover_frame(card, frame, card_index)
             card_descriptions[card_index] = description_info
 
-        self._fallback_missing_cards(
-            base_frame,
-            ordered,
-            combined_detections,
-            card_descriptions,
-        )
-
         game_state['card_descriptions'] = card_descriptions
 
         for idx, desc in enumerate(card_descriptions):

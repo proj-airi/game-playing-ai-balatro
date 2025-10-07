@@ -16,6 +16,8 @@
 >
 > We are a group of currently non-funded talented people made up with computer scientists, experts in multi-modal fields, designers, product managers, and popular open source contributors who loves the goal of where we are heading now.
 
+<video src="./docs/demo.mp4" controls width="100%"></video>
+
 ## Models
 
 | Name      | Purpose                      | Base    | 🤗 HuggingFace                                                                              |

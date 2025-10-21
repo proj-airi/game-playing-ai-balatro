@@ -310,18 +310,16 @@ Make immediate, optimal decisions based on the complete card information provide
             confidence = ui_item.get('ocr_confidence')
             if confidence is not None and confidence > 0:
                 ui_text_info.append(
-                    f"{ui_item['class_name']}: {value_compact} (OCR {confidence:.2f})"
+                    f'{ui_item["class_name"]}: {value_compact} (OCR {confidence:.2f})'
                 )
             else:
-                ui_text_info.append(f"{ui_item['class_name']}: {value_compact}")
+                ui_text_info.append(f'{ui_item["class_name"]}: {value_compact}')
 
         # Add OCR capture status
         ocr_status = ''
         if game_state.get('cards'):
             captured_count = sum(
-                1
-                for card in game_state['cards']
-                if card.get('description_detected')
+                1 for card in game_state['cards'] if card.get('description_detected')
             )
             total_cards = len(game_state['cards'])
             ocr_status = (

@@ -118,7 +118,9 @@ class MouseController:
                 try:
                     self.mouse.position = original_position
                 except Exception:
-                    logger.debug('Failed to restore original mouse position after sweep')
+                    logger.debug(
+                        'Failed to restore original mouse position after sweep'
+                    )
 
     def smooth_move_to(self, target_x: int, target_y: int) -> bool:
         """

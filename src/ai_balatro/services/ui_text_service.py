@@ -54,7 +54,9 @@ class UITextExtractionService:
         ocr_engine: Optional[RapidOCREngine] = None,
         scale_factor: float = 2.0,
     ) -> None:
-        self.target_classes = tuple(target_classes) if target_classes else DYNAMIC_UI_CLASSES
+        self.target_classes = (
+            tuple(target_classes) if target_classes else DYNAMIC_UI_CLASSES
+        )
         self.target_class_set = {cls.lower() for cls in self.target_classes}
         self.scale_factor = max(scale_factor, 1.0)
 
@@ -191,7 +193,9 @@ class UITextExtractionService:
 
         if isinstance(json_payload, dict):
             iterable = [json_payload]
-        elif isinstance(json_payload, Sequence) and not isinstance(json_payload, (str, bytes)):
+        elif isinstance(json_payload, Sequence) and not isinstance(
+            json_payload, (str, bytes)
+        ):
             iterable = json_payload
         else:
             return 0.0

@@ -134,7 +134,9 @@ class CardActionEngine:
             Dictionary with execution results
         """
         logger.info(f'Playing cards at indices {indices} - {description}')
-        return self._execute_card_indices(indices, 'play', description, show_visualization)
+        return self._execute_card_indices(
+            indices, 'play', description, show_visualization
+        )
 
     def execute_discard_cards(
         self,
@@ -154,7 +156,9 @@ class CardActionEngine:
             Dictionary with execution results
         """
         logger.info(f'Discarding cards at indices {indices} - {description}')
-        return self._execute_card_indices(indices, 'discard', description, show_visualization)
+        return self._execute_card_indices(
+            indices, 'discard', description, show_visualization
+        )
 
     def _execute_card_indices(
         self,
@@ -175,7 +179,9 @@ class CardActionEngine:
         Returns:
             Dictionary with execution results
         """
-        logger.info(f'Executing {action_type} action with indices {indices} - {description}')
+        logger.info(
+            f'Executing {action_type} action with indices {indices} - {description}'
+        )
 
         result = {
             'success': False,
@@ -193,12 +199,10 @@ class CardActionEngine:
                 return result
 
             # 2. Detect hand cards
-            combined_detections: List[Detection]
             if self.multi_detector is not None:
                 entity_detections = self.multi_detector.detect_entities(frame)
                 ui_detections = self.multi_detector.detect_ui(frame)
                 detections = entity_detections
-                combined_detections = entity_detections + ui_detections
                 logger.info(
                     'Multi-model detector found %d entities and %d UI elements',
                     len(entity_detections),
@@ -206,7 +210,6 @@ class CardActionEngine:
                 )
             elif self.yolo_detector is not None:
                 detections = self.yolo_detector.detect(frame)
-                combined_detections = detections
                 logger.info(f'Single detector detected {len(detections)} objects')
             else:
                 result['error_message'] = 'No detector available'
@@ -223,7 +226,9 @@ class CardActionEngine:
             # 3. Validate indices
             invalid_indices = [i for i in indices if i < 0 or i >= len(hand_cards)]
             if invalid_indices:
-                result['error_message'] = f'Invalid indices {invalid_indices}: must be between 0 and {len(hand_cards)-1}'
+                result['error_message'] = (
+                    f'Invalid indices {invalid_indices}: must be between 0 and {len(hand_cards) - 1}'
+                )
                 logger.error(result['error_message'])
                 return result
 
@@ -233,7 +238,9 @@ class CardActionEngine:
             if focus_success:
                 logger.info('✓ Game window focus ready')
             else:
-                logger.warning('! Window focus handling failed, continuing with operation')
+                logger.warning(
+                    '! Window focus handling failed, continuing with operation'
+                )
 
             # 6. Click selected cards by indices
             logger.info(f'Selecting cards at indices {indices} for {action_type}')
@@ -257,16 +264,22 @@ class CardActionEngine:
             # Recapture screen to get updated button state
             frame = self.screen_capture.capture_once()
             if frame is None:
-                logger.warning('Cannot recapture screen for button detection, using old frame')
+                logger.warning(
+                    'Cannot recapture screen for button detection, using old frame'
+                )
 
             button_type = 'play' if action_type == 'play' else 'discard'
             logger.info(f'Looking for {button_type} button in updated screen')
-            confirm_success = self._click_action_button(button_type, frame, show_visualization)
+            confirm_success = self._click_action_button(
+                button_type, frame, show_visualization
+            )
 
             if confirm_success:
                 result['success'] = True
                 result['action_executed'] = True
-                logger.info(f'✓ {action_type.capitalize()} action executed successfully')
+                logger.info(
+                    f'✓ {action_type.capitalize()} action executed successfully'
+                )
             else:
                 result['error_message'] = f'Failed to click {button_type} button'
                 logger.error(result['error_message'])
@@ -559,7 +572,9 @@ class CardActionEngine:
                 if show_visualization:
                     all_buttons = self.button_detector.find_buttons(frame)
                     if all_buttons:
-                        button_detections: List[Detection] = [btn for btn in all_buttons]
+                        button_detections: List[Detection] = [
+                            btn for btn in all_buttons
+                        ]
                         self.visualizer.show_detection_results(
                             frame,
                             button_detections,

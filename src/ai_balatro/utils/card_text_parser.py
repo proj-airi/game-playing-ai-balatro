@@ -148,9 +148,9 @@ def parse_card_description(description_text: str) -> Optional[Dict[str, Optional
 
     if rank and rank in RANK_NAMES:
         if suit:
-            card_name = f"{RANK_NAMES[rank]} of {SUITS[suit]['name']}"
+            card_name = f'{RANK_NAMES[rank]} of {SUITS[suit]["name"]}'
             result['english_name'] = card_name
-            result['short_code'] = f"{rank}{SUITS[suit]['code']}"
+            result['short_code'] = f'{rank}{SUITS[suit]["code"]}'
         else:
             result['english_name'] = RANK_NAMES[rank]
 

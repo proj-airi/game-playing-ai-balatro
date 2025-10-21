@@ -111,18 +111,20 @@ class TestActionExecutor:
 
         # Mock card engine
         executor.card_engine = Mock()
-        executor.card_engine.execute_card_action.return_value = {'success': True, 'card_descriptions': []}
+        executor.card_engine.execute_card_action.return_value = {
+            'success': True,
+            'card_descriptions': [],
+        }
 
         # Test play action with function call
-        result = executor.process({
-            'function_call': {
-                'name': 'play_cards',
-                'arguments': {
-                    'indices': [0, 1, 2],
-                    'description': '出前三张牌'
+        result = executor.process(
+            {
+                'function_call': {
+                    'name': 'play_cards',
+                    'arguments': {'indices': [0, 1, 2], 'description': '出前三张牌'},
                 }
             }
-        })
+        )
 
         assert result.success
         assert result.data['action'] == 'play_cards'
@@ -140,18 +142,20 @@ class TestActionExecutor:
 
         # Mock card engine
         executor.card_engine = Mock()
-        executor.card_engine.execute_card_action.return_value = {'success': True, 'card_descriptions': []}
+        executor.card_engine.execute_card_action.return_value = {
+            'success': True,
+            'card_descriptions': [],
+        }
 
         # Test discard action with function call
-        result = executor.process({
-            'function_call': {
-                'name': 'discard_cards',
-                'arguments': {
-                    'indices': [3, 4],
-                    'description': '弃掉后两张牌'
+        result = executor.process(
+            {
+                'function_call': {
+                    'name': 'discard_cards',
+                    'arguments': {'indices': [3, 4], 'description': '弃掉后两张牌'},
                 }
             }
-        })
+        )
 
         assert result.success
         assert result.data['action'] == 'discard_cards'
@@ -169,8 +173,14 @@ class TestActionExecutor:
 
         # Mock card engine's new methods
         executor.card_engine = Mock()
-        executor.card_engine.execute_play_cards.return_value = {'success': True, 'card_descriptions': []}
-        executor.card_engine.execute_discard_cards.return_value = {'success': True, 'card_descriptions': []}
+        executor.card_engine.execute_play_cards.return_value = {
+            'success': True,
+            'card_descriptions': [],
+        }
+        executor.card_engine.execute_discard_cards.return_value = {
+            'success': True,
+            'card_descriptions': [],
+        }
 
         # Test convenience method with play positions [1, 1, 1, 0]
         # Should convert to play_cards([0, 1, 2])
@@ -208,9 +218,7 @@ class TestGameActionSchemas:
 
     def test_play_cards_schema(self):
         """Test play_cards schema."""
-        action = next(
-            a for a in GAME_ACTIONS if a['name'] == 'play_cards'
-        )
+        action = next(a for a in GAME_ACTIONS if a['name'] == 'play_cards')
 
         params = action['parameters']['properties']
         assert 'indices' in params
@@ -220,9 +228,7 @@ class TestGameActionSchemas:
 
     def test_discard_cards_schema(self):
         """Test discard_cards schema."""
-        action = next(
-            a for a in GAME_ACTIONS if a['name'] == 'discard_cards'
-        )
+        action = next(a for a in GAME_ACTIONS if a['name'] == 'discard_cards')
 
         params = action['parameters']['properties']
         assert 'indices' in params

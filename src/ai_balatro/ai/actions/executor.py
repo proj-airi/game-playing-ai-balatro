@@ -400,13 +400,21 @@ class ActionExecutor(BaseProcessor):
         if any(val > 0 for val in positions):
             # 出牌操作：提取所有值为1的索引
             indices = [i for i, val in enumerate(positions) if val > 0]
-            logger.info(f'Converting position array {positions} to play_cards with indices {indices}')
-            result = self._execute_play_cards({'indices': indices, 'description': description})
+            logger.info(
+                f'Converting position array {positions} to play_cards with indices {indices}'
+            )
+            result = self._execute_play_cards(
+                {'indices': indices, 'description': description}
+            )
         elif any(val < 0 for val in positions):
             # 弃牌操作：提取所有值为-1的索引
             indices = [i for i, val in enumerate(positions) if val < 0]
-            logger.info(f'Converting position array {positions} to discard_cards with indices {indices}')
-            result = self._execute_discard_cards({'indices': indices, 'description': description})
+            logger.info(
+                f'Converting position array {positions} to discard_cards with indices {indices}'
+            )
+            result = self._execute_discard_cards(
+                {'indices': indices, 'description': description}
+            )
         else:
             logger.warning('Position array contains no actions (all zeros)')
             return False

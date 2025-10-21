@@ -81,7 +81,9 @@ class GameStateExtractionService:
         self._enrich_ui_text(frame, ui_elements, game_state)
 
         if capture_card_descriptions and hand_cards:
-            self._enrich_card_descriptions(frame, entities, ui_elements, hand_cards, game_state)
+            self._enrich_card_descriptions(
+                frame, entities, ui_elements, hand_cards, game_state
+            )
 
         return game_state
 
@@ -246,7 +248,9 @@ class GameStateExtractionService:
         game_state: Dict[str, Any],
     ) -> None:
         if not self.card_tooltip_service or not self.mouse_controller:
-            logger.debug('Card tooltip service or mouse controller missing; skipping fast hover')
+            logger.debug(
+                'Card tooltip service or mouse controller missing; skipping fast hover'
+            )
             return
 
         ordered = list(hand_cards)
@@ -278,8 +282,6 @@ class GameStateExtractionService:
         if not sweep_success or not hover_frames:
             logger.debug('Hover sweep produced no frames; skipping description OCR')
             return
-
-        combined_detections = list(entities_detection) + list(ui_detection)
 
         card_descriptions: List[Dict[str, Any]] = [
             {
@@ -322,8 +324,10 @@ class GameStateExtractionService:
             try:
                 info = self.card_tooltip_service._prepare_card_info(detection, idx)
                 hover_x, hover_y = info['hover_position']
-                screen_x, screen_y = self.card_tooltip_service._frame_to_screen_coordinates(
-                    hover_x, hover_y, frame.shape
+                screen_x, screen_y = (
+                    self.card_tooltip_service._frame_to_screen_coordinates(
+                        hover_x, hover_y, frame.shape
+                    )
                 )
                 plan.append((idx, (screen_x, screen_y)))
             except Exception as exc:  # noqa: BLE001
@@ -349,7 +353,9 @@ class GameStateExtractionService:
                     frame, card, position_index, save_debug_image=False
                 )
             except Exception as exc:  # noqa: BLE001
-                logger.warning(f'Failed to process hovered frame for card {position_index}: {exc}')
+                logger.warning(
+                    f'Failed to process hovered frame for card {position_index}: {exc}'
+                )
                 return {
                     'description_text': '',
                     'description_detected': False,
@@ -391,4 +397,3 @@ class GameStateExtractionService:
         for idx in missing_indices:
             if idx < len(fallback_infos):
                 card_descriptions[idx] = fallback_infos[idx]
-

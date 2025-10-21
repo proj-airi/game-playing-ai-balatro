@@ -67,7 +67,6 @@ class LLMReasoningDemo:
 
             # 2. Initialize Computer Vision
             self.multi_detector = MultiYOLODetector()
-            available_models = self.multi_detector.get_available_models()
 
             model_info = self.multi_detector.get_model_info()
             for model_name, info in model_info.items():

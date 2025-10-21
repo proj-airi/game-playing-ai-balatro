@@ -71,7 +71,10 @@ GAME_ACTIONS = [
                     'items': {'type': 'integer', 'minimum': 0},
                     'description': 'Array of card indices to play (e.g., [0, 1, 2] plays cards 0, 1, and 2)',
                 },
-                'description': {'type': 'string', 'description': 'Strategy explanation for this play'},
+                'description': {
+                    'type': 'string',
+                    'description': 'Strategy explanation for this play',
+                },
             },
             'required': ['indices'],
         },
@@ -87,7 +90,10 @@ GAME_ACTIONS = [
                     'items': {'type': 'integer', 'minimum': 0},
                     'description': 'Array of card indices to discard (e.g., [3, 4] discards cards 3 and 4)',
                 },
-                'description': {'type': 'string', 'description': 'Reason for discarding these cards'},
+                'description': {
+                    'type': 'string',
+                    'description': 'Reason for discarding these cards',
+                },
             },
             'required': ['indices'],
         },

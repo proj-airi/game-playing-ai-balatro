@@ -336,27 +336,30 @@ Make immediate, optimal decisions based on the complete card information provide
         return f"""You are playing a game called Balatro, a game borrowed the concept of Texas Hold'em Poker and enhanced the gameplay with rogue-like level setup, and many different joker cards to manipulate the game rules.
 Most strategy comes from understanding the Texas Hold'em poker rules and making optimal plays based on the current hand and game phase.
 
+<game_rules>
 In Texas Hold'em, the poker hand rankings from highest to lowest are:
 
-1. Royal Flush
-2. Straight Flush
-3. Four of a Kind
-4. Full House
-5. Flush
-6. Straight
-7. Three of a Kind
-8. Two Pair
-9. One Pair
-10. High Card
+1. Royal Flush (e.g. A, K, Q, J, 10 of the same suit)
+2. Straight Flush (e.g. 5, 6, 7, 8, 9 of the same suit)
+3. Four of a Kind (e.g. four Aces, four Kings, etc.)
+4. Full House (e.g. three of a kind plus a pair)
+5. Flush (e.g. any five cards of the same suit)
+6. Straight (e.g. five consecutive cards of mixed suits)
+7. Three of a Kind (e.g. three Aces, three Kings, etc.)
+8. Two Pair (e.g. two Aces and two Kings)
+9. One Pair (e.g. two Aces)
+10. High Card (e.g. the highest card in hand)
 
 It's the same in Balatro, but instead of gaming with other opponents, you are playing against the game system to achieve the highest score possible.
 The total play card stack is default to 52 without joker cards, you may purchase more playing cards later on the progressing the game.
 During the play, you can play cards or discard cards to optimize your hand, once played, new numbers of cards you played will be drawn from the card stack to refill your hand to the maximum hand size (default to 5 cards).
 When discarding cards, you will not be able to draw new cards to refill your hand too.
 Your goal is to maximize your score by forming the best possible poker hands using the cards in your hand, while strategically managing joker cards that can modify game rules.
+</game_rules>
 
 Here is your current known game state:
 
+<game_state>
 Current cards in ({len(game_state.get('cards', []))}) cards) hand:
 {chr(10).join(cards_info) if cards_info else 'No cards detected'}{ocr_status}
 
@@ -370,6 +373,7 @@ Dynamic UI values ({len(game_state.get('ui_text_elements', []))} tracked):
 {chr(10).join(ui_text_info) if ui_text_info else 'No dynamic UI text detected'}
 
 GAME PHASE: {game_state.get('game_phase', 'unknown')}
+</game_state>
 
 Based on the card descriptions and game state, make the optimal strategic decision:
 {poker_objectives}
@@ -377,20 +381,26 @@ Based on the card descriptions and game state, make the optimal strategic decisi
 ACTION INSTRUCTIONS:
 1. Analyze the cards listed above (Card 0, Card 1, Card 2, etc.) with their descriptions
 2. Identify the best poker hand you can form from these cards
-3. Choose ONE action:
+3. Discarding cards may help you draw better cards to improve your hand, forming stronger poker hands
+4. Choose ONE action:
 
    a) If you have a strong playable hand:
       - Use play_cards(indices=[...]) with the indices of cards to play
       - Example: play_cards(indices=[0, 1, 2, 3, 4]) to play first 5 cards
       - Example: play_cards(indices=[0, 2, 4, 6, 7]) to play specific cards
+      - If you are holding 8, 8, 9, 2, 5, 10, J, Q, you should play 8, 9, 10, J, Q to form a straight, and the indices would be [0, 2, 5, 6, 7]
 
    b) If you need better cards:
       - Use discard_cards(indices=[...]) with the indices of cards to discard
       - Example: discard_cards(indices=[5, 6, 7]) to discard last 3 cards
       - Example: discard_cards(indices=[1, 3]) to discard specific unwanted cards
+      - If you are holding 8, 10, 2, 5, 5, J, Q, K, since 8, 10, J, Q, K forms with one addition 9 a better straight, try discarding 2 and 5, the indices would be [2, 3]
 
    c) If you need to interact with UI:
       - Use click_button(button_type='...') for UI actions
+
+Suits can be counted too, if you hold 3, 7, 8, J, 9, 2, 2, 4, suggesting high card but if you could identify the suits of the card, say
+3 of Hearts, 7 of Hearts, 8 of Hearts, J of Hearts, 9 of Hearts, 2 of Diamonds, 2 of Clubs, 4 of Spades, this would form a flush with Hearts suit, so playing these 5 cards would be a better option.
 
 Remember:
 - Cards are indexed from 0 (Card 0 is the leftmost)

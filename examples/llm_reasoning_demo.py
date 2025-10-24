@@ -160,7 +160,7 @@ class LLMReasoningDemo:
 
                     # Brief pause between turns
                     if turn < num_turns:
-                        time.sleep(2)
+                        time.sleep(5)
 
                 else:
                     print(f'❌ Turn {turn} failed: {result.errors}')

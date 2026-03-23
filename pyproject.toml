@@ -57,8 +57,8 @@ quality = { depends-on = ["style", "test"] }
 
 [tool.pixi.dependencies]
 python = "3.13.*"
-pip = ">=25.2,<26"
-ruff = ">=0.13.1,<0.14"
+pip = ">=26.0.1,<27"
+ruff = ">=0.15.7,<0.16"
 # Due to:
 #
 # Compatibility with CMake < 3.5 has been removed from CMake.
@@ -79,8 +79,8 @@ cuda-cupti = ">=13.0.85,<14"
 cuda-libraries-dev = ">=13.0.1,<14"
 cuda-nvcc = ">=13.0.88,<14"
 cuda-nvtx = ">=13.0.85,<14"
-gcc = ">=15.1.0,<15.2"
-gxx = ">=15.1.0,<15.2"
+gcc = ">=15.2.0,<15.3"
+gxx = ">=15.2.0,<15.3"
 evdev = ">=1.9.2,<2"
 
 [tool.pixi.target.linux-64.pypi-dependencies]

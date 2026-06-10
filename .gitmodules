@@ -10,3 +10,6 @@
 [submodule "models/games-balatro-2024-yolo-ui-detection"]
 	path = models/games-balatro-2024-yolo-ui-detection
 	url = https://huggingface.co/proj-airi/games-balatro-2024-yolo-ui-detection.git
+[submodule "models/games-balatro-2024-card-corner-classifier"]
+	path = models/games-balatro-2024-card-corner-classifier
+	url = https://huggingface.co/proj-airi/games-balatro-2024-card-corner-classifier.git
